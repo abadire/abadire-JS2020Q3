@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Roboto;
+}
+
+.wrapper {
+  margin: 0 auto;
+  max-width: 1600px;
+}
+
+header {
+  height: 744px;
+  background-image: url(assets/header-bg.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+nav ul {
+  height: 95px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+nav ul li {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.central-logo {
+  margin: 0 15px;
+}
+
+.around-logo {
+  margin: 0 85px;
+}
