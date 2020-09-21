@@ -279,3 +279,41 @@ body {
 .download__btn:hover .btn {
   background-color: #009CC2;
 }
+
+.footer {
+  height: 185px;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  vertical-align: top;
+}
+
+.footer__nav {
+  list-style: none;
+  color: white;
+  margin-left: 160px;
+}
+
+.footer__link {
+  display: inline-block;
+}
+
+.footer__link:not(:last-child) {
+  margin-right: 40px;
+}
+
+.footer__credits {
+  margin-right: 160px;
+  color: #818181;
+  font-size: 14px;
+}
+
+.footer__logo {
+  position: absolute;
+  top: 60px; left: 50%;
+  transform: translateX(-50%);
+  /* width: 45px; */
+  margin: 0 auto;
+}
