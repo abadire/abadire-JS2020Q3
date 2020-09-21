@@ -78,6 +78,12 @@ body {
   font-weight: bold;
   color: white;
   text-decoration: none;
+  border: none;
+}
+
+.btn--small {
+  width: 66px;
+  padding: 16px 25px;
 }
 
 .btn:hover {
@@ -171,6 +177,10 @@ body {
   margin: 0 12px;
 }
 
+.gallery__arrow:hover {
+  opacity: .5;
+}
+
 .gallery__indicator {
   font-size: 18px;
   color: #373737;
@@ -194,4 +204,39 @@ body {
 
 .code__image {
   margin: -40px 139px 0px 269px;
+}
+
+.sign-up {
+  height: 524px;
+  background-image:linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),
+                   url("assets/sign-up.png");
+}
+
+.sign-up__form {
+  width: 406px;
+  padding-top: 200px;
+  margin: 0 auto;
+}
+
+.sign-up__heading {
+  text-transform: uppercase;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.sign-up__input {
+  margin-top: 30px;
+  display: flex;
+  height: 46px;
+}
+
+.sign-up__email {
+  flex: 1 0 auto;
+}
+
+.sign-up__email::placeholder {
+  padding-left: 24px;
 }
