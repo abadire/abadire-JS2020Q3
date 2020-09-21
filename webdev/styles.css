@@ -99,29 +99,29 @@ body {
   margin-top: -10px;
 }
 
-.rappresent__article {
+.article {
   width: 407px;
   height: 233px;
   margin-right: 248px;
 }
 
-.rappresent__heading {
+.article__heading {
   font-size: 24px;
   color: #373737;
   font-weight: bold;
   letter-spacing: 1px;
-  margin-bottom: 20px;
   text-transform: uppercase;
+  margin-bottom: 20px;
 }
 
-.rappresent__text {
+.article__text {
   font-size: 14px;
   line-height: 140%;
   margin-bottom: 30px;
   color: #4E4E4E;
 }
 
-.rappresent__text--emphasized {
+.article__text--emphasized {
   color: #373737;
   font-weight: 500;
 }
@@ -183,4 +183,17 @@ body {
 
 .gallery__image {
   margin-right: 30px;
+}
+
+.code {
+  margin-top: 10px;
+  height: 842px;
+  display: flex;
+  align-items: center;
+}
+
+.code__image {
+  margin: -40px 139px 0px 269px;
+  /* margin-left: 269px;
+  margin-right: 139px; */
 }
