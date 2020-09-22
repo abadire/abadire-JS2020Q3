@@ -293,20 +293,25 @@ body {
   margin-bottom: 20px;
 }
 
-.footer__link {
+.footer__element {
   display: inline-block;
   font-size: 14px;
   line-height: 140%;
 }
 
-.footer__link:not(:last-child) {
+.footer__element:not(:last-child) {
   margin-right: 15px;
 }
 
-.footer__link:not(:last-child)::after {
+.footer__element:not(:last-child)::after {
   content: "|";
   color: #4E4E4E;
   margin-left: 22px;
+}
+
+.footer__link {
+  color: white;
+  text-decoration: none;
 }
 
 .footer__credits {
