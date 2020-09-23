@@ -1,0 +1,64 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// SIZES
+$button-dim: 70px;
+$gap: 10px;
+$disp-height: 150px;
+
+//COLORS
+$colors: (
+  btn-num: #333333,
+  btn-op: #fe9505,
+  btn-service: #a5a5a5
+);
+
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: linear-gradient(red, blue);
+}
+
+.main {
+  background-color: blueviolet;
+  width: $button-dim * 4 + $gap * 5;
+  height: $disp-height + $gap * 6 + $button-dim * 5;
+  padding: 0 $gap $gap $gap;
+  margin: auto;
+}
+
+.display {
+  height: $disp-height;
+  margin-bottom: $gap;
+}
+
+.numpad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 10px;
+  
+  &__btn {
+    border-radius: 50%;
+    background-color: color(btn-num);
+    width: $button-dim;
+    height: $button-dim;
+
+    &--service {
+      background-color: color(btn-service);
+    }
+
+    &--op {
+      background-color: color(btn-op);
+    }
+  }
+}
