@@ -16,20 +16,27 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   height: 100vh;
-  background-color: linear-gradient(red, blue);
+  background-color: #272727;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5em;
 }
 
 .main {
-  background-color: blueviolet;
+  background-color: black;
   width: 330px;
   height: 560px;
   padding: 0 10px 10px 10px;
   margin: auto;
+  border-radius: 45px;
 }
 
 .display {
   height: 150px;
   margin-bottom: 10px;
+}
+
+.overline {
+  text-decoration: overline;
 }
 
 .numpad {
@@ -47,12 +54,57 @@ body {
   background-color: #333333;
   width: 70px;
   height: 70px;
+  -webkit-transition: background-color 200ms ease-in-out, -webkit-transform 70ms ease;
+  transition: background-color 200ms ease-in-out, -webkit-transform 70ms ease;
+  transition: background-color 200ms ease-in-out, transform 70ms ease;
+  transition: background-color 200ms ease-in-out, transform 70ms ease, -webkit-transform 70ms ease;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.numpad__btn:hover {
+  cursor: pointer;
+}
+
+.numpad__btn:active {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+}
+
+.numpad__btn--num {
+  background-color: #333333;
+  color: white;
+}
+
+.numpad__btn--num:hover {
+  background-color: #4d4d4d;
 }
 
 .numpad__btn--service {
   background-color: #a5a5a5;
 }
 
+.numpad__btn--service:hover {
+  background-color: #bfbfbf;
+}
+
 .numpad__btn--op {
   background-color: #fe9505;
+  color: white;
+}
+
+.numpad__btn--op:hover {
+  background-color: #feab38;
 }

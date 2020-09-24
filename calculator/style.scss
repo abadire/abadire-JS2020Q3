@@ -13,7 +13,10 @@ $disp-height: 150px;
 $colors: (
   btn-num: #333333,
   btn-op: #fe9505,
-  btn-service: #a5a5a5
+  btn-service: #a5a5a5,
+  btn-num-light: lighten(#333333, 10%),
+  btn-op-light: lighten(#fe9505, 10%),
+  btn-service-light: lighten(#a5a5a5, 10%)
 );
 
 @function color($color-name) {
@@ -25,20 +28,27 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: linear-gradient(red, blue);
+  background-color: rgb(39, 39, 39);
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5em;
 }
 
 .main {
-  background-color: blueviolet;
+  background-color: black;
   width: $button-dim * 4 + $gap * 5;
   height: $disp-height + $gap * 6 + $button-dim * 5;
   padding: 0 $gap $gap $gap;
   margin: auto;
+  border-radius: 45px;
 }
 
 .display {
   height: $disp-height;
   margin-bottom: $gap;
+}
+
+.overline {
+  text-decoration: overline;
 }
 
 .numpad {
@@ -52,13 +62,48 @@ body {
     background-color: color(btn-num);
     width: $button-dim;
     height: $button-dim;
+    transition: background-color 200ms ease-in-out,
+                transform 70ms ease;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    // font-weight: bolder;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+
+    &--num {
+      background-color: color(btn-num);
+      color: white;
+
+      &:hover {
+        background-color: color(btn-num-light);
+      }
+    }
 
     &--service {
       background-color: color(btn-service);
+
+      &:hover {
+        background-color: color(btn-service-light);
+      }
     }
 
     &--op {
       background-color: color(btn-op);
+      color: white;
+
+      &:hover {
+        background-color: color(btn-op-light);
+      }
     }
+
   }
 }
