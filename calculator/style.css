@@ -32,7 +32,31 @@ body {
 
 .display {
   height: 150px;
+  font-size: 2em;
+  color: white;
+  padding: 10px 10px 0 10px;
   margin-bottom: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.display__prev {
+  text-align: right;
+  font-size: .9em;
+  color: #aaa;
+}
+
+.display__cur {
+  text-align: right;
+  font-size: 1.2em;
 }
 
 .overline {

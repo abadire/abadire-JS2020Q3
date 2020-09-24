@@ -44,7 +44,24 @@ body {
 
 .display {
   height: $disp-height;
+  font-size: 2em;
+  color: white;
+  padding: $gap $gap 0 $gap;
   margin-bottom: $gap;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__prev {
+    text-align: right;
+    font-size: .9em;
+    color: #aaa;
+  }
+
+  &__cur {
+    text-align: right;
+    font-size: 1.2em;
+  }
 }
 
 .overline {
@@ -69,7 +86,6 @@ body {
     align-items: center;
     justify-content: center;
     user-select: none;
-    // font-weight: bolder;
 
     &:hover {
       cursor: pointer;
@@ -104,6 +120,5 @@ body {
         background-color: color(btn-op-light);
       }
     }
-
   }
 }
