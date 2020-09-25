@@ -19,11 +19,17 @@ function outputToCurrentDisplay(str) {
     if (str.length === 1 && str[0] === "-") {
       current.textContent = str;
     } else {
+      // toLocaleString is very useful _formatting_ function, refer to docs
       current.textContent = Number(str).toLocaleString(undefined, {maximumFractionDigits: 8});
+      // If there is a separator in the str argument
       if (str.indexOf(".") !== -1) {
+        // If it's the last element of string
         if (str[str.length - 1] === ".") {
+          // Then add separator to the end of the displayed number
           current.textContent += "."
-        } else if ([...str.split(".")[1]].every(ch => ch === "0")) {
+        } else if ([...str.split(".")[1]].every(ch => ch === "0")) // Check whether all the chars after separator are zeroes
+        {
+          // Add those zeroes to the displayed number (toLocaleString cuts them, so we need to add them explicitly)
           current.textContent += "." + str.split(".")[1];
         }
       }
@@ -31,12 +37,14 @@ function outputToCurrentDisplay(str) {
   }
 }
 
+// Outputs to the previous (upper display)
 function outputToPreviousDisplay(str) {
   if (str !== "") {
-    previous.textContent = "";
+    previous.textContent = ""; // Erase previous data
     let tokens = str.split(" ");
     for (let token of tokens) {
-      let number = Number(token);
+      // token can be a number or an operation
+      let number = Number(token); // turns NaN if operation
       if (number) {
         previous.textContent += number.toLocaleString(undefined, {maximumFractionDigits: 8});
       } else {
@@ -46,6 +54,7 @@ function outputToPreviousDisplay(str) {
   }
 }
 
+// Parses the string argument and does the thing
 function calculate(str) {
   let ret = "";
   let [first, op, second] = str.split(" ");
@@ -91,13 +100,17 @@ function clearDisplay() {
 for (let i = 0; i < 10; ++i)
 {
   document.getElementsByClassName("numpad__btn--" + i)[0].addEventListener('click', function() {
+    // Clears display after input after evaluation (пункт 4 Базовой функциональности))
     if (previous_str[previous_str.length - 1] === "=") {
       clearDisplay();
       current_str = "0";
     }
-    if (/^0$/.test(current_str)) {
+    if (/^0$/.test(current_str)) // If there are only zero on the display, replace it
+    {
       current_str = String(i);
-    } else if (current_str.length < 9) {
+    }
+    else if (current_str.length < 9) // Else add to the display
+    {
       current_str += i;
     }
     
@@ -113,13 +126,20 @@ document.getElementsByClassName("numpad__btn--ac")[0].addEventListener("click", 
 
 // Set DEL button
 document.getElementsByClassName("numpad__btn--del")[0].addEventListener("click", function () {
-  if (previous_str[previous_str.length-1] === "=") {
+  // Clears display after input after evaluation (пункт 4 Базовой функциональности))
+  if (previous_str[previous_str.length-1] === "=")
+  {
     clearPrevious();
   }
-  if (current_str !== "0") {
-    if (current_str.length > 1) {
+  if (current_str !== "0") // Works only when the displayed number is not zero
+  {
+    if (current_str.length > 1)
+    {
+      // Reassigns displayed string to the same string w/o the last element
       current_str = current_str.slice(0, current_str.length-1);
-    } else  {
+    }
+    else
+    {
       current_str = "0";
     }
     outputToCurrentDisplay(current_str);
@@ -128,18 +148,27 @@ document.getElementsByClassName("numpad__btn--del")[0].addEventListener("click",
 
 // Set DOT button
 document.getElementsByClassName("numpad__btn--dot")[0].addEventListener('click', function () {
-  if (current_str.indexOf(".") === -1) {
+  // Only if there is no dots in the displayed number
+  if (current_str.indexOf(".") === -1)
+  {
     current_str += ".";
     outputToCurrentDisplay(current_str);
   }
 })
 
 // Set operation buttons events
-for (let op in operations) {
-  document.getElementsByClassName(`numpad__btn--${op}`)[0].addEventListener('click', function() {
-    if (Object.values(operations).includes(previous_str[previous_str.length - 1]) || previous_str[previous_str.length - 1] === "-") {
+for (let op in operations)
+{
+  document.getElementsByClassName(`numpad__btn--${op}`)[0].addEventListener('click', function()
+  {
+    // If the last element in the previous displayed string is an operation
+    if (Object.values(operations).includes(previous_str[previous_str.length - 1]) || previous_str[previous_str.length - 1] === "-")
+    {
       previous_str = calculate(previous_str + " " + current_str) + " " + operations[op];
-    } else {
+    }
+    else
+    {
+      // Checks whether there are only "-" sign in the current displayed string and adds zero if so
       if (current_str === "-") {
         previous_str = current_str + "0 " + operations[op];
       } else {
@@ -154,13 +183,20 @@ for (let op in operations) {
 }
 
 // Set MINUS operation (have to set explicitly in order to support negative numbers)
-document.getElementsByClassName("numpad__btn--minus")[0].addEventListener('click', function () {
-  if (current_str === "0"){
+document.getElementsByClassName("numpad__btn--minus")[0].addEventListener('click', function ()
+{
+  if (current_str === "0")
+  {
     current_str = "-";
-  } else {
-    if (Object.values(operations).includes(previous_str[previous_str.length - 1]) || previous_str[previous_str.length - 1] === "-") {
+  }
+  else
+  {
+    if (Object.values(operations).includes(previous_str[previous_str.length - 1]) || previous_str[previous_str.length - 1] === "-")
+    {
       previous_str = calculate(previous_str + " " + current_str) + " -";
-    } else {
+    }
+    else
+    {
       previous_str = current_str + " -";
     }
     current_str = "0";
@@ -169,8 +205,11 @@ document.getElementsByClassName("numpad__btn--minus")[0].addEventListener('click
   outputToCurrentDisplay(current_str);
 });
 
-document.getElementsByClassName("numpad__btn--sqrt")[0].addEventListener('click', function () {
-  if (current_str !== "" && parseFloat(current_str) >= 0) {
+document.getElementsByClassName("numpad__btn--sqrt")[0].addEventListener('click', function ()
+{
+  // If the current string is not empty and if current displayed number is not negative
+  if (current_str !== "" && parseFloat(current_str) >= 0)
+  {
     previous_str = "√" + current_str + " =";
     current_str = String(Math.sqrt(parseFloat(current_str)));
     outputToCurrentDisplay(current_str);
@@ -180,11 +219,15 @@ document.getElementsByClassName("numpad__btn--sqrt")[0].addEventListener('click'
 });
 
 document.getElementsByClassName("numpad__btn--eq")[0].addEventListener('click', function() {
-  if (previous_str)
+  if (previous_str) // If there is a previous stuff we can evaluate for
   {
-    if (previous_str[previous_str.length-1] !== "=") {
+    if (previous_str[previous_str.length-1] !== "=")
+    {
+      // [a, b] = [b, a] swaps a and b
       [previous_str, current_str] = [previous_str + " " + current_str + " =", calculate(previous_str + " " + current_str)];
-    } else {
+    }
+    else // Case for reevaluation of an expression (1+1=>2=>3=>4...)
+    {
       let [_, op, second] = previous_str.split(" ");
       previous_str = [current_str, op, second, "="].join(" ");
       current_str = calculate(previous_str);
