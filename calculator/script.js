@@ -6,7 +6,6 @@ current.textContent = "0";
 
 const operations = {
   plus: "+",
-  minus: "-",
   mult: "*",
   frac: "÷",
   pow: "^"
@@ -76,8 +75,8 @@ function clearPrevious() {
 }
 
 function clearCurrent() {
-  current_str = "";
-  current.textContent = "";
+  current_str = "0";
+  current.textContent = "0";
 }
 
 function clearDisplay() {
@@ -89,12 +88,11 @@ function clearDisplay() {
 for (let i = 0; i < 10; ++i)
 {
   document.getElementsByClassName("numpad__btn--" + i)[0].addEventListener('click', function() {
+    if (previous_str[previous_str.length - 1] === "=") {
+      clearDisplay();
+      current_str = "0";
+    }
     if (/^0$/.test(current_str)) {
-      if (i !== 0) {
-        current_str = String(i);
-      }
-    } else if (previous_str[previous_str.length - 1] === "=") {
-      clearPrevious();
       current_str = String(i);
     } else if (current_str.length < 9) {
       current_str += i;
@@ -104,6 +102,7 @@ for (let i = 0; i < 10; ++i)
   });
 }
 
+// Set AC button
 document.getElementsByClassName("numpad__btn--ac")[0].addEventListener("click", function() {
   clearDisplay();
   current.style.fontSize = "1.1em";
@@ -111,6 +110,9 @@ document.getElementsByClassName("numpad__btn--ac")[0].addEventListener("click", 
 
 // Set DEL button
 document.getElementsByClassName("numpad__btn--del")[0].addEventListener("click", function () {
+  if (previous_str[previous_str.length-1] === "=") {
+    clearPrevious();
+  }
   if (current_str !== "0") {
     if (current_str.length > 1) {
       current_str = current_str.slice(0, current_str.length-1);
@@ -118,10 +120,6 @@ document.getElementsByClassName("numpad__btn--del")[0].addEventListener("click",
       current_str = "0";
     }
     outputToCurrentDisplay(current_str);
-    
-    if (previous_str[previous_str.length-1] === "=") {
-      clearPrevious();
-    }
   }
 });
 
@@ -136,21 +134,33 @@ document.getElementsByClassName("numpad__btn--dot")[0].addEventListener('click',
 // Set operation buttons events
 for (let op in operations) {
   document.getElementsByClassName(`numpad__btn--${op}`)[0].addEventListener('click', function() {
-    if (Object.values(operations).includes(previous_str[previous_str.length - 1])) {
+    if (Object.values(operations).includes(previous_str[previous_str.length - 1]) || previous_str[previous_str.length - 1] === "-") {
       previous_str = calculate(previous_str + " " + current_str) + " " + operations[op];
-    } else if (op === "minus" && !previous_str && current_str === "0"){
-      current_str = "-";
     } else {
       previous_str = current_str + " " + operations[op];
     }
-
-    if (current_str !== "-") {
-      current_str = "0";
-      outputToPreviousDisplay(previous_str);
-    }
+    
+    current_str = "0";
+    outputToPreviousDisplay(previous_str);
     outputToCurrentDisplay(current_str);
   });
 }
+
+// Set MINUS operation (have to set explicitly in order to support negative numbers)
+document.getElementsByClassName("numpad__btn--minus")[0].addEventListener('click', function () {
+  if (current_str === "0"){
+    current_str = "-";
+  } else {
+    if (Object.values(operations).includes(previous_str[previous_str.length - 1]) || previous_str[previous_str.length - 1] === "-") {
+      previous_str = calculate(previous_str + " " + current_str) + " -";
+    } else {
+      previous_str = current_str + " -";
+    }
+    current_str = "0";
+  }
+  outputToPreviousDisplay(previous_str);
+  outputToCurrentDisplay(current_str);
+});
 
 document.getElementsByClassName("numpad__btn--eq")[0].addEventListener('click', function() {
   if (previous_str)
