@@ -14,12 +14,16 @@ const operations = {
 
 function outputToCurrentDisplay(str, postfix=null, prefix=null) {
   if (str != "") {
-    current.textContent = Number(str).toLocaleString(undefined, {maximumFractionDigits: 8});
-    if (str.indexOf(".") !== -1) {
-      if (str[str.length - 1] === ".") {
-        current.textContent += "."
-      } else if ([...str.split(".")[1]].every(ch => ch === "0")) {
-        current.textContent += "." + str.split(".")[1];
+    if (str.length === 1 && str[0] === "-") {
+      current.textContent = str;
+    } else {
+      current.textContent = Number(str).toLocaleString(undefined, {maximumFractionDigits: 8});
+      if (str.indexOf(".") !== -1) {
+        if (str[str.length - 1] === ".") {
+          current.textContent += "."
+        } else if ([...str.split(".")[1]].every(ch => ch === "0")) {
+          current.textContent += "." + str.split(".")[1];
+        }
       }
     }
   }
@@ -45,25 +49,40 @@ function calculate(str) {
   let [first, op, second] = str.split(" ");
   switch (op) {
     case "+":
-      ret = parseFloat(first) + parseFloat(second);
-      break;
+    ret = parseFloat(first) + parseFloat(second);
+    break;
     case "-":
-      ret = parseFloat(first) - parseFloat(second);
-      break;
+    ret = parseFloat(first) - parseFloat(second);
+    break;
     case "*":
-      ret = parseFloat(first) * parseFloat(second);
-      break;
+    ret = parseFloat(first) * parseFloat(second);
+    break;
     case "÷":
-      ret = parseFloat(first) / parseFloat(second);
-      break;
+    ret = parseFloat(first) / parseFloat(second);
+    break;
     case "^":
-      ret = Math.pow(parseFloat(first), parseFloat(second));
-      break;
+    ret = Math.pow(parseFloat(first), parseFloat(second));
+    break;
     default:
-      break;
+    break;
   }
-
+  
   return String(ret);
+}
+
+function clearPrevious() {
+  previous_str = "";
+  previous.textContent = "";
+}
+
+function clearCurrent() {
+  current_str = "";
+  current.textContent = "";
+}
+
+function clearDisplay() {
+  clearPrevious();
+  clearCurrent();
 }
 
 // Set number buttons events
@@ -74,23 +93,23 @@ for (let i = 0; i < 10; ++i)
       if (i !== 0) {
         current_str = String(i);
       }
-    }
-    else if (current_str.length < 9) {
+    } else if (previous_str[previous_str.length - 1] === "=") {
+      clearPrevious();
+      current_str = String(i);
+    } else if (current_str.length < 9) {
       current_str += i;
     }
-
+    
     outputToCurrentDisplay(current_str);
   });
 }
 
 document.getElementsByClassName("numpad__btn--ac")[0].addEventListener("click", function() {
-  current_str = "0";
-  previous_str = "";
+  clearDisplay();
   current.style.fontSize = "1.1em";
-  current.textContent = "0";
-  previous.textContent = "";
 });
 
+// Set DEL button
 document.getElementsByClassName("numpad__btn--del")[0].addEventListener("click", function () {
   if (current_str !== "0") {
     if (current_str.length > 1) {
@@ -99,14 +118,14 @@ document.getElementsByClassName("numpad__btn--del")[0].addEventListener("click",
       current_str = "0";
     }
     outputToCurrentDisplay(current_str);
-
+    
     if (previous_str[previous_str.length-1] === "=") {
-      previous_str = "";
-      previous.textContent = "";
+      clearPrevious();
     }
   }
 });
 
+// Set DOT button
 document.getElementsByClassName("numpad__btn--dot")[0].addEventListener('click', function () {
   if (current_str.indexOf(".") === -1) {
     current_str += ".";
@@ -119,11 +138,16 @@ for (let op in operations) {
   document.getElementsByClassName(`numpad__btn--${op}`)[0].addEventListener('click', function() {
     if (Object.values(operations).includes(previous_str[previous_str.length - 1])) {
       previous_str = calculate(previous_str + " " + current_str) + " " + operations[op];
+    } else if (op === "minus" && !previous_str && current_str === "0"){
+      current_str = "-";
     } else {
       previous_str = current_str + " " + operations[op];
     }
-    current_str = "0";
-    outputToPreviousDisplay(previous_str);
+
+    if (current_str !== "-") {
+      current_str = "0";
+      outputToPreviousDisplay(previous_str);
+    }
     outputToCurrentDisplay(current_str);
   });
 }
