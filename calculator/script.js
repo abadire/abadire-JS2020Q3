@@ -5,12 +5,17 @@ let previous_str = "";
 let current_str = "0";
 current.textContent = "0";
 
-function setSeparators(str) {
-  let arr = [];
-  for (let i = 0; i + 3 < str.length; i += 3) {
-    arr.unshift(str.slice(str.length - i - 4, str.length - i - 1));
+function outputToDisplay(disp, str) {
+  if (str != "") {
+    disp.innerText = Number(str).toLocaleString(undefined, {maximumFractionDigits: 8});
+    if (str.indexOf(".") != -1) {
+      if (str[str.length - 1] == ".") {
+        disp.innerText += "."
+      } else if ([...str.split(".")[1]].every(ch => ch == "0")) {
+        disp.innerText += "." + str.split(".")[1];
+      }
+    }
   }
-  return arr.join();
 }
 
 for (let i = 0; i < 10; ++i)
@@ -25,7 +30,8 @@ for (let i = 0; i < 10; ++i)
     else if (current_str.length < 9) {
       current_str += i;
     }
-    current.innerText = Number(current_str).toLocaleString();
+    
+    outputToDisplay(current, current_str);
   });
 }
 
@@ -35,13 +41,23 @@ document.getElementsByClassName("numpad__btn--ac")[0].addEventListener("click", 
   current.style.fontSize = "1.1em";
   current.textContent = "0";
   previous.textContent = "";
-})
+});
 
 document.getElementsByClassName("numpad__btn--del")[0].addEventListener("click", function () {
   if (current_str != "0") {
-    if (current_str.length > 1)
+    if (current_str.length > 1) {
       current_str = current_str.slice(0, current_str.length-1);
-    else current_str = "0"; 
-    current.textContent = Number(current_str).toLocaleString();
+    } else  {
+      current_str = "0";
+    }
+    outputToDisplay(current, current_str);
+  }
+});
+
+document.getElementsByClassName("numpad__btn--dot")[0].addEventListener('click', function () {
+  if (current_str.indexOf(".") == -1)
+  {
+    current_str += ".";
+    outputToDisplay(current, current_str);
   }
 })
