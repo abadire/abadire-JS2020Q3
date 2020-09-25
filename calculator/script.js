@@ -5,6 +5,14 @@ let previous_str = "";
 let current_str = "0";
 current.textContent = "0";
 
+const operations = {
+  plus: "+",
+  minus: "-",
+  mult: "*",
+  frac: "÷",
+  pow: "^"
+};
+
 function outputToCurrentDisplay(str, postfix=null, prefix=null) {
   if (str != "") {
     current.textContent = Number(str).toLocaleString(undefined, {maximumFractionDigits: 8});
@@ -42,13 +50,23 @@ function calculate(first, op, second) {
     case "-":
       ret = parseFloat(first) - parseFloat(second);
       break;
+    case "*":
+      ret = parseFloat(first) * parseFloat(second);
+      break;
+    case "÷":
+      ret = parseFloat(first) / parseFloat(second);
+      break;
+    case "^":
+      ret = Math.pow(parseFloat(first), parseFloat(second));
+      break;
     default:
-    break;
+      break;
   }
 
   return String(ret);
 }
 
+// Set number buttons events
 for (let i = 0; i < 10; ++i)
 {
   num_btns.push(document.getElementsByClassName("numpad__btn--" + i)[0]);
@@ -82,6 +100,11 @@ document.getElementsByClassName("numpad__btn--del")[0].addEventListener("click",
       current_str = "0";
     }
     outputToCurrentDisplay(current_str);
+
+    if (previous_str[previous_str.length-1] === "=") {
+      previous_str = "";
+      previous.textContent = "";
+    }
   }
 });
 
@@ -92,19 +115,15 @@ document.getElementsByClassName("numpad__btn--dot")[0].addEventListener('click',
   }
 })
 
-document.getElementsByClassName("numpad__btn--plus")[0].addEventListener('click', function() {
-  previous_str = current_str + " +";
-  current_str = "0";
-  outputToPreviousDisplay(previous_str);
-  outputToCurrentDisplay(current_str);
-});
-
-document.getElementsByClassName("numpad__btn--minus")[0].addEventListener('click', function() {
-  previous_str = current_str + " -";
-  current_str = "0";
-  outputToPreviousDisplay(previous_str);
-  outputToCurrentDisplay(current_str);
-});
+// Set operation buttons events
+for (let op in operations) {
+  document.getElementsByClassName(`numpad__btn--${op}`)[0].addEventListener('click', function() {
+    previous_str = current_str + " " + operations[op];
+    current_str = "0";
+    outputToPreviousDisplay(previous_str);
+    outputToCurrentDisplay(current_str);
+  });
+}
 
 document.getElementsByClassName("numpad__btn--eq")[0].addEventListener('click', function() {
   if (previous_str)
