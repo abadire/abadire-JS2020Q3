@@ -1,9 +1,10 @@
-let previous = document.getElementsByClassName("display__prev")[0];
-let current = document.getElementsByClassName("display__cur")[0];
-let previous_str = "";
-let current_str = "0";
-current.textContent = "0";
+let previous = document.getElementsByClassName("display__prev")[0]; // Previous (upper) subdisplay element
+let current = document.getElementsByClassName("display__cur")[0]; // Current (lower) subdisplay element
+let previous_str = ""; // String for previous subdislay
+let current_str = "0"; // String for current subdisplay
+current.textContent = "0"; // Current display is initialized w/ 0
 
+// Operations object. Used to iterate all the operations. Minus has its own logic due to negative numbers.
 const operations = {
   plus: "+",
   mult: "*",
@@ -11,8 +12,10 @@ const operations = {
   pow: "^"
 };
 
-function outputToCurrentDisplay(str, postfix=null, prefix=null) {
+// Outputs string to the current display
+function outputToCurrentDisplay(str) {
   if (str != "") {
+    // Case for changing number's sign to zero
     if (str.length === 1 && str[0] === "-") {
       current.textContent = str;
     } else {
@@ -137,7 +140,11 @@ for (let op in operations) {
     if (Object.values(operations).includes(previous_str[previous_str.length - 1]) || previous_str[previous_str.length - 1] === "-") {
       previous_str = calculate(previous_str + " " + current_str) + " " + operations[op];
     } else {
-      previous_str = current_str + " " + operations[op];
+      if (current_str === "-") {
+        previous_str = current_str + "0 " + operations[op];
+      } else {
+        previous_str = current_str + " " + operations[op];
+      }
     }
     
     current_str = "0";
@@ -162,6 +169,16 @@ document.getElementsByClassName("numpad__btn--minus")[0].addEventListener('click
   outputToCurrentDisplay(current_str);
 });
 
+document.getElementsByClassName("numpad__btn--sqrt")[0].addEventListener('click', function () {
+  if (current_str !== "" && parseFloat(current_str) >= 0) {
+    previous_str = "√" + current_str + " =";
+    current_str = String(Math.sqrt(parseFloat(current_str)));
+    outputToCurrentDisplay(current_str);
+    // It's too late to make proper adjustments in outputToPreviousDisplay, I wanna sleep:D
+    previous.textContent = previous_str;
+  }
+});
+
 document.getElementsByClassName("numpad__btn--eq")[0].addEventListener('click', function() {
   if (previous_str)
   {
@@ -170,7 +187,7 @@ document.getElementsByClassName("numpad__btn--eq")[0].addEventListener('click', 
     } else {
       let [_, op, second] = previous_str.split(" ");
       previous_str = [current_str, op, second, "="].join(" ");
-      current_str = calculate(current_str, op, second);
+      current_str = calculate(previous_str);
     }
     outputToPreviousDisplay(previous_str);
     outputToCurrentDisplay(current_str);
