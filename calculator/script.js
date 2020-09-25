@@ -1,6 +1,5 @@
 let previous = document.getElementsByClassName("display__prev")[0];
 let current = document.getElementsByClassName("display__cur")[0];
-let num_btns = [];
 let previous_str = "";
 let current_str = "0";
 current.textContent = "0";
@@ -41,8 +40,9 @@ function outputToPreviousDisplay(str) {
   }
 }
 
-function calculate(first, op, second) {
+function calculate(str) {
   let ret = "";
+  let [first, op, second] = str.split(" ");
   switch (op) {
     case "+":
       ret = parseFloat(first) + parseFloat(second);
@@ -69,8 +69,7 @@ function calculate(first, op, second) {
 // Set number buttons events
 for (let i = 0; i < 10; ++i)
 {
-  num_btns.push(document.getElementsByClassName("numpad__btn--" + i)[0]);
-  num_btns[i].addEventListener('click', function() {
+  document.getElementsByClassName("numpad__btn--" + i)[0].addEventListener('click', function() {
     if (/^0$/.test(current_str)) {
       if (i !== 0) {
         current_str = String(i);
@@ -79,7 +78,7 @@ for (let i = 0; i < 10; ++i)
     else if (current_str.length < 9) {
       current_str += i;
     }
-    
+
     outputToCurrentDisplay(current_str);
   });
 }
@@ -118,7 +117,11 @@ document.getElementsByClassName("numpad__btn--dot")[0].addEventListener('click',
 // Set operation buttons events
 for (let op in operations) {
   document.getElementsByClassName(`numpad__btn--${op}`)[0].addEventListener('click', function() {
-    previous_str = current_str + " " + operations[op];
+    if (Object.values(operations).includes(previous_str[previous_str.length - 1])) {
+      previous_str = calculate(previous_str + " " + current_str) + " " + operations[op];
+    } else {
+      previous_str = current_str + " " + operations[op];
+    }
     current_str = "0";
     outputToPreviousDisplay(previous_str);
     outputToCurrentDisplay(current_str);
@@ -129,9 +132,7 @@ document.getElementsByClassName("numpad__btn--eq")[0].addEventListener('click', 
   if (previous_str)
   {
     if (previous_str[previous_str.length-1] !== "=") {
-      let [first, op] = previous.textContent.split(" ");
-      previous_str += " " + current_str + " =";
-      current_str = calculate(first, op, current_str);
+      [previous_str, current_str] = [previous_str + " " + current_str + " =", calculate(previous_str + " " + current_str)];
     } else {
       let [_, op, second] = previous_str.split(" ");
       previous_str = [current_str, op, second, "="].join(" ");
