@@ -60,25 +60,27 @@ function calculate(str) {
   let [first, op, second] = str.split(" ");
   switch (op) {
     case "+":
-    ret = parseFloat(first) + parseFloat(second);
+    ret += parseFloat(first) + parseFloat(second);
     break;
     case "-":
-    ret = parseFloat(first) - parseFloat(second);
+    ret += parseFloat(first) - parseFloat(second);
     break;
     case "*":
-    ret = parseFloat(first) * parseFloat(second);
+    ret += parseFloat(first) * parseFloat(second);
     break;
     case "÷":
-    ret = parseFloat(first) / parseFloat(second);
+    ret += parseFloat(first) / parseFloat(second);
     break;
     case "^":
-    ret = Math.pow(parseFloat(first), parseFloat(second));
+    ret += Math.pow(parseFloat(first), parseFloat(second));
     break;
     default:
     break;
   }
   
-  return String(ret);
+  if (ret.length > 9) ret = ret.slice(0, 8);
+  while (ret[ret.length - 1] === "0" && ret.length > 1) ret = ret.slice(0, ret.length - 1);
+  return ret;
 }
 
 function clearPrevious() {
@@ -151,6 +153,7 @@ document.getElementsByClassName("numpad__btn--dot")[0].addEventListener('click',
   // Only if there is no dots in the displayed number
   if (current_str.indexOf(".") === -1)
   {
+    if (current_str === "-") current_str += "0";
     current_str += ".";
     outputToCurrentDisplay(current_str);
   }
@@ -208,7 +211,11 @@ document.getElementsByClassName("numpad__btn--minus")[0].addEventListener('click
 document.getElementsByClassName("numpad__btn--sqrt")[0].addEventListener('click', function ()
 {
   // If the current string is not empty and if current displayed number is not negative
-  if (current_str !== "" && parseFloat(current_str) >= 0)
+  if (parseFloat(current_str) < 0)
+  {
+    alert('Cannot take square root of negative number!');
+  }
+  else if (current_str !== "")
   {
     previous_str = "√" + current_str + " =";
     current_str = String(Math.sqrt(parseFloat(current_str)));
@@ -236,3 +243,5 @@ document.getElementsByClassName("numpad__btn--eq")[0].addEventListener('click', 
     outputToCurrentDisplay(current_str);
   }
 });
+
+alert("The calculator works with numbers < 10^10");

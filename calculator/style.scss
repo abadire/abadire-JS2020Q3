@@ -36,14 +36,14 @@ body {
 .main {
   background-color: black;
   width: $button-dim * 4 + $gap * 5;
-  height: $disp-height + $gap * 6 + $button-dim * 5;
+  // height: $disp-height + $gap * 6 + $button-dim * 5;
   padding: 0 $gap $gap $gap;
   margin: auto;
   border-radius: 45px;
 }
 
 .display {
-  height: $disp-height;
+  // height: $disp-height;
   font-size: 2em;
   color: white;
   padding: $gap $gap 0 $gap;
@@ -56,9 +56,11 @@ body {
     text-align: right;
     font-size: .9em;
     color: #aaa;
+    min-height: 52px;
   }
 
   &__cur {
+    min-height: 63px;
     text-align: right;
     font-size: 1.1em;
   }
