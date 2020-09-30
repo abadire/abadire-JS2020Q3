@@ -79,7 +79,7 @@ function calculate(str) {
   }
   
   if (ret.length > 9) ret = ret.slice(0, 8);
-  while (ret[ret.length - 1] === "0" && ret.length > 1) ret = ret.slice(0, ret.length - 1);
+  while (ret[ret.length - 1] === "0" && ret.length > 1 && ret.indexOf('.') !== -1) ret = ret.slice(0, ret.length - 1);
   return ret;
 }
 
