@@ -1,0 +1,122 @@
+/*==SIZES==*/
+/*=========*/
+/*==COLORS==*/
+/*=========*/
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 62.5%;
+}
+
+body {
+  width: 1280px;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.wrapper {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+/*===NOT ONLY BLOCK===*/
+.not-only {
+  width: 100%;
+  height: 908px;
+  background-image: url("../assets/start-screen-gradient-background.png");
+}
+
+.not-only__header {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 6rem;
+}
+
+.logo {
+  text-align: center;
+}
+
+.logo__title {
+  font-family: Georgia, serif;
+  font-size: 3.2rem;
+  line-height: 110%;
+  letter-spacing: .06em;
+  color: #F1CDB3;
+  margin-bottom: 1rem;
+}
+
+.logo__subtitle {
+  font-size: 1.3rem;
+  letter-spacing: .1em;
+  color: #FFF;
+}
+
+.nav {
+  width: 44.3rem;
+  margin-bottom: .5rem;
+}
+
+.nav__items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 44.3rem;
+  position: relative;
+}
+
+.nav__item--pets:hover ~ .nav__underline {
+  left: 33.7%;
+  width: 12.5%;
+}
+
+.nav__item--help:hover ~ .nav__underline {
+  left: 54.7%;
+  width: 23.5%;
+}
+
+.nav__item--contacts:hover ~ .nav__underline {
+  left: 87%;
+  width: 12.5%;
+}
+
+.nav__link {
+  color: #CDCDCD;
+  font-size: 1.5rem;
+  line-height: 150%;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.nav__link--active {
+  color: #FAFAFA;
+}
+
+.nav__link:hover {
+  color: #FAFAFA;
+}
+
+.nav__underline {
+  position: absolute;
+  left: 0;
+  bottom: -.42rem;
+  height: .1rem;
+  background-color: #F1CDB3;
+  width: 25%;
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+}
