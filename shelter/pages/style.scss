@@ -182,6 +182,14 @@ body {
   }
 }
 
+.heading-m {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 3.5rem;
+  line-height: 130%;
+  letter-spacing: .06em;
+  color: $color-dark-l;
+}
+
 .about {
   background-color: $color-light-xl;
   
@@ -204,12 +212,6 @@ body {
   
   &__heading {
     width: 37rem;
-    
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 3.5rem;
-    line-height: 130%;
-    letter-spacing: .06em;
-    color: $color-dark-l;
   }
   
   &__paragraph {
@@ -227,18 +229,11 @@ body {
   &__heading {
     width: 40rem;
     margin: 0 auto 6rem auto;
-    
-    text-align: center;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 3.5rem;
-    line-height: 130%;
-    letter-spacing: 0.06em;
-    color: $color-dark-l;
   }
   
   &__content {
     margin-top: 8rem;
-    margin-bottom: 10rem;
+    margin-bottom: 10.1rem;
     text-align: center;
   }
   
@@ -280,5 +275,40 @@ body {
     font-size: 2rem;
     color: $color-dark-l;
     letter-spacing: .06em;
+  }
+}
+
+.help {
+  background-color: $color-light-xl;
+
+  &__content {
+    text-align: center;
+    margin: 8rem auto 5.5rem auto;
+    padding-top: .2rem;
+  }
+
+  &__heading {
+    width: 31rem;
+    margin: 0 auto 5.8rem auto;
+  }
+
+  &__icons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  &__figure {
+    margin: 0 6rem 5.4rem 6rem;
+  }
+
+  &__caption {
+    margin-top: 3rem;
+
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 2rem;
+    line-height: 115%;
+    letter-spacing: .06em;
+    color: $color-dark-l;
   }
 }
