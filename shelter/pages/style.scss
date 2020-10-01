@@ -8,6 +8,8 @@ $color-primary: #F1CDB3;
 $color-light-xl: #FFF;
 $color-light-s: #FAFAFA;
 $color-dark-s: #CDCDCD;
+$color-dark-l: #545454;
+$color-dark-xl: #4C4C4C;
 $color-dark-3xl: #292929;
 /*=========*/
 
@@ -21,6 +23,7 @@ body {
   width: $global-width;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
@@ -162,5 +165,44 @@ body {
 
   &--dark {
     background-color: $color-primary;
+  }
+}
+
+.about {
+  background-color: $color-light-xl;
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8rem;
+    margin-bottom: 10rem;
+  }
+
+  &__img {
+    margin-right: 12rem;
+  }
+
+  &__article {
+    width: 43rem;
+    margin-bottom: -.5rem;
+  }
+
+  &__heading {
+    width: 37rem;
+
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 3.5rem;
+    line-height: 130%;
+    letter-spacing: .06em;
+    color: $color-dark-l;
+  }
+
+  &__paragraph {
+    margin-top: 2.5rem;
+
+    font-size: 1.5rem;
+    line-height: 170%;
+    color: $color-dark-xl;
   }
 }
