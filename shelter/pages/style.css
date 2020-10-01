@@ -28,13 +28,13 @@ body {
 }
 
 /*===NOT ONLY BLOCK===*/
-.not-only {
+.start {
   width: 100%;
   height: 908px;
   background-image: url("../assets/start-screen-gradient-background.png");
 }
 
-.not-only__header {
+.start__header {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -48,7 +48,7 @@ body {
   margin-top: 6rem;
 }
 
-.not-only__main {
+.start__main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -61,12 +61,12 @@ body {
   margin-top: 6.1rem;
 }
 
-.not-only__article {
+.start__article {
   width: 46rem;
   margin-bottom: 8.3rem;
 }
 
-.not-only__heading {
+.start__heading {
   width: 31rem;
   margin-bottom: 4.2rem;
   font-family: Georgia, 'Times New Roman', Times, serif;
@@ -75,7 +75,7 @@ body {
   color: #FFF;
 }
 
-.not-only__paragraph {
+.start__paragraph {
   margin-bottom: 4.1rem;
   font-size: 1.5rem;
   line-height: 160%;
@@ -170,10 +170,22 @@ body {
   line-height: 130%;
   letter-spacing: .06em;
   color: #292929;
+  -webkit-transition: .3s;
+  transition: .3s;
 }
 
 .btn--dark {
   background-color: #F1CDB3;
+}
+
+.btn--small {
+  padding: 1.3rem 1.5rem;
+  font-weight: 900;
+}
+
+.btn:hover {
+  background-color: #FDDCC4;
+  border: 2px solid #FDDCC4;
 }
 
 .about {
@@ -217,4 +229,69 @@ body {
   font-size: 1.5rem;
   line-height: 170%;
   color: #4C4C4C;
+}
+
+.pets {
+  background-color: #F6F6F6;
+}
+
+.pets__heading {
+  width: 40rem;
+  margin: 0 auto 6rem auto;
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 3.5rem;
+  line-height: 130%;
+  letter-spacing: 0.06em;
+  color: #545454;
+}
+
+.pets__content {
+  margin-top: 8rem;
+  margin-bottom: 10rem;
+  text-align: center;
+}
+
+.pets__cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 6rem;
+}
+
+.pets__arrow--left {
+  margin-right: .8rem;
+}
+
+.pets__arrow--right {
+  margin-left: .8rem;
+}
+
+.pets__card {
+  background-color: #FAFAFA;
+  text-align: center;
+  padding-bottom: 3rem;
+  border-radius: 9px;
+  overflow: hidden;
+  margin: 0 4.5rem;
+  -webkit-transition: .2s;
+  transition: .2s;
+}
+
+.pets__card:hover {
+  background-color: #FFF;
+}
+
+.pets__name {
+  margin: 3rem 0;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 2rem;
+  color: #545454;
+  letter-spacing: .06em;
 }

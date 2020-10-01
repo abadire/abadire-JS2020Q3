@@ -5,7 +5,9 @@ $content-width: 1200px;
 
 /*==COLORS==*/
 $color-primary: #F1CDB3;
+$color-primary-light: #FDDCC4;
 $color-light-xl: #FFF;
+$color-light-l: #F6F6F6;
 $color-light-s: #FAFAFA;
 $color-dark-s: #CDCDCD;
 $color-dark-l: #545454;
@@ -33,7 +35,7 @@ body {
 }
 
 /*===NOT ONLY BLOCK===*/
-.not-only {
+.start {
   width: 100%;
   height: 908px;
   background-image: url("../assets/start-screen-gradient-background.png");
@@ -45,32 +47,32 @@ body {
     align-items: center;
     margin-top: 6rem;
   }
-
+  
   &__main {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-top: 6.1rem;
   }
-
+  
   &__article {
     width: 46rem;
     margin-bottom: 8.3rem;
   }
-
+  
   &__heading {
     width: 31rem;
     margin-bottom: 4.2rem;
-
+    
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 4.4rem;
     line-height: 130%;
     color: $color-light-xl;
   }
-
+  
   &__paragraph {
     margin-bottom: 4.1rem;
-
+    
     font-size: 1.5rem;
     line-height: 160%;
     color: $color-dark-s;
@@ -156,21 +158,33 @@ body {
   border-radius: 10rem;
   border: 2px solid $color-primary;
   display: inline-block;
-
+  
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 1.7rem;
   line-height: 130%;
   letter-spacing: .06em;
   color: $color-dark-3xl;
-
+  
+  transition: .3s;
+  
   &--dark {
     background-color: $color-primary;
+  }
+
+  &--small {
+    padding: 1.3rem 1.5rem;
+    font-weight: 900;
+  }
+
+  &:hover {
+    background-color: $color-primary-light;
+    border: 2px solid $color-primary-light;
   }
 }
 
 .about {
   background-color: $color-light-xl;
-
+  
   &__wrapper {
     display: flex;
     justify-content: center;
@@ -178,31 +192,93 @@ body {
     margin-top: 8rem;
     margin-bottom: 10rem;
   }
-
+  
   &__img {
     margin-right: 12rem;
   }
-
+  
   &__article {
     width: 43rem;
     margin-bottom: -.5rem;
   }
-
+  
   &__heading {
     width: 37rem;
-
+    
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 3.5rem;
     line-height: 130%;
     letter-spacing: .06em;
     color: $color-dark-l;
   }
-
+  
   &__paragraph {
     margin-top: 2.5rem;
-
+    
     font-size: 1.5rem;
     line-height: 170%;
     color: $color-dark-xl;
+  }
+}
+
+.pets {
+  background-color: $color-light-l;
+  
+  &__heading {
+    width: 40rem;
+    margin: 0 auto 6rem auto;
+    
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 3.5rem;
+    line-height: 130%;
+    letter-spacing: 0.06em;
+    color: $color-dark-l;
+  }
+  
+  &__content {
+    margin-top: 8rem;
+    margin-bottom: 10rem;
+    text-align: center;
+  }
+  
+  &__cards {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6rem;
+  }
+
+  &__arrow {
+    &--left {
+      margin-right: .8rem;
+    }
+    &--right {
+      margin-left: .8rem;
+    }
+  }
+  
+  &__card {
+    background-color: $color-light-s;
+    text-align: center;
+    padding-bottom: 3rem;
+    border-radius: 9px;
+    overflow: hidden;
+    margin: 0 4.5rem;
+
+    transition: .2s;
+
+    &:hover {
+      background-color: $color-light-xl;
+    }
+  }
+  
+  &__name {
+    margin: 3rem 0;
+    
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 2rem;
+    color: $color-dark-l;
+    letter-spacing: .06em;
   }
 }
