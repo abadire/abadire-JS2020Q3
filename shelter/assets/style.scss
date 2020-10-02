@@ -1,53 +1,15 @@
-/*==SIZES==*/
-$global-width: 1280px;
-$content-width: 1200px;
-/*=========*/
-
-/*==COLORS==*/
-$color-primary:       #F1CDB3;
-$color-primary-light: #FDDCC4;
-$color-light-xl:      #FFF;
-$color-light-l:       #F6F6F6;
-$color-light-s:       #FAFAFA;
-$color-dark-s:        #CDCDCD;
-$color-dark-m:        #B2B2B2;
-$color-dark-l:        #545454;
-$color-dark-xl:       #4C4C4C;
-$color-dark-3xl:      #292929;
-/*=========*/
-
-
-html {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 62.5%;
-}
-
-body {
-  width: $global-width;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.wrapper {
-  width: $content-width;
-  margin: 0 auto;
-}
+@import "sass/reset";
+@import "sass/colors";
+@import "sass/variables";
+@import "sass/base";
+@import "sass/layout";
+@import "sass/components";
 
 /*===NOT ONLY BLOCK===*/
 .start {
   width: 100%;
   height: 908px;
   background-image: url("../../assets/images/start-screen-gradient-background.png");
-  
-  &__header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 6rem;
-  }
   
   &__main {
     display: flex;
@@ -77,79 +39,6 @@ body {
     font-size: 1.5rem;
     line-height: 160%;
     color: $color-dark-s;
-  }
-}
-
-.logo {
-  text-align: center;
-  
-  &__title {
-    font-family: Georgia, serif;
-    font-size: 3.2rem;
-    line-height: 110%;
-    letter-spacing: .06em;
-    color: $color-primary;
-    margin-bottom: 1rem;
-  }
-  
-  &__subtitle {
-    font-size: 1.3rem;
-    letter-spacing: .1em;
-    color: $color-light-xl;
-  }
-}
-
-.nav {
-  width: 44.3rem;
-  margin-bottom: .5rem;
-  
-  &__items {
-    display: flex;
-    justify-content: space-between;
-    width: 44.3rem;
-    position: relative;
-  }
-  
-  &__item {
-    &--pets:hover ~ .nav__underline {
-      left: 33.7%;
-      width: 12.5%;
-    }
-    
-    &--help:hover ~ .nav__underline {
-      left: 54.7%;
-      width: 23.5%;
-    }
-    
-    &--contacts:hover ~ .nav__underline {
-      left: 87%;
-      width: 12.5%;
-    }
-  }
-  
-  &__link {
-    color: $color-dark-s;
-    font-size: 1.5rem;
-    line-height: 150%;
-    transition: .3s;
-    
-    &--active {
-      color: $color-light-s;
-    }
-    
-    &:hover {
-      color: $color-light-s;
-    }
-  }
-  
-  &__underline {
-    position: absolute;
-    left: 0;
-    bottom: -.42rem;
-    height: .1rem;
-    background-color: $color-primary;
-    width: 25%;
-    transition: .3s ease-in-out;
   }
 }
 
@@ -253,30 +142,6 @@ body {
       margin-left: .8rem;
     }
   }
-  
-  &__card {
-    background-color: $color-light-s;
-    text-align: center;
-    padding-bottom: 3rem;
-    border-radius: 9px;
-    overflow: hidden;
-    margin: 0 4.5rem;
-    
-    transition: .2s;
-    
-    &:hover {
-      background-color: $color-light-xl;
-    }
-  }
-  
-  &__name {
-    margin: 3rem 0;
-    
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 2rem;
-    color: $color-dark-l;
-    letter-spacing: .06em;
-  }
 }
 
 .help {
@@ -371,59 +236,5 @@ body {
     font-size: 1.2rem;
     line-height: 150%;
     color: $color-dark-m;
-  }
-}
-
-.footer {
-  background-image: url("../../assets/images/footer-gradient-background.png");
-
-  &__content {
-    margin-top: 4rem;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &__article {
-    margin-top: 1.6rem;
-
-    &--shifted {
-      margin-left: -.5rem;
-    }
-  }
-
-  &__heading {
-    margin-bottom: 3.6rem;
-
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 3.5rem;
-    line-height: 130%;
-    letter-spacing: .06em;
-    color: $color-light-xl;
-
-    &--contacts {
-    margin-bottom: 4rem;
-
-    }
-  }
-
-  &__figure {
-    display: flex;
-    align-items: center;
-    margin-bottom: 4rem;
-
-    &--location {
-      margin-bottom: 3.2rem;
-    }
-  }
-
-  &__caption {
-    margin-left: 2rem;
-    display: block;
-
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 2rem;
-    line-height: 115%;
-    letter-spacing: .06em;
-    color: $color-primary;
   }
 }

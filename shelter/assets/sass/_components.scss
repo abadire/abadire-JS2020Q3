@@ -1,0 +1,23 @@
+.card {
+  background-color: $color-light-s;
+  text-align: center;
+  padding-bottom: 3rem;
+  border-radius: 9px;
+  overflow: hidden;
+  margin: 0 4.5rem;
+  
+  transition: .2s;
+
+  &__name {
+    margin: 3rem 0;
+    
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 2rem;
+    color: $color-dark-l;
+    letter-spacing: .06em;
+  }
+
+  &:hover {
+    background-color: $color-light-xl;
+  }
+}
