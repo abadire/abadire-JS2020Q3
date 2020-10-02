@@ -322,7 +322,7 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: 8rem;
-    margin-bottom: 10rem;
+    margin-bottom: 10.3rem;
   }
   
   &__article {
@@ -371,5 +371,59 @@ body {
     font-size: 1.2rem;
     line-height: 150%;
     color: $color-dark-m;
+  }
+}
+
+.footer {
+  background-image: url("../assets/footer-gradient-background.png");
+
+  &__content {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__article {
+    margin-top: 1.6rem;
+
+    &--shifted {
+      margin-left: -.5rem;
+    }
+  }
+
+  &__heading {
+    margin-bottom: 3.6rem;
+
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 3.5rem;
+    line-height: 130%;
+    letter-spacing: .06em;
+    color: $color-light-xl;
+
+    &--contacts {
+    margin-bottom: 4rem;
+
+    }
+  }
+
+  &__figure {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4rem;
+
+    &--location {
+      margin-bottom: 3.2rem;
+    }
+  }
+
+  &__caption {
+    margin-left: 2rem;
+    display: block;
+
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 2rem;
+    line-height: 115%;
+    letter-spacing: .06em;
+    color: $color-primary;
   }
 }

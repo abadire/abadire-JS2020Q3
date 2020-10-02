@@ -347,7 +347,7 @@ body {
       -ms-flex-align: center;
           align-items: center;
   margin-top: 8rem;
-  margin-bottom: 10rem;
+  margin-bottom: 10.3rem;
 }
 
 .donation__article {
@@ -397,4 +397,63 @@ body {
   font-size: 1.2rem;
   line-height: 150%;
   color: #B2B2B2;
+}
+
+.footer {
+  background-image: url("../assets/footer-gradient-background.png");
+}
+
+.footer__content {
+  margin-top: 4rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.footer__article {
+  margin-top: 1.6rem;
+}
+
+.footer__article--shifted {
+  margin-left: -.5rem;
+}
+
+.footer__heading {
+  margin-bottom: 3.6rem;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 3.5rem;
+  line-height: 130%;
+  letter-spacing: .06em;
+  color: #FFF;
+}
+
+.footer__heading--contacts {
+  margin-bottom: 4rem;
+}
+
+.footer__figure {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 4rem;
+}
+
+.footer__figure--location {
+  margin-bottom: 3.2rem;
+}
+
+.footer__caption {
+  margin-left: 2rem;
+  display: block;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 2rem;
+  line-height: 115%;
+  letter-spacing: .06em;
+  color: #F1CDB3;
 }
