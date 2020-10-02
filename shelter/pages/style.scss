@@ -4,15 +4,16 @@ $content-width: 1200px;
 /*=========*/
 
 /*==COLORS==*/
-$color-primary: #F1CDB3;
+$color-primary:       #F1CDB3;
 $color-primary-light: #FDDCC4;
-$color-light-xl: #FFF;
-$color-light-l: #F6F6F6;
-$color-light-s: #FAFAFA;
-$color-dark-s: #CDCDCD;
-$color-dark-l: #545454;
-$color-dark-xl: #4C4C4C;
-$color-dark-3xl: #292929;
+$color-light-xl:      #FFF;
+$color-light-l:       #F6F6F6;
+$color-light-s:       #FAFAFA;
+$color-dark-s:        #CDCDCD;
+$color-dark-m:        #B2B2B2;
+$color-dark-l:        #545454;
+$color-dark-xl:       #4C4C4C;
+$color-dark-3xl:      #292929;
 /*=========*/
 
 
@@ -170,12 +171,12 @@ body {
   &--dark {
     background-color: $color-primary;
   }
-
+  
   &--small {
     padding: 1.3rem 1.5rem;
     font-weight: 900;
   }
-
+  
   &:hover {
     background-color: $color-primary-light;
     border: 2px solid $color-primary-light;
@@ -243,7 +244,7 @@ body {
     align-items: center;
     margin-bottom: 6rem;
   }
-
+  
   &__arrow {
     &--left {
       margin-right: .8rem;
@@ -260,9 +261,9 @@ body {
     border-radius: 9px;
     overflow: hidden;
     margin: 0 4.5rem;
-
+    
     transition: .2s;
-
+    
     &:hover {
       background-color: $color-light-xl;
     }
@@ -280,35 +281,95 @@ body {
 
 .help {
   background-color: $color-light-xl;
-
+  
   &__content {
     text-align: center;
-    margin: 8rem auto 5.5rem auto;
+    margin: 8rem auto 4.9rem auto;
     padding-top: .2rem;
   }
-
+  
   &__heading {
     width: 31rem;
     margin: 0 auto 5.8rem auto;
   }
-
+  
   &__icons {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
   }
-
+  
   &__figure {
     margin: 0 6rem 5.4rem 6rem;
   }
-
+  
   &__caption {
     margin-top: 3rem;
-
+    
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 2rem;
     line-height: 115%;
     letter-spacing: .06em;
     color: $color-dark-l;
+  }
+}
+
+.donation {
+  background-color: $color-light-l;
+  
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8rem;
+    margin-bottom: 10rem;
+  }
+  
+  &__article {
+    width: 38rem;
+    margin-left: 3rem;
+    
+    color: $color-dark-l;
+  }
+  
+  &__heading {
+    width: 30rem;
+    margin-bottom: 2rem;
+  }
+  
+  &__subheading {
+    margin-bottom: 2rem;
+
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.5rem;
+    line-height: 110%;
+    letter-spacing: .06em;
+  }
+
+  &__bank {
+    background-color: $color-primary;
+    border-radius: .5rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  &__number {
+    margin-left: 1.5rem;
+    white-space: nowrap;
+
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 2rem;
+    line-height: 115%;
+    letter-spacing: .06em;
+  }
+
+  &__legal {
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    line-height: 150%;
+    color: $color-dark-m;
   }
 }
