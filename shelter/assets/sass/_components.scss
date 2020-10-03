@@ -4,10 +4,10 @@
   padding-bottom: 3rem;
   border-radius: 9px;
   overflow: hidden;
-  margin: 0 4.5rem;
+  margin-bottom: 3rem;
   
   transition: .2s;
-
+  
   &__name {
     margin: 3rem 0;
     
@@ -16,8 +16,51 @@
     color: $color-dark-l;
     letter-spacing: .06em;
   }
-
+  
   &:hover {
     background-color: $color-light-xl;
+  }
+}
+
+.btn {
+  padding: 1.3rem 4.28rem;
+  background-color: $color-light-xl;
+  border-radius: 10rem;
+  border: 2px solid $color-primary;
+  display: inline-block;
+  
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 1.7rem;
+  line-height: 130%;
+  letter-spacing: .06em;
+  color: $color-dark-3xl;
+  
+  transition: .3s;
+  
+  &--small {
+    padding: 1.3rem 1.5rem;
+    font-weight: 900;
+  }
+  
+  &:hover {
+    background-color: $color-primary-light;
+    border: 2px solid $color-primary-light;
+  }
+  
+  &--disabled {
+    border: 2px solid $color-dark-s;
+    color: $color-dark-s;
+    pointer-events: none;
+  }
+  
+  &--dark {
+    background-color: $color-primary;
+    color: $color-dark-3xl;
+    border: 2px solid $color-primary;
+  }
+
+  &--nav {
+    width: 5.2rem;
+    height: 5.2rem;
   }
 }
