@@ -16,12 +16,20 @@
     letter-spacing: .06em;
     color: $color-primary;
     margin-bottom: 1rem;
+    
+    &--dark {
+      color: $color-dark-l;
+    }
   }
   
   &__subtitle {
     font-size: 1.3rem;
     letter-spacing: .1em;
     color: $color-light-xl;
+    
+    &--dark {
+      color: $color-dark-3xl;
+    }
   }
 }
 
@@ -37,6 +45,11 @@
   }
   
   &__item {
+    &--about:hover ~ .nav__underline {
+      left: 0;
+      width: 25%;
+    }
+    
     &--pets:hover ~ .nav__underline {
       left: 33.7%;
       width: 12.5%;
@@ -59,12 +72,24 @@
     line-height: 150%;
     transition: .3s;
     
+    &--dark {
+      color: $color-dark-l;
+    }
+    
     &--active {
       color: $color-light-s;
     }
     
+    &--dark.nav__link--active {
+      color: $color-dark-3xl;
+    }
+    
     &:hover {
       color: $color-light-s;
+      
+      &.nav__link--dark {
+        color: $color-dark-3xl;
+      }
     }
   }
   
@@ -72,59 +97,65 @@
     position: absolute;
     left: 0;
     bottom: -.42rem;
-    height: .1rem;
+    height: .3rem;
     background-color: $color-primary;
     width: 25%;
+    border: none;
     transition: .3s ease-in-out;
+    
+    &--pets {
+      left: 33.7%;
+      width: 12.5%;
+    }
   }
 }
 
 .footer {
   background-image: url("../../assets/images/footer-gradient-background.png");
-
+  
   &__content {
     margin-top: 4rem;
     display: flex;
     justify-content: space-between;
   }
-
+  
   &__article {
     margin-top: 1.6rem;
-
+    
     &--shifted {
       margin-left: -.5rem;
     }
   }
-
+  
   &__heading {
     margin-bottom: 3.6rem;
-
+    
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 3.5rem;
     line-height: 130%;
     letter-spacing: .06em;
     color: $color-light-xl;
-
+    
     &--contacts {
-    margin-bottom: 4rem;
-
+      margin-bottom: 4rem;
+      
     }
   }
-
+  
   &__figure {
     display: flex;
     align-items: center;
     margin-bottom: 4rem;
-
+    
     &--location {
       margin-bottom: 3.2rem;
     }
   }
-
+  
   &__caption {
     margin-left: 2rem;
     display: block;
-
+    
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 2rem;
     line-height: 115%;
