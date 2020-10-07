@@ -127,8 +127,8 @@
 }
 
 .footer {
-  background-image: url("../../assets/images/footer-gradient-background.png");
-  background-size: cover;
+  background-image: url("../../assets/images/noise_transparent.png"), linear-gradient(to right bottom, #513D2F, #1A1A1C);
+  background-repeat: repeat;
   width: 100%;
   
   &__content {
@@ -137,6 +137,23 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
+
+    @include respond(tab-land) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__articles {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 16rem;
+    width: 100%;
+    @include respond(tab-land) {
+      justify-content: space-around;
+      width: 100%;
+    margin-right: 0;
+    }
   }
   
   &__article {

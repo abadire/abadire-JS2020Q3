@@ -164,6 +164,9 @@
   
   &__figure {
     margin: 0 6rem 5.4rem 6rem;
+    @include respond(tab-land) {
+      margin: 0 4rem 5.4rem 4rem;
+    }
   }
   
   &__caption {
@@ -188,11 +191,20 @@
     align-items: center;
     margin-top: 8rem;
     margin-bottom: 10.3rem;
+
+    @include respond(tab-land) {
+      flex-direction: column;
+    }
   }
   
   &__article {
     width: 38rem;
     margin-left: 3rem;
+
+    @include respond(tab-land) {
+      order: -1;
+      margin-bottom: 6rem;
+    }
     
     color: $color-dark-l;
   }

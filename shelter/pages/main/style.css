@@ -216,8 +216,9 @@ body {
 }
 
 .footer {
-  background-image: url("../../assets/images/footer-gradient-background.png");
-  background-size: cover;
+  background-image: url("../../assets/images/noise_transparent.png"), -webkit-gradient(linear, left top, right bottom, from(#513D2F), to(#1A1A1C));
+  background-image: url("../../assets/images/noise_transparent.png"), linear-gradient(to right bottom, #513D2F, #1A1A1C);
+  background-repeat: repeat;
   width: 100%;
 }
 
@@ -236,6 +237,38 @@ body {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+}
+
+@media (max-width: 80em) {
+  .footer__content {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+}
+
+.footer__articles {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-right: 16rem;
+  width: 100%;
+}
+
+@media (max-width: 80em) {
+  .footer__articles {
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    width: 100%;
+    margin-right: 0;
+  }
 }
 
 .footer__article {
@@ -598,6 +631,12 @@ body {
   margin: 0 6rem 5.4rem 6rem;
 }
 
+@media (max-width: 80em) {
+  .help__figure {
+    margin: 0 4rem 5.4rem 4rem;
+  }
+}
+
 .help__caption {
   margin-top: 3rem;
   font-family: Georgia, 'Times New Roman', Times, serif;
@@ -630,10 +669,28 @@ body {
   margin-bottom: 10.3rem;
 }
 
+@media (max-width: 80em) {
+  .donation__wrapper {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
 .donation__article {
   width: 38rem;
   margin-left: 3rem;
   color: #545454;
+}
+
+@media (max-width: 80em) {
+  .donation__article {
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
+    margin-bottom: 6rem;
+  }
 }
 
 .donation__heading {
