@@ -6,12 +6,19 @@
   position: relative; // To adjust controls vertically
 
   &__cards {
+    max-height: 43.7rem;
     width: 100%;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     align-items: center;
-    margin: 0 5.3rem 3rem 5.3rem;
+    margin: 0 5.3rem 6rem 5.3rem;
+    overflow: hidden;
+
+    @include respond(tab-land) {
+      justify-content: space-evenly;
+      margin: 0 1.2rem 3rem 1.2rem;
+    }
   }
 }
 
@@ -22,6 +29,7 @@
   border-radius: 9px;
   overflow: hidden;
   margin-bottom: 3rem;
+  flex-shrink: 0;
   
   transition: .2s;
   

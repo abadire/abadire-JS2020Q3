@@ -298,6 +298,7 @@ body {
 }
 
 .gallery__cards {
+  max-height: 43.7rem;
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -310,7 +311,17 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 0 5.3rem 3rem 5.3rem;
+  margin: 0 5.3rem 6rem 5.3rem;
+  overflow: hidden;
+}
+
+@media (max-width: 80em) {
+  .gallery__cards {
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    margin: 0 1.2rem 3rem 1.2rem;
+  }
 }
 
 .card {
@@ -320,6 +331,8 @@ body {
   border-radius: 9px;
   overflow: hidden;
   margin-bottom: 3rem;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   -webkit-transition: .2s;
   transition: .2s;
 }
