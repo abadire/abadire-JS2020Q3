@@ -79,18 +79,27 @@
 
 .about {
   background-color: $color-light-xl;
+  width: 100%;
   
   &__wrapper {
-    display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
     margin-top: 8rem;
     margin-bottom: 10rem;
+
+    @include respond(tab-land) {
+      flex-direction: column;
+    }
   }
   
   &__img {
     margin-right: 12rem;
+
+    @include respond(tab-land) {
+      margin-top: 8rem;
+      margin-right: 0;
+      order: 1;
+    }
   }
   
   &__article {
