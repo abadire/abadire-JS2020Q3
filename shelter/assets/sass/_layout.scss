@@ -3,14 +3,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin: 3rem 0;
 
   &--sticky {
     position: fixed;
     top: 0;
     margin: 0 auto;
-    width: 128rem;
+    max-width: 128rem;
     padding: 3rem 4rem;
   }
 
@@ -51,7 +50,7 @@
 }
 
 .nav {
-  width: 44.3rem;
+  max-width: 44.3rem;
   margin-bottom: .5rem;
   
   &__items {

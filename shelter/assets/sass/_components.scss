@@ -28,6 +28,7 @@
   border-radius: 10rem;
   border: 2px solid $color-primary;
   display: inline-block;
+  align-self: flex-start;
   
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 1.7rem;
@@ -36,6 +37,10 @@
   color: $color-dark-3xl;
   
   transition: .3s;
+
+  @include respond(tab-land) {
+    align-self: center;
+  }
   
   &--small {
     padding: 1.3rem 1.5rem;
