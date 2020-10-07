@@ -217,6 +217,8 @@ body {
 
 .footer {
   background-image: url("../../assets/images/footer-gradient-background.png");
+  background-size: cover;
+  width: 100%;
 }
 
 .footer__content {
@@ -281,6 +283,36 @@ body {
   color: #F1CDB3;
 }
 
+.gallery {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.gallery__cards {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 5.3rem 3rem 5.3rem;
+}
+
 .card {
   background-color: #FAFAFA;
   text-align: center;
@@ -310,8 +342,6 @@ body {
   border-radius: 10rem;
   border: 2px solid #F1CDB3;
   display: inline-block;
-  -ms-flex-item-align: start;
-      align-self: flex-start;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 1.7rem;
   line-height: 130%;
@@ -321,8 +351,13 @@ body {
   transition: .3s;
 }
 
+.btn--responsive {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+
 @media (max-width: 80em) {
-  .btn {
+  .btn--responsive {
     -ms-flex-item-align: center;
         -ms-grid-row-align: center;
         align-self: center;
@@ -347,7 +382,6 @@ body {
 
 .btn--dark {
   background-color: #F1CDB3;
-  color: #292929;
   border: 2px solid #F1CDB3;
 }
 
@@ -502,6 +536,7 @@ body {
 
 .pets {
   background-color: #F6F6F6;
+  width: 100%;
 }
 
 .pets__heading {
@@ -515,28 +550,9 @@ body {
   text-align: center;
 }
 
-.pets__cards {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  margin-bottom: 3rem;
-}
-
-.pets__arrow--left {
-  margin-right: -4.7rem;
-}
-
-.pets__arrow--right {
-  margin-left: -4.7rem;
+.pets__arrow {
+  position: relative;
+  bottom: 3rem;
 }
 
 .help {
@@ -580,6 +596,7 @@ body {
 
 .donation {
   background-color: #F6F6F6;
+  width: 100%;
 }
 
 .donation__wrapper {

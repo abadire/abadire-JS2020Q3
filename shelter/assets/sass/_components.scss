@@ -1,3 +1,20 @@
+.gallery {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: relative; // To adjust controls vertically
+
+  &__cards {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0 5.3rem 3rem 5.3rem;
+  }
+}
+
 .card {
   background-color: $color-light-s;
   text-align: center;
@@ -28,7 +45,6 @@
   border-radius: 10rem;
   border: 2px solid $color-primary;
   display: inline-block;
-  align-self: flex-start;
   
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 1.7rem;
@@ -38,9 +54,14 @@
   
   transition: .3s;
 
-  @include respond(tab-land) {
-    align-self: center;
+  &--responsive {
+    align-self: flex-start;
+    
+    @include respond(tab-land) {
+      align-self: center;
+    }
   }
+
   
   &--small {
     padding: 1.3rem 1.5rem;
@@ -60,7 +81,6 @@
   
   &--dark {
     background-color: $color-primary;
-    color: $color-dark-3xl;
     border: 2px solid $color-primary;
   }
 

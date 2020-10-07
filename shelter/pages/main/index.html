@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <title>Shelter</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -31,7 +33,7 @@
         <article class="start__article">
           <h2 class="start__heading">Not only people need a house</h2>
           <p class="start__paragraph">We offer to give a chance to a little and nice puppy with an extremely wide and open heart. He or she will love you more than anybody else in the world, you will see!</p>
-          <a href="#" class="btn btn--dark">Make a friend</a>
+          <a href="#" class="btn btn--dark btn--responsive">Make a friend</a>
         </article>
         <img class="start__img" src="../../assets/images/start-screen-puppy.png" alt="Puppy image">
       </section>
@@ -52,24 +54,26 @@
   <section class="pets">
     <div class="wrapper pets__content">
       <h3 class="pets__heading heading-m">Our friends who <br> are looking for a house</h3>
-      <div class="pets__cards">
-        <a href="#" class="pets__arrow pets__arrow--left btn btn--small">&larr;</a>
-        <div class="pets__card card">
-          <img src="../../assets/images/pets-katrine.jpg" alt="Katrine">
-          <h4 class="card__name">Katrine</h4>
-          <a href="#" class="btn">Learn more</a>
+      <div class="gallery">
+        <a href="#" class="pets__arrow btn btn--small">&larr;</a>
+        <div class="gallery__cards">
+          <div class="card">
+            <img src="../../assets/images/pets-katrine.jpg" alt="Katrine">
+            <h4 class="card__name">Katrine</h4>
+            <a href="#" class="btn">Learn more</a>
+          </div>
+          <div class="card">
+            <img src="../../assets/images/pets-jennifer.jpg" alt="Katrine">
+            <h4 class="card__name">Jennifer</h4>
+            <a href="#" class="btn">Learn more</a>
+          </div>
+          <div class="card">
+            <img src="../../assets/images/pets-woody.jpg" alt="Katrine">
+            <h4 class="card__name">Woody</h4>
+            <a href="#" class="btn">Learn more</a>
+          </div>
         </div>
-        <div class="pets__card card">
-          <img src="../../assets/images/pets-jennifer.jpg" alt="Katrine">
-          <h4 class="card__name">Jennifer</h4>
-          <a href="#" class="btn">Learn more</a>
-        </div>
-        <div class="pets__card card">
-          <img src="../../assets/images/pets-woody.jpg" alt="Katrine">
-          <h4 class="card__name">Woody</h4>
-          <a href="#" class="btn">Learn more</a>
-        </div>
-        <a href="#" class="pets__arrow pets__arrow--right btn btn--small">&rarr;</a>
+        <a href="#" class="pets__arrow btn btn--small">&rarr;</a>
       </div>
       <a href="#" class="btn btn--dark">Get to know the rest</a>
     </div>

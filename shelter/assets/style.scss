@@ -122,6 +122,8 @@
 
 .pets {
   background-color: $color-light-l;
+  width: 100%;
+
   
   &__heading {
     width: 40rem;
@@ -134,22 +136,9 @@
     text-align: center;
   }
   
-  &__cards {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-bottom: 3rem;
-  }
-  
   &__arrow {
-    &--left {
-      margin-right: -4.7rem;
-    }
-    &--right {
-      margin-left: -4.7rem;
-    }
+    position: relative;
+    bottom: 3rem;
   }
 }
 
@@ -190,6 +179,7 @@
 
 .donation {
   background-color: $color-light-l;
+  width: 100%;
   
   &__wrapper {
     display: flex;

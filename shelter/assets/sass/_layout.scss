@@ -128,6 +128,8 @@
 
 .footer {
   background-image: url("../../assets/images/footer-gradient-background.png");
+  background-size: cover;
+  width: 100%;
   
   &__content {
     margin-top: 4rem;
