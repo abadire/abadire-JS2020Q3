@@ -1,19 +1,14 @@
 /* MEDIA QUERY MANAGER
-0-320px - phone
-320-768px - tab-port
+0-768px - tab-port
 768-1280px - tab-land
 1280px+ - default
 
 $breakpoint argument choices:
-- phone
 - tab-port
 - tab-land
 */
 
 @mixin respond($breakpoint) {
-  @if $breakpoint == phone {
-    @media (max-width: 20em) { @content };
-  }
   @if $breakpoint == tab-port {
     @media (max-width: 48em) { @content }; 
   }

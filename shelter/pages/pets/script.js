@@ -1,9 +1,9 @@
-const links = document.getElementsByClassName("nav__link");
-const linkPets = document.getElementsByClassName("nav__link--active")[0];
+const links = document.getElementsByClassName("navigation__link");
+const linkPets = document.getElementsByClassName("navigation__link--active")[0];
 
 for (let i = 0; i < links.length; ++i)
 {
-  if (!links[i].className.split(' ').includes("nav__link--active"))
+  if (!links[i].className.split(' ').includes("navigation__link--active"))
   {
     links[i].addEventListener('mouseover', function() {
       linkPets.style.color = "#545454";

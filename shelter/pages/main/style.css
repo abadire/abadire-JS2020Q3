@@ -32,13 +32,11 @@ a {
 /*==SIZES==*/
 /*=========*/
 /* MEDIA QUERY MANAGER
-0-320px - phone
-320-768px - tab-port
+0-768px - tab-port
 768-1280px - tab-land
 1280px+ - default
 
 $breakpoint argument choices:
-- phone
 - tab-port
 - tab-land
 */
@@ -147,12 +145,12 @@ body {
   color: #292929;
 }
 
-.nav {
+.navigation__nav {
   max-width: 44.3rem;
   margin-bottom: .5rem;
 }
 
-.nav__items {
+.navigation__items {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -163,27 +161,37 @@ body {
   position: relative;
 }
 
-.nav__item--about:hover ~ .nav__underline {
+@media (max-width: 48em) {
+  .navigation__items {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: auto;
+  }
+}
+
+.navigation__item--about:hover ~ .navigation__underline {
   left: 0;
   width: 25%;
 }
 
-.nav__item--pets:hover ~ .nav__underline {
+.navigation__item--pets:hover ~ .navigation__underline {
   left: 33.7%;
   width: 13%;
 }
 
-.nav__item--help:hover ~ .nav__underline {
+.navigation__item--help:hover ~ .navigation__underline {
   left: 54.7%;
   width: 23.5%;
 }
 
-.nav__item--contacts:hover ~ .nav__underline {
+.navigation__item--contacts:hover ~ .navigation__underline {
   left: 87%;
   width: 12.5%;
 }
 
-.nav__link {
+.navigation__link {
   color: #CDCDCD;
   font-size: 1.5rem;
   line-height: 150%;
@@ -191,27 +199,27 @@ body {
   transition: .3s;
 }
 
-.nav__link--dark {
+.navigation__link--dark {
   color: #545454;
 }
 
-.nav__link--active {
+.navigation__link--active {
   color: #FAFAFA;
 }
 
-.nav__link--dark.nav__link--active {
+.navigation__link--dark.navigation__link--active {
   color: #292929;
 }
 
-.nav__link:hover {
+.navigation__link:hover {
   color: #FAFAFA;
 }
 
-.nav__link:hover.nav__link--dark {
+.navigation__link:hover.navigation__link--dark {
   color: #292929;
 }
 
-.nav__underline {
+.navigation__underline {
   position: absolute;
   left: 0;
   bottom: -.42rem;
@@ -223,9 +231,15 @@ body {
   transition: .3s ease-in-out;
 }
 
-.nav__underline--pets {
+.navigation__underline--pets {
   left: 33.7%;
   width: 13%;
+}
+
+@media (max-width: 48em) {
+  .navigation__underline {
+    display: none;
+  }
 }
 
 .footer {
