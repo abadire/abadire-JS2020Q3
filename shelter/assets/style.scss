@@ -65,6 +65,7 @@
     @include respond(tab-land) {
       position: relative;
       left: 7rem;
+      width: 57rem;
     }
   }
 }
@@ -133,6 +134,10 @@
     margin-top: 8rem;
     margin-bottom: 10.1rem;
     text-align: center;
+
+    @include respond(tab-land) {
+      margin-bottom: 7.6rem;
+    }
   }
   
   &__arrow {

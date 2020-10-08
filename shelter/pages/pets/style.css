@@ -249,6 +249,7 @@ body {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    margin-top: 3rem;
   }
 }
 
@@ -353,6 +354,12 @@ body {
 .gallery__cards--two-row {
   max-height: 90rem;
   margin: 0;
+}
+
+@media (max-width: 80em) {
+  .gallery__cards--two-row {
+    max-height: 135rem;
+  }
 }
 
 @media (max-width: 80em) {
@@ -521,6 +528,7 @@ body {
   .start__img {
     position: relative;
     left: 7rem;
+    width: 57rem;
   }
 }
 
@@ -602,6 +610,12 @@ body {
   margin-top: 8rem;
   margin-bottom: 10.1rem;
   text-align: center;
+}
+
+@media (max-width: 80em) {
+  .pets__content {
+    margin-bottom: 7.6rem;
+  }
 }
 
 .pets__arrow {
