@@ -12,6 +12,10 @@
     margin: 0 auto;
     max-width: 128rem;
     padding: 3rem 4rem;
+
+    @include respond(tab-land) {
+      padding: 3rem 3rem;
+    }
   }
 
   &--light {

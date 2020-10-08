@@ -77,6 +77,12 @@ body {
           align-items: center;
 }
 
+@media (max-width: 80em) {
+  .wrapper {
+    padding: 0 3rem;
+  }
+}
+
 .header {
   width: 100%;
   display: -webkit-box;
@@ -98,6 +104,12 @@ body {
   margin: 0 auto;
   max-width: 128rem;
   padding: 3rem 4rem;
+}
+
+@media (max-width: 80em) {
+  .header--sticky {
+    padding: 3rem 3rem;
+  }
 }
 
 .header--light {
