@@ -138,7 +138,6 @@
   
   &__article {
     width: 43rem;
-    margin-bottom: -.5rem;
     
     @include respond(tab-port) {
       width: 100%;
@@ -157,7 +156,7 @@
     margin-top: 2.5rem;
     
     font-size: 1.5rem;
-    line-height: 170%;
+    line-height: 160%;
     color: $color-dark-xl;
   }
 }
@@ -178,7 +177,7 @@
   
   &__content {
     margin-top: 8rem;
-    margin-bottom: 10.1rem;
+    margin-bottom: 10rem;
     text-align: center;
     
     @include respond(tab-land) {
@@ -192,7 +191,6 @@
   
   &__arrow {
     position: relative;
-    bottom: 3rem;
     
     @include respond(tab-port) {
       order: 1;
@@ -208,7 +206,8 @@
   
   &__content {
     text-align: center;
-    margin-top: 8rem;
+    margin-top: 7.8rem;
+    margin-bottom: 4.6rem;
     padding-top: .2rem;
     
     @include respond(tab-port) {

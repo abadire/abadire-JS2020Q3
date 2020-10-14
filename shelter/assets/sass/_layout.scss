@@ -154,7 +154,7 @@
   &__item {
     &--about:hover ~ .navigation__underline {
       left: 0;
-      width: 25%;
+      width: 25.6%;
     }
     
     &--pets:hover ~ .navigation__underline {
@@ -224,7 +224,7 @@
     bottom: -.42rem;
     height: .3rem;
     background-color: $color-primary;
-    width: 25%;
+    width: 25.6%;
     border: none;
     transition: .3s ease-in-out;
     
@@ -252,7 +252,7 @@
 }
 
 .footer {
-  background-image: url("../../assets/images/noise_transparent.png"), linear-gradient(to right bottom, #513D2F, #1A1A1C);
+  background-image: url("../../assets/images/noise_transparent.png"), linear-gradient(to right, #513D2F, #1A1A1C);
   background-repeat: repeat;
   width: 100%;
   
@@ -292,7 +292,7 @@
     margin-top: 1.6rem;
     
     &--shifted {
-      margin-left: -.5rem;
+      margin-right: .6rem;
 
       @include respond(tab-port) {
         margin-left: 0;
@@ -305,7 +305,7 @@
   }
   
   &__heading {
-    margin-bottom: 3.6rem;
+    margin-bottom: 3.2rem;
     
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 3.5rem;
@@ -315,14 +315,13 @@
     
     &--contacts {
       margin-bottom: 4rem;
-      
     }
   }
   
   &__figure {
     display: flex;
     align-items: center;
-    margin-bottom: 4rem;
+    margin-bottom: 3.5rem;
     
     &--location {
       margin-bottom: 3.2rem;
@@ -341,7 +340,7 @@
   }
 
   &__img {
-    margin-top: 4rem;
-    width: 26rem;
+    width: 30rem;
+    // margin-top: 4rem;
   }
 }

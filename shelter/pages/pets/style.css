@@ -257,7 +257,7 @@ body {
 
 .navigation__item--about:hover ~ .navigation__underline {
   left: 0;
-  width: 25%;
+  width: 25.6%;
 }
 
 .navigation__item--pets:hover ~ .navigation__underline {
@@ -329,7 +329,7 @@ body {
   bottom: -.42rem;
   height: .3rem;
   background-color: #F1CDB3;
-  width: 25%;
+  width: 25.6%;
   border: none;
   -webkit-transition: .3s ease-in-out;
   transition: .3s ease-in-out;
@@ -360,8 +360,8 @@ body {
 }
 
 .footer {
-  background-image: url("../../assets/images/noise_transparent.png"), -webkit-gradient(linear, left top, right bottom, from(#513D2F), to(#1A1A1C));
-  background-image: url("../../assets/images/noise_transparent.png"), linear-gradient(to right bottom, #513D2F, #1A1A1C);
+  background-image: url("../../assets/images/noise_transparent.png"), -webkit-gradient(linear, left top, right top, from(#513D2F), to(#1A1A1C));
+  background-image: url("../../assets/images/noise_transparent.png"), linear-gradient(to right, #513D2F, #1A1A1C);
   background-repeat: repeat;
   width: 100%;
 }
@@ -433,7 +433,7 @@ body {
 }
 
 .footer__article--shifted {
-  margin-left: -.5rem;
+  margin-right: .6rem;
 }
 
 @media (max-width: 48em) {
@@ -449,7 +449,7 @@ body {
 }
 
 .footer__heading {
-  margin-bottom: 3.6rem;
+  margin-bottom: 3.2rem;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 3.5rem;
   line-height: 130%;
@@ -468,7 +468,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 4rem;
+  margin-bottom: 3.5rem;
 }
 
 .footer__figure--location {
@@ -486,8 +486,7 @@ body {
 }
 
 .footer__img {
-  margin-top: 4rem;
-  width: 26rem;
+  width: 30rem;
 }
 
 .gallery {
@@ -502,7 +501,7 @@ body {
           align-items: center;
   width: 100%;
   position: relative;
-  margin-bottom: 6rem;
+  margin-bottom: 5.9rem;
 }
 
 .gallery__cards {
@@ -814,7 +813,6 @@ body {
 
 .about__article {
   width: 43rem;
-  margin-bottom: -.5rem;
 }
 
 @media (max-width: 48em) {
@@ -841,7 +839,7 @@ body {
 .about__paragraph {
   margin-top: 2.5rem;
   font-size: 1.5rem;
-  line-height: 170%;
+  line-height: 160%;
   color: #4C4C4C;
 }
 
@@ -864,7 +862,7 @@ body {
 
 .pets__content {
   margin-top: 8rem;
-  margin-bottom: 10.1rem;
+  margin-bottom: 10rem;
   text-align: center;
 }
 
@@ -882,7 +880,6 @@ body {
 
 .pets__arrow {
   position: relative;
-  bottom: 3rem;
 }
 
 @media (max-width: 48em) {
@@ -902,7 +899,8 @@ body {
 
 .help__content {
   text-align: center;
-  margin-top: 8rem;
+  margin-top: 7.8rem;
+  margin-bottom: 4.6rem;
   padding-top: .2rem;
 }
 
