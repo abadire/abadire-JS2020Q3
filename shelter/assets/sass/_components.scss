@@ -19,8 +19,6 @@
     &--two-row {
       max-height: 90rem;
       margin: 0;
-      // padding: 1.5rem 0;
-      // margin-bottom: -1.5rem;
 
       @include respond(tab-land) {
         max-height: 135rem
@@ -31,6 +29,12 @@
       justify-content: space-evenly;
       margin: 0 1.2rem;
     }
+  }
+
+  @include respond(tab-port) {
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+    justify-content: space-around;
   }
 }
 
@@ -43,7 +47,7 @@
   margin-bottom: 3rem;
   flex-shrink: 0;
   
-  transition: .2s;
+  transition: background-color .2s;
   
   &__name {
     margin: 3rem 0;
@@ -72,7 +76,7 @@
   letter-spacing: .06em;
   color: $color-dark-3xl;
   
-  transition: .3s;
+  transition: background-color .3s, border .3s;
   
   &--responsive {
     align-self: flex-start;

@@ -12,7 +12,8 @@
   background-image: url("../../assets/images/start-screen-gradient-background.png");
   background-size: cover;
   padding-top: 3rem;
-
+  overflow: hidden;
+  
   @include respond(tab-land) {
     padding-top: 0;
   }
@@ -24,24 +25,28 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 3.1rem;
-
+    
     @include respond(tab-land) {
       flex-direction: column;
-      padding: 0 6rem;
     }
   }
   
   &__article {
     width: 46rem;
     margin-bottom: 8.3rem;
-
+    
     display: flex;
     flex-direction: column;
-
+    
     @include respond(tab-land) {
       margin-bottom: 10rem;
     }
+    
+    @include respond(tab-port) {
+      align-items: center;
+      width: 100%;
     }
+  }
   
   &__heading {
     width: 31rem;
@@ -51,6 +56,12 @@
     font-size: 4.4rem;
     line-height: 130%;
     color: $color-light-xl;
+    
+    @include respond(tab-port) {
+      text-align: center;
+      font-size: 2.5rem;
+      letter-spacing: .06em;
+    }
   }
   
   &__paragraph {
@@ -59,13 +70,20 @@
     font-size: 1.5rem;
     line-height: 160%;
     color: $color-dark-s;
+    
+    @include respond(tab-port) {
+      text-align: center;
+    }
   }
-
+  
   &__img {
     @include respond(tab-land) {
-      position: relative;
-      left: 7rem;
-      width: 57rem;
+      align-self: flex-end;
+      width: 70vw;
+    }
+    
+    @include respond(tab-port) {
+      width: 80vw;
     }
   }
 }
@@ -76,6 +94,11 @@
   line-height: 130%;
   letter-spacing: .06em;
   color: $color-dark-l;
+  
+  @include respond(tab-port) {
+    font-size: 2.5rem;
+    text-align: center;
+  }
 }
 
 .about {
@@ -87,25 +110,43 @@
     justify-content: center;
     margin-top: 8rem;
     margin-bottom: 10rem;
-
+    
     @include respond(tab-land) {
       flex-direction: column;
+    }
+    
+    @include respond(tab-port) {
+      margin-top: 4rem;
+      margin-bottom: 4rem;
     }
   }
   
   &__img {
     margin-right: 12rem;
-
+    
     @include respond(tab-land) {
       margin-top: 8rem;
       margin-right: 0;
       order: 1;
+    }
+    
+    @include respond(tab-port) {
+      margin-top: 4rem;
+      width: 26rem;
     }
   }
   
   &__article {
     width: 43rem;
     margin-bottom: -.5rem;
+    
+    @include respond(tab-port) {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: justify;
+    }
   }
   
   &__heading {
@@ -128,31 +169,50 @@
   &__heading {
     width: 40rem;
     margin: 0 auto 6rem auto;
+    
+    @include respond(tab-port) {
+      width: 100%;
+      margin-bottom: 4rem;
+    }
   }
   
   &__content {
     margin-top: 8rem;
     margin-bottom: 10.1rem;
     text-align: center;
-
+    
     @include respond(tab-land) {
       margin-bottom: 7.6rem;
+    }
+    
+    @include respond(tab-port) {
+      margin: 4rem 0;
     }
   }
   
   &__arrow {
     position: relative;
     bottom: 3rem;
+    
+    @include respond(tab-port) {
+      order: 1;
+      bottom: 0;
+    }
   }
 }
 
 .help {
   background-color: $color-light-xl;
+  width: 100%;
   
   &__content {
     text-align: center;
     margin: 8rem auto 4.9rem auto;
     padding-top: .2rem;
+    
+    @include respond(tab-port) {
+      margin: 4rem auto 0 auto;
+    }
   }
   
   &__heading {
@@ -164,12 +224,24 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    
+    @include respond(tab-port) {
+      position: relative;
+      width: 100vw;
+    }
   }
   
   &__figure {
     margin: 0 6rem 5.4rem 6rem;
+    position: relative;
     @include respond(tab-land) {
-      margin: 0 4rem 5.4rem 4rem;
+      margin: 0 3rem 5.5rem 3rem;
+      padding: 0 5.5rem 5.3rem 5.5rem;
+    }
+    
+    @include respond(tab-port) {
+      margin: 0 1.5rem 3rem 1.5rem;
+      padding: 0 3.5rem 5.3rem 3.5rem;
     }
   }
   
@@ -181,6 +253,20 @@
     line-height: 115%;
     letter-spacing: .06em;
     color: $color-dark-l;
+    
+    @include respond(tab-land) {
+      margin: 0;
+      position: absolute;
+      white-space: nowrap;
+      bottom: .2rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    @include respond(tab-port) {
+      font-size: 1.5rem;
+      line-height: 110%;
+    }
   }
 }
 
@@ -195,19 +281,37 @@
     align-items: center;
     margin-top: 8rem;
     margin-bottom: 10.3rem;
-
+    
     @include respond(tab-land) {
       flex-direction: column;
+    }
+
+    @include respond(tab-port) {
+      margin-top: 4.1rem;
+    }
+  }
+
+  &__img {
+    @include respond(tab-port) {
+      width: 80vw;
     }
   }
   
   &__article {
     width: 38rem;
     margin-left: 3rem;
-
+    
     @include respond(tab-land) {
       order: -1;
       margin-bottom: 6rem;
+      margin-left: 0;
+    }
+
+    @include respond(tab-port) {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     
     color: $color-dark-l;
@@ -220,13 +324,13 @@
   
   &__subheading {
     margin-bottom: 2rem;
-
+    
     font-family: Georgia, "Times New Roman", Times, serif;
     font-size: 1.5rem;
     line-height: 110%;
     letter-spacing: .06em;
   }
-
+  
   &__bank {
     background-color: $color-primary;
     border-radius: .5rem;
@@ -235,23 +339,33 @@
     display: inline-flex;
     align-items: center;
   }
-
+  
   &__number {
     margin-left: 1.5rem;
     white-space: nowrap;
-
+    
     font-family: Georgia, "Times New Roman", Times, serif;
     font-size: 2rem;
     line-height: 115%;
     letter-spacing: .06em;
-  }
 
+    @include respond(tab-port) {
+      font-size: 1.5rem;
+      line-height: 110%;
+    }
+  }
+  
   &__legal {
     font-family: Arial, Helvetica, sans-serif;
     font-style: italic;
     font-size: 1.2rem;
     line-height: 150%;
     color: $color-dark-m;
+
+    @include respond(tab-port) {
+      text-align: justify;
+      max-width: 38rem;
+    }
   }
 }
 

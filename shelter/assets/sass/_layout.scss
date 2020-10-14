@@ -5,21 +5,25 @@
   align-items: center;
   margin: 3rem 0;
   z-index: 99;
-
+  
   &--sticky {
     position: fixed;
     top: 0;
     margin: 0 auto;
     max-width: 128rem;
     padding: 3rem 4rem;
-
+    
     @include respond(tab-land) {
       padding: 3rem 3rem;
     }
   }
-
+  
   &--light {
     background-color: $color-light-xl;
+  }
+
+  @include respond(tab-port) {
+    padding-right: 4rem;
   }
 }
 
@@ -55,10 +59,82 @@
 }
 
 .navigation {
+  
+  &__checkbox {
+    display: none;
+    
+    &:checked {
+      
+      & ~ .navigation__nav {
+        right: 0;
+      }
+    }
+  }
+  
+  &__button {
+    display: none;
+    
+    @include respond(tab-port) {
+      display: block;
+      cursor: pointer;
+    }
+  }
+  
+  &__icon {
+    position: relative;
+    
+    &,
+    &::before,
+    &::after {
+      width: 3rem;
+      height: 2px;
+      background-color: $color-primary;
+      display: inline-block;
+    }
+    
+    &--light {
+      background-color: $color-dark-4xl;
+      &::before,
+      &::after {
+        background-color: $color-dark-4xl;
+      }
+    }
 
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+    }
+    
+    &::before {
+      top: -1rem;
+    }
+    
+    &::after {
+      top: 1rem;
+    }
+  }
+  
   &__nav{
     max-width: 44.3rem;
     margin-bottom: .5rem;
+    
+    @include respond(tab-port) {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      height: 100vh;
+      max-width: 100vw;
+      width: 60%;
+      z-index: 20;
+      background-color: $color-light-xl;
+      transition: right 1s;
+      
+      &--dark {
+        background-color: #38302a;
+      }
+    }
   }
   
   &__items {
@@ -66,10 +142,12 @@
     justify-content: space-between;
     width: 44.3rem;
     position: relative;
-
+    
     @include respond(tab-port) {
       flex-direction: column;
       width: auto;
+      margin-top: 10vh;
+      margin-left: 5rem;
     }
   }
   
@@ -93,20 +171,38 @@
       left: 87%;
       width: 12.5%;
     }
+    
+    @include respond(tab-port) {
+      margin-bottom: 10vh;
+    }
   }
   
   &__link {
     color: $color-dark-s;
     font-size: 1.5rem;
     line-height: 150%;
-    transition: .3s;
+    transition: color .3s;
     
     &--dark {
       color: $color-dark-l;
     }
     
     &--active {
+      position: relative;
       color: $color-light-s;
+      
+      @include respond(tab-port) {
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: -.42rem;
+          height: .3rem;
+          background-color: $color-primary;
+          width: 100%;
+          border: none;
+        }
+      }
     }
     
     &--dark.navigation__link--active {
@@ -136,10 +232,22 @@
       left: 33.7%;
       width: 13%;
     }
-
+    
     @include respond(tab-port) {
       display: none;
     }
+  }
+  
+  &__overlay {
+    opacity: 0;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity .5s;
   }
 }
 
@@ -154,23 +262,29 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-
+    
     @include respond(tab-land) {
       flex-direction: column;
       align-items: center;
       margin-top: 3rem;
     }
   }
-
+  
   &__articles {
     display: flex;
     justify-content: space-between;
     margin-right: 16rem;
     width: 100%;
+
     @include respond(tab-land) {
       justify-content: space-around;
       width: 100%;
-    margin-right: 0;
+      margin-right: 0;
+    }
+
+    @include respond(tab-port) {
+      flex-direction: column;
+      align-items: center;
     }
   }
   
@@ -179,6 +293,14 @@
     
     &--shifted {
       margin-left: -.5rem;
+
+      @include respond(tab-port) {
+        margin-left: 0;
+      }
+    }
+
+    @include respond(tab-port) {
+      margin-top: 0;
     }
   }
   
@@ -216,5 +338,10 @@
     line-height: 115%;
     letter-spacing: .06em;
     color: $color-primary;
+  }
+
+  &__img {
+    margin-top: 4rem;
+    width: 26rem;
   }
 }

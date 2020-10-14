@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no">
   <title>Shelter</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
@@ -20,10 +20,12 @@
         </div>
         
         <div class="navigation">
-          <input type="checkbox" class="header__checkbox" id="toggle">
-          <label for="toggle" class="header__button">HAM</label>
+          <input type="checkbox" class="navigation__checkbox" id="toggle">
+          <label for="toggle" class="navigation__button">
+            <span class="navigation__icon"></span>
+          </label>
           
-          <nav class="navigation__nav">
+          <nav class="navigation__nav navigation__nav--dark">
             <ul class="navigation__items">
               
               <li class="navigation__item"><a class="navigation__link navigation__link--active" href="#">About the shelter</a></li>
@@ -33,6 +35,8 @@
               <hr class="navigation__underline">
             </ul>
           </nav>
+          
+          <div class="navigation__overlay"></div>
         </div>
       </header>
       
@@ -132,7 +136,7 @@
   
   <section class="donation">
     <div class="wrapper donation__wrapper">
-      <img src="../../assets/images/donation-dog.png" alt="Donation dog">
+      <img class="donation__img" src="../../assets/images/donation-dog.png" alt="Donation dog">
       <article class="donation__article">
         <h3 class="donation__heading heading-m">You can also make a donation</h3>
         <h5 class="donation__subheading">Name of the bank / Type of bank account</h5>
@@ -171,7 +175,7 @@
           </figure>
         </article>
       </section>
-      <img src="../../assets/images/footer-puppy.png" alt="Puppy!">
+      <img class="footer__img" src="../../assets/images/footer-puppy.png" alt="Puppy!">
     </div>
   </footer>
 </body>
