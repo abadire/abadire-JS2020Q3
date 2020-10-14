@@ -835,7 +835,7 @@ body {
 }
 
 .about__heading {
-  width: 37rem;
+  max-width: 37rem;
 }
 
 .about__paragraph {
@@ -891,6 +891,7 @@ body {
         -ms-flex-order: 1;
             order: 1;
     bottom: 0;
+    margin-top: 2rem;
   }
 }
 
@@ -901,22 +902,29 @@ body {
 
 .help__content {
   text-align: center;
-  margin: 8rem auto 4.9rem auto;
+  margin-top: 8rem;
   padding-top: .2rem;
 }
 
 @media (max-width: 48em) {
   .help__content {
-    margin: 4rem auto 0 auto;
+    margin-top: 4rem;
   }
 }
 
 .help__heading {
-  width: 31rem;
-  margin: 0 auto 5.8rem auto;
+  max-width: 31rem;
+  margin-bottom: 5.8rem;
+}
+
+@media (max-width: 48em) {
+  .help__heading {
+    margin-bottom: 4.2rem;
+  }
 }
 
 .help__icons {
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -927,10 +935,27 @@ body {
       flex-wrap: wrap;
 }
 
+@media (max-width: 80em) {
+  .help__icons {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr)[3];
+        grid-template-columns: repeat(3, 1fr);
+    -webkit-column-gap: 6rem;
+            column-gap: 6rem;
+    row-gap: 5.5rem;
+    margin-bottom: 10rem;
+  }
+}
+
 @media (max-width: 48em) {
   .help__icons {
-    position: relative;
-    width: 100vw;
+    -ms-grid-columns: (minmax(13rem, 1fr))[auto-fit];
+        grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    -webkit-column-gap: 3rem;
+            column-gap: 3rem;
+    row-gap: 3rem;
+    margin-bottom: 4.2rem;
   }
 }
 
@@ -941,15 +966,21 @@ body {
 
 @media (max-width: 80em) {
   .help__figure {
-    margin: 0 3rem 5.5rem 3rem;
-    padding: 0 5.5rem 5.3rem 5.5rem;
+    margin: 0;
+    padding-bottom: 5.3rem;
   }
 }
 
 @media (max-width: 48em) {
   .help__figure {
-    margin: 0 1.5rem 3rem 1.5rem;
-    padding: 0 3.5rem 5.3rem 3.5rem;
+    margin: 0;
+    padding-bottom: 3.3rem;
+  }
+}
+
+@media (max-width: 48em) {
+  .help__icon {
+    width: 5rem;
   }
 }
 
@@ -1070,6 +1101,12 @@ body {
   letter-spacing: .06em;
 }
 
+@media (max-width: 48em) {
+  .donation__subheading {
+    letter-spacing: 0;
+  }
+}
+
 .donation__bank {
   background-color: #F1CDB3;
   border-radius: .5rem;
@@ -1122,4 +1159,10 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+
+@media (max-width: 48em) {
+  .btn-section {
+    width: 30rem;
+  }
 }
