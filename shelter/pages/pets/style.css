@@ -566,7 +566,7 @@ body {
 }
 
 .card__name {
-  margin: 3rem 0;
+  margin: 2.8rem 0 3rem 0;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 2rem;
   color: #545454;
