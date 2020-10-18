@@ -44,6 +44,8 @@ body {
   font-size: 2rem;
   padding: 1rem;
   height: 50vh;
+  border: 2px solid black;
+  border-radius: 3px;
 }
 
 .keyboard {
