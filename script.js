@@ -66,7 +66,9 @@ function createKeys() {
     '?',
     'br',
     'check_circle',
-    'space_bar'
+    'space_bar',
+    'keyboard_arrow_left',
+    'keyboard_arrow_right'
   ];
   
   letters.forEach((letter) => {
@@ -141,6 +143,28 @@ function createKeys() {
           {
             btn.classList.add('keyboard__key--toggle');
             btn.addEventListener('click', toggleShift);
+            break;
+          }
+          case 'keyboard_arrow_left':
+          {
+            btn.classList.remove('keyboard__key--large');
+            btn.addEventListener('click', () => {
+              if (caretPosition !== 0)
+              {
+                textArea.selectionStart = textArea.selectionEnd = --caretPosition;
+              }
+            });
+            break;
+          }
+          case 'keyboard_arrow_right':
+          {
+            btn.classList.remove('keyboard__key--large');
+            btn.addEventListener('click', () => {
+              if (caretPosition !== 0)
+              {
+                textArea.selectionStart = textArea.selectionEnd = ++caretPosition;
+              }
+            });
             break;
           }
         }
