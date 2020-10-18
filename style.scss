@@ -24,6 +24,7 @@ body {
   background: linear-gradient(to top, #5f2699, #024a9c);
   width: 100%;
   box-shadow: 0 -1.5rem 3rem rgba(0, 0, 0, .25);
+  transition: bottom .5s;
   
   &__keys {
     text-align: center;
@@ -63,10 +64,17 @@ body {
         content: '';
         width: 5px;
         height: 5px;
-        background-color: #AAA;
+        background-color: #333;
         position: absolute;
         top: 1rem;
         right: 1rem;
+      }
+    }
+
+    &--active {
+      &:after{
+        background-color: #FFF;
+        box-shadow:0 0 .5rem #FFF;
       }
     }
     
@@ -81,6 +89,9 @@ body {
         background-color: lighten(#992699, 20%);
       }
     }
-    
+  }
+
+  &--hidden {
+    bottom: -50%;
   }
 }

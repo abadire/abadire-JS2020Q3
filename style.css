@@ -55,6 +55,8 @@ body {
   width: 100%;
   -webkit-box-shadow: 0 -1.5rem 3rem rgba(0, 0, 0, 0.25);
           box-shadow: 0 -1.5rem 3rem rgba(0, 0, 0, 0.25);
+  -webkit-transition: bottom .5s;
+  transition: bottom .5s;
 }
 
 .keyboard__keys {
@@ -104,10 +106,16 @@ body {
   content: '';
   width: 5px;
   height: 5px;
-  background-color: #AAA;
+  background-color: #333;
   position: absolute;
   top: 1rem;
   right: 1rem;
+}
+
+.keyboard__key--active:after {
+  background-color: #FFF;
+  -webkit-box-shadow: 0 0 .5rem #FFF;
+          box-shadow: 0 0 .5rem #FFF;
 }
 
 .keyboard__key:active {
@@ -120,4 +128,8 @@ body {
 
 .keyboard__key--dark:active {
   background-color: #d451d4;
+}
+
+.keyboard--hidden {
+  bottom: -50%;
 }
