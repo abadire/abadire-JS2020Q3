@@ -177,6 +177,4 @@ keys.appendChild(createKeys());
 keyboard.appendChild(keys);
 document.body.appendChild(keyboard);
 
-document.getElementsByClassName('text-input')[0].addEventListener('focus', () => {
-  showKbd();
-});
+document.getElementsByClassName('text-input')[0].addEventListener('click', showKbd);
