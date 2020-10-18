@@ -1,6 +1,19 @@
 const textArea = document.getElementsByClassName('text-input')[0];
-let capslockable = []; // For CAPSLOCKable buttons
+const capslockable = []; // For CAPSLOCKable buttons
 let caretPosition = 0;
+const shifts = {
+  1: '!',
+  2: '@',
+  3: '#',
+  4: '$',
+  5: '%',
+  6: '^',
+  7: '&',
+  8: '*',
+  9: '(',
+  0: ')'
+};
+let shiftOn = false;
 
 function createKeys() {
   const fragment = document.createDocumentFragment();
@@ -40,7 +53,7 @@ function createKeys() {
     'l',
     'keyboard_return',
     'br',
-    'check_circle',
+    'arrow_upward',
     'z',
     'x',
     'c',
@@ -52,6 +65,7 @@ function createKeys() {
     '.',
     '?',
     'br',
+    'check_circle',
     'space_bar'
   ];
   
@@ -71,8 +85,7 @@ function createKeys() {
           textArea.value = textArea.value.slice(0, textArea.selectionStart) + this.textContent + textArea.value.slice(textArea.selectionStart);
           caretPosition++;
         });
-        // Add to CAPSLOCKable list if the letter is really a letter
-        if (/[a-zA-Z]/.test(letter)) capslockable.push(btn);
+        capslockable.push(btn);
       }
       else // for command keys
       {
@@ -124,6 +137,12 @@ function createKeys() {
             btn.addEventListener('click', hideKbd);
             break;
           }
+          case 'arrow_upward':
+          {
+            btn.classList.add('keyboard__key--toggle');
+            btn.addEventListener('click', toggleShift);
+            break;
+          }
         }
       }
     }
@@ -143,15 +162,40 @@ function createKeys() {
   return fragment;
 }
 
+// Changes layout based on SHIFT button
 function toggleCaps()
 {
-  if (this.classList.toggle('keyboard__key--active')) 
+  if (this.classList.toggle('keyboard__key--active'))
   {
-    for (let btn of capslockable) btn.textContent = btn.textContent.toUpperCase();
+    if (shiftOn) capslockable.forEach(btn => btn.textContent = btn.textContent.toLowerCase());
+    else  capslockable.forEach(btn => btn.textContent = btn.textContent.toUpperCase());
   }
   else
   {
-    for (let btn of capslockable) btn.textContent = btn.textContent.toLowerCase();
+    if (shiftOn) capslockable.forEach(btn => btn.textContent = btn.textContent.toUpperCase());
+    else  capslockable.forEach(btn => btn.textContent = btn.textContent.toLowerCase());
+  }
+}
+
+function toggleShift()
+{
+  if (this.classList.toggle('keyboard__key--active'))
+  {
+    shiftOn = true;
+    capslockable.forEach(btn => {
+      if (/[A-Z]/.test(btn.textContent)) btn.textContent = btn.textContent.toLowerCase();
+      else if (/[a-z]/.test(btn.textContent)) btn.textContent = btn.textContent.toUpperCase();
+      else btn.textContent = shifts[btn.textContent];
+    });
+  }
+  else
+  {
+    shiftOn = false;
+    capslockable.forEach(btn => {
+      if (/[A-Z]/.test(btn.textContent)) btn.textContent = btn.textContent.toLowerCase();
+      else if (/[a-z]/.test(btn.textContent)) btn.textContent = btn.textContent.toUpperCase();
+      else btn.textContent = Object.keys(shifts).find(key => shifts[key] === btn.textContent);
+    });
   }
 }
 
@@ -164,6 +208,7 @@ function hideKbd() {
   keyboard.classList.add('keyboard--hidden');
 }
 
+/**** KEYBOARD GENERATION ****/
 const fragment = document.createDocumentFragment();
 
 const keyboard = document.createElement('div');
@@ -178,3 +223,4 @@ keyboard.appendChild(keys);
 document.body.appendChild(keyboard);
 
 document.getElementsByClassName('text-input')[0].addEventListener('click', showKbd);
+/*****************************/
