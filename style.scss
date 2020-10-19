@@ -50,6 +50,8 @@ body {
     color: white;
     vertical-align: top;
     -webkit-tap-highlight-color: transparent;
+    transition: background-color .1s,
+    transform .1s;
     
     &--large {
       width: 12%;
@@ -72,7 +74,7 @@ body {
         right: 1rem;
       }
     }
-
+    
     &--active {
       &:after{
         background-color: #FFF;
@@ -82,6 +84,7 @@ body {
     
     &:active {
       background-color: #FFFA;
+      transform: scale(.93);
     }
     
     &--dark {
@@ -92,7 +95,7 @@ body {
       }
     }
   }
-
+  
   &--hidden {
     bottom: -50%;
   }

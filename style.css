@@ -92,6 +92,10 @@ body {
   color: white;
   vertical-align: top;
   -webkit-tap-highlight-color: transparent;
+  -webkit-transition: background-color .1s, -webkit-transform .1s;
+  transition: background-color .1s, -webkit-transform .1s;
+  transition: background-color .1s, transform .1s;
+  transition: background-color .1s, transform .1s, -webkit-transform .1s;
 }
 
 .keyboard__key--large {
@@ -122,6 +126,8 @@ body {
 
 .keyboard__key:active {
   background-color: #FFFA;
+  -webkit-transform: scale(0.93);
+          transform: scale(0.93);
 }
 
 .keyboard__key--dark {
