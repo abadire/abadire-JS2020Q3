@@ -4,44 +4,43 @@ html {
   font-size: 62.5%;
   font-family: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: white;
+  // text-shadow: 0 .3rem 2rem #000;
 }
 
 body {
+  user-select: none;
+  background-color: black;
   position: relative;
-  z-index: -3;
+  height: 100vh;
 }
 
 .main {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  background-image: url("assets/images/day/01.jpg");
+  width: 100%;
+  height: 100%;
+  background-position: center;
   background-size: cover;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   text-align: center;
-  z-index: -2;
+  opacity: 0;
+  transition: all 1s;
 
-
-  &__overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url("assets/images/overlay.png");
-    background-size: 100% 100%;
-    z-index: -1;
+  &__bottom {
+    flex-basis: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1px;
   }
 
   &__time {
-    font-size: 15rem;
+    font-size: 13rem;
     line-height: 90%;
   }
 
   &__date {
-    font-size: 4rem;
+    font-size: 3.5rem;
     margin-bottom: 1rem;
   }
 
@@ -49,11 +48,29 @@ body {
     font-size: 5rem;
   }
 
-  &__focus {
-    font-size: 5rem;
+  &__cite {
+    font-size: 1.7rem;
+  }
+}
+
+.focus {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__heading {
+    font-size: 3rem;
   }
 
-  &__cite {
-    font-size: 2rem;
+  &__input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid white;
+    color: white;
+    font-size: 3rem;
+    text-align: center;
+    padding-bottom: .3rem;
   }
 }
