@@ -2,6 +2,7 @@ const main = document.getElementsByClassName('main')[0];
 const greet = document.getElementsByClassName('main__greeting')[0];
 const time = document.getElementsByClassName('main__time')[0];
 const date = document.getElementsByClassName('main__date')[0];
+const quote = document.getElementsByClassName('main__quote')[0];
 
 const digitToWeekDay = {
   0: 'Sunday',
@@ -46,19 +47,31 @@ function checkTime() {
   else currentPeriod = 'evening';
   
   if (!localStorage.getItem('currentPeriod')
-      || localStorage.getItem('currentPeriod') !== currentPeriod)
+  || localStorage.getItem('currentPeriod') !== currentPeriod)
   {
     localStorage.setItem('currentPeriod', currentPeriod);
+    
     let imageNumber = Math.floor(Math.random() * 20 + 1).toString().padStart(2, '0');
     localStorage.setItem('backgroundImage', imageNumber);
+    
+    let quoteText = '';
+    fetch("https://type.fit/api/quotes")
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data) {
+      quoteText = data[Math.floor(Math.random() * data.length)].text;
+    });
+    localStorage.setItem('quoteText', quoteText);
   }
   
   if (greet.textContent === '')
   {
     greet.textContent = `Good ${currentPeriod}.`;
     main.style.backgroundImage = `url("assets/images/${localStorage.getItem('currentPeriod')}/${localStorage.getItem('backgroundImage')}.jpg")`
+    quote.textContent = localStorage.getItem('quote');
   }
-
+  
   if (main.style.opacity === '') main.style.opacity = '1';
 }
 

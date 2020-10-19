@@ -33,6 +33,7 @@ html {
   font-size: 62.5%;
   font-family: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: white;
+  text-shadow: 0 .3rem 3rem #000;
 }
 
 body {
@@ -95,7 +96,7 @@ body {
   font-size: 5rem;
 }
 
-.main__cite {
+.main__quote {
   font-size: 1.7rem;
 }
 
