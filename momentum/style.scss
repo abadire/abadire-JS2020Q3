@@ -40,7 +40,7 @@ body {
   position: relative;
   z-index: -2;
   transition: all 1s;
-
+  
   &__overlay {
     background-image: url('assets/images/overlay.png');
     position: fixed;
@@ -50,7 +50,7 @@ body {
     left: 0;
     z-index: -1;
   }
-
+  
   &__bottom {
     flex-basis: 6rem;
     display: flex;
@@ -59,27 +59,52 @@ body {
     margin: 0 auto 1px auto;
     text-align: right;
   }
-
+  
   &__time {
     font-size: 13rem;
     line-height: 90%;
     text-shadow: 0 0.3rem 4rem #000;
   }
-
+  
   &__date {
     font-size: 3.5rem;
     margin-bottom: 1rem;
   }
-
+  
+  &__greetDiv:hover .main__icon {
+    display: flex;
+  }
+  
   &__greeting {
+    display: inline-block;
+    position: relative;
     font-size: 5rem;
   }
-
+  
+  &__icon {
+    font-family: 'Material Icons';
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    font-size: 2.4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -3rem;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 100%;
+    
+    &:hover {
+      background-color: #FFF6;
+    }
+  }
+  
   &__quote {
     font-size: 1.7rem;
     margin-bottom: .5rem;
   }
-
+  
   &__author {
     font-size: 1.5rem;
   }
@@ -90,12 +115,12 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  
   &__heading {
     font-size: 3rem;
     margin-bottom: 1.5rem;
   }
-
+  
   &__input {
     background-color: transparent;
     border: none;

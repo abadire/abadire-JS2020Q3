@@ -56,14 +56,14 @@ function checkTime() {
     localStorage.setItem('backgroundImage', imageNumber);
   }
   
-  if (greet.textContent === '')
+  if (!/\S/.test(greet.firstChild.nodeValue))
   {
-    greet.textContent = `Good ${currentPeriod}`;
+    greet.firstChild.nodeValue += `Good ${currentPeriod}`;
     if (localStorage.getItem('name'))
     {
-      greet.textContent += ', ' + localStorage.getItem('name') + '.';
+      greet.firstChild.nodeValue += ', ' + localStorage.getItem('name');
     }
-    else greet.textContent += '.';
+    greet.firstChild.nodeValue += '.\n';
 
     main.style.backgroundImage = `url("assets/images/${localStorage.getItem('currentPeriod')}/${localStorage.getItem('backgroundImage')}.jpg")`
   }
