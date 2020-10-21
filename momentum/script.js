@@ -3,6 +3,7 @@ const greet = document.getElementsByClassName('main__greeting')[0];
 const time = document.getElementsByClassName('main__time')[0];
 const date = document.getElementsByClassName('main__date')[0];
 const quote = document.getElementsByClassName('main__quote')[0];
+const author = document.getElementsByClassName('main__author')[0];
 
 const digitToWeekDay = {
   0: 'Sunday',
@@ -53,26 +54,61 @@ function checkTime() {
     
     let imageNumber = Math.floor(Math.random() * 20 + 1).toString().padStart(2, '0');
     localStorage.setItem('backgroundImage', imageNumber);
-    
-    let quoteText = '';
-    fetch("https://type.fit/api/quotes")
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(data) {
-      quoteText = data[Math.floor(Math.random() * data.length)].text;
-    });
-    localStorage.setItem('quoteText', quoteText);
   }
   
   if (greet.textContent === '')
   {
-    greet.textContent = `Good ${currentPeriod}.`;
+    greet.textContent = `Good ${currentPeriod}`;
+    if (localStorage.getItem('name'))
+    {
+      greet.textContent += ', ' + localStorage.getItem('name') + '.';
+    }
+    else greet.textContent += '.';
+
     main.style.backgroundImage = `url("assets/images/${localStorage.getItem('currentPeriod')}/${localStorage.getItem('backgroundImage')}.jpg")`
-    quote.textContent = localStorage.getItem('quote');
   }
   
-  if (main.style.opacity === '') main.style.opacity = '1';
+  if (quote.textContent === '')
+  {
+    if (!localStorage.getItem('quoteText') || +localStorage.getItem('day') !== day)
+    {
+      fetch("https://type.fit/api/quotes")
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        let quoteData = data[Math.floor(Math.random() * data.length)];
+        localStorage.setItem('quoteText', quoteData.text);
+        localStorage.setItem('quoteAuthor', quoteData.author);
+      });
+      localStorage.setItem('day', day);
+    }
+
+    if (localStorage.getItem('quoteText'))
+    {
+      quote.textContent = '“' + localStorage.getItem('quoteText') + '”';
+      author.textContent = '- ' + localStorage.getItem('quoteAuthor');
+    }
+  }
+  
+  if (main.style.opacity === '')
+  {
+    main.style.opacity = '1';
+  }
 }
 
-setInterval(checkTime, 500);
+document.getElementsByClassName('focus__input--loader')[0].addEventListener('keypress', function(event) {
+  if (event.keyCode === 13)
+  {
+    event.preventDefault();
+    localStorage.setItem('name', event.target.value);
+    document.getElementsByClassName('loader')[0].style.display = 'none';
+    setInterval(checkTime, 500);
+  }
+});
+
+if (localStorage.getItem('name'))
+{
+  document.getElementsByClassName('loader')[0].style.display = 'none';
+  setInterval(checkTime, 500);
+}

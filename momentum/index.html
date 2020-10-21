@@ -12,9 +12,16 @@
   <script src="script.js" defer></script>
 </head>
 <body>
+  <div class="loader">
+    <div class="focus">
+      <h2 class="focus__heading">Hello, what is your name?</h2>
+      <input class="focus__input focus__input--loader" type="text">
+      <input type="submit" style="display: none;">
+    </div>
+  </div>
   <main class='main'>
     <div class="main__overlay"></div>
-    
+
     <div class="main__top"></div>
 
     <div class="main__middle">
@@ -26,10 +33,10 @@
         <input class="focus__input" type="text">
       </div>
     </div>
-
     
     <div class="main__bottom">
-      <h3 class="main__quote">“Do the best you can until you know better. Then when you know better, do better.”</h3>
+      <h3 class="main__quote"></h3>
+      <h4 class="main__author"></h4>
     </div>
   </main>
 </body>
