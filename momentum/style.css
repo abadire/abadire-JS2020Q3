@@ -29,6 +29,102 @@ a {
   color: inherit;
 }
 
+.btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  top: 50%;
+  right: -4rem;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 3.3rem;
+  height: 3.3rem;
+  border: none;
+  border-radius: 100%;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  font-family: 'Material Icons';
+  color: white;
+  font-size: 3rem;
+  -webkit-transition: background-color .3s;
+  transition: background-color .3s;
+}
+
+.btn:hover {
+  background-color: #FFF4;
+}
+
+.btn:active {
+  background-color: #FFF7;
+}
+
+.focus {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 3rem;
+}
+
+.focus__heading {
+  margin-bottom: 1.5rem;
+}
+
+.focus__input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid white;
+  color: white;
+  text-align: center;
+  padding-bottom: .3rem;
+  max-width: 35.2rem;
+}
+
+.focus__editable {
+  outline: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: .2rem;
+  min-width: 0;
+  -webkit-transition: min-width .7s, background-color .3s, border-bottom .7s;
+  transition: min-width .7s, background-color .3s, border-bottom .7s;
+  border-radius: 3px;
+}
+
+.focus__editable:hover {
+  background-color: #FFF4;
+}
+
+.focus__editable:focus {
+  border-bottom: 2px solid white;
+  min-width: 20rem;
+}
+
+.focus__editable::-moz-selection {
+  background-color: #FFF7;
+}
+
+.focus__editable::selection {
+  background-color: #FFF7;
+}
+
 html {
   font-size: 62.5%;
   font-family: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -92,34 +188,14 @@ body {
 }
 
 .main__next {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   position: fixed;
   top: 1rem;
   left: 1rem;
   width: 4rem;
   height: 4rem;
-  border: none;
-  border-radius: 100%;
-  background: transparent;
-  outline: none;
-  cursor: pointer;
-  font-family: 'Material Icons';
-  color: white;
   font-size: 4rem;
-  -webkit-transition: background-color .3s;
-  transition: background-color .3s;
-}
-
-.main__next:hover {
-  background-color: #FFF4;
+  -webkit-transform: translate(0);
+          transform: translate(0);
 }
 
 .main__overlay {
@@ -218,98 +294,6 @@ body {
 
 .main__author {
   font-size: 1.5rem;
-}
-
-.main__requote {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  position: absolute;
-  top: 50%;
-  right: -4rem;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  width: 3.3rem;
-  height: 3.3rem;
-  border: none;
-  border-radius: 100%;
-  background: transparent;
-  outline: none;
-  cursor: pointer;
-  font-family: 'Material Icons';
-  color: white;
-  font-size: 3rem;
-  -webkit-transition: background-color .3s;
-  transition: background-color .3s;
-}
-
-.main__requote:hover {
-  background-color: #FFF4;
-}
-
-.focus {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  font-size: 3rem;
-}
-
-.focus__heading {
-  margin-bottom: 1.5rem;
-}
-
-.focus__input {
-  background-color: transparent;
-  border: none;
-  outline: none;
-  border-bottom: 2px solid white;
-  color: white;
-  text-align: center;
-  padding-bottom: .3rem;
-  max-width: 35.2rem;
-}
-
-.focus__editable {
-  outline: none;
-  border-bottom: 2px solid transparent;
-  padding-bottom: .2rem;
-  min-width: 0;
-  -webkit-transition: min-width .7s, background-color .3s, border-bottom .7s;
-  transition: min-width .7s, background-color .3s, border-bottom .7s;
-  border-radius: 3px;
-}
-
-.focus__editable:hover {
-  background-color: #FFF4;
-}
-
-.focus__editable:focus {
-  border-bottom: 2px solid white;
-  min-width: 20rem;
-}
-
-.focus__editable::-moz-selection {
-  background-color: #FFF7;
-}
-
-.focus__editable::selection {
-  background-color: #FFF7;
 }
 
 .tooltiptext {

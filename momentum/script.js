@@ -43,6 +43,7 @@ for (let i = 0; i < 6; ++i)
 {
   imageIndices.push((Math.floor(Math.random() * 20) + 1).toString().padStart(2, '0'));
 }
+let currentPeriod = getPeriod(hour);
 
 // Helper functions
 function getPeriod(hour) {
@@ -50,6 +51,12 @@ function getPeriod(hour) {
   else if (+hour < 12) return 'morning';
   else if (+hour < 18) return 'afternoon';
   else return 'evening';
+}
+
+function preloadImage(src) {
+  const img = document.createElement('img');
+  img.src = src;
+  img.onload = () => main.style.backgroundImage = `url(${src})`;
 }
 
 // Refresh function
@@ -60,27 +67,22 @@ function checkTime() {
   let day = today.getDate();
   let month = digitToMonth[today.getMonth()];
   let weekDay = digitToWeekDay[today.getDay()];
+  
+  time.textContent = h + ':' + m;
+  date.textContent = `${weekDay}, ${day} ${month}`;
 
-  let currentPeriod = getPeriod(h);
-  let indexedPeriod = getPeriod(imageIndex);
+  if (currentPeriod !== getPeriod(h))
+  {
+    greet.textContent = `Good ${currentPeriod},`;
+    currentPeriod = getPeriod(h);
+  }
 
   if (hour !== h)
   {
     if (hour !== NaN) imageIndex = (imageIndex + 1) % 24;
     hour = h;
-    const src = `assets/images/${indexedPeriod}/${imageIndices[imageIndex % 6]}.jpg`;
-    const img = document.createElement('img');
-    img.src = src;
-    img.onload = () => main.style.backgroundImage = `url(${src})`;
-  }
-  
-  time.textContent = h + ':' + m;
-  date.textContent = `${weekDay}, ${day} ${month}`;
-  
-  if (greet.textContent === '')
-  {
-    greet.textContent = `Good ${currentPeriod},`;
-    name.textContent = localStorage.getItem('name');
+    const src = `assets/images/${currentPeriod}/${imageIndices[imageIndex % 6]}.jpg`;
+    preloadImage(src);
   }
   
   if (main.style.opacity === '')
@@ -89,17 +91,7 @@ function checkTime() {
   }
 }
 
-document.getElementsByClassName('focus__input--loader')[0].addEventListener('keypress', function(event) {
-  if (event.keyCode === 13)
-  {
-    event.preventDefault();
-    if (!event.target.value) return;
-    localStorage.setItem('name', event.target.value);
-    document.getElementsByClassName('loader')[0].style.display = 'none';
-    setInterval(checkTime, 500);
-  }
-});
-
+// Event functions
 function setKey(key, event) {
   if (event.keyCode === 13 || event.type === 'blur')
   {
@@ -132,6 +124,26 @@ function reloadQuote() {
   setTimeout(() => requoter.disabled = false, 1000);
 }
 
+// Event listeners
+document.getElementsByClassName('focus__input--loader')[0].addEventListener('keypress', function(event) {
+  if (event.keyCode === 13)
+  {
+    event.preventDefault();
+    if (!event.target.value) return;
+    localStorage.setItem('name', event.target.value);
+    document.getElementsByClassName('loader')[0].style.display = 'none';
+    setInterval(checkTime, 500);
+  }
+});
+
+document.getElementsByClassName('main__next')[0].addEventListener('click', function() {
+  imageIndex = (imageIndex + 1) % 24;
+  const src = `assets/images/${getPeriod(imageIndex)}/${imageIndices[imageIndex % 6]}.jpg`;
+  preloadImage(src);
+  this.disabled = true;
+  setTimeout(() => this.disabled = false, 1000);
+});
+
 name.addEventListener('keypress', setKey.bind(name, 'name'));
 name.addEventListener('blur', setKey.bind(name, 'name'));
 
@@ -150,5 +162,8 @@ if (localStorage.getItem('name'))
   document.getElementsByClassName('loader')[0].style.display = 'none';
   setInterval(checkTime, 500);
 }
+
+greet.textContent = `Good ${currentPeriod},`;
+name.textContent = localStorage.getItem('name');
 
 reloadQuote();

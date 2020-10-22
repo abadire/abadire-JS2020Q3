@@ -1,4 +1,5 @@
-@import "reset";
+@import "assets/sass/reset";
+@import "assets/sass/components";
 
 html {
   font-size: 62.5%;
@@ -42,31 +43,13 @@ body {
   transition: all 1s;
   
   &__next {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
     position: fixed;
     top: 1rem;
     left: 1rem;
     width: 4rem;
     height: 4rem;
-    
-    border: none;
-    border-radius: 100%;
-    background: transparent;
-    outline: none;
-    cursor: pointer;
-    
-    font-family: 'Material Icons';
-    color: white;
     font-size: 4rem;
-    
-    transition: background-color .3s;
-    
-    &:hover {
-      background-color: #FFF4;
-    }
+    transform: translate(0);
   }
   
   &__overlay {
@@ -147,80 +130,6 @@ body {
   
   &__author {
     font-size: 1.5rem;
-  }
-  
-  &__requote {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    position: absolute;
-    top: 50%;
-    right: -4rem;
-    transform: translateY(-50%);
-    width: 3.3rem;
-    height: 3.3rem;
-    
-    border: none;
-    border-radius: 100%;
-    background: transparent;
-    outline: none;
-    cursor: pointer;
-    
-    font-family: 'Material Icons';
-    color: white;
-    font-size: 3rem;
-    
-    transition: background-color .3s;
-    
-    &:hover {
-      background-color: #FFF4;
-    }
-  }
-}
-
-.focus {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 3rem;
-  
-  &__heading {
-    margin-bottom: 1.5rem;
-  }
-  
-  &__input {
-    background-color: transparent;
-    border: none;
-    outline: none;
-    border-bottom: 2px solid white;
-    color: white;
-    text-align: center;
-    padding-bottom: .3rem;
-    max-width: 35.2rem;
-  }
-  
-  &__editable {
-    outline: none;
-    border-bottom: 2px solid transparent;
-    padding-bottom: .2rem;
-    min-width: 0;
-    transition: min-width .7s, background-color .3s, border-bottom .7s;
-    border-radius: 3px;
-    
-    &:hover {
-      background-color: #FFF4;
-    }
-    
-    &:focus {
-      border-bottom: 2px solid white;
-      min-width: 20rem;
-    }
-    
-    &::selection {
-      background-color: #FFF7;
-    }
   }
 }
 
