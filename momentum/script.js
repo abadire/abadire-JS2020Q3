@@ -36,8 +36,8 @@ const digitToMonth = {
 };
 
 // Global variables
-let hour = NaN;
-let imageIndex = (new Date()).getHours();
+let hour = (new Date()).getHours();
+let imageIndex = hour;
 let imageIndices = [];
 for (let i = 0; i < 6; ++i)
 {
@@ -73,8 +73,8 @@ function checkTime() {
 
   if (currentPeriod !== getPeriod(h))
   {
-    greet.textContent = `Good ${currentPeriod},`;
     currentPeriod = getPeriod(h);
+    greet.textContent = `Good ${currentPeriod},`;
   }
 
   if (hour !== h)
