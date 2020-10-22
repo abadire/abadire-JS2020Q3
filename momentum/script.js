@@ -6,7 +6,8 @@ focus = document.getElementsByClassName('focus__editable')[0],
 time = document.getElementsByClassName('main__time')[0],
 date = document.getElementsByClassName('main__date')[0],
 quote = document.getElementsByClassName('main__quote')[0],
-author = document.getElementsByClassName('main__author')[0];
+author = document.getElementsByClassName('main__author')[0],
+requoter = document.getElementsByClassName('main__requote')[0];
 
 // Map objects
 const digitToWeekDay = {
@@ -121,6 +122,8 @@ name.addEventListener('blur', setKey.bind(name, 'name'));
 
 focus.addEventListener('keypress', setKey.bind(focus, 'focus'));
 focus.addEventListener('blur', setKey.bind(focus, 'focus'));
+
+requoter.addEventListener('click', reloadQuote);
 
 if (localStorage.getItem('focus'))
 {
