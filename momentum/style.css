@@ -129,40 +129,48 @@ body {
   margin-bottom: 1rem;
 }
 
-.main__greetDiv:hover .main__icon {
+.main__greetDiv {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-}
-
-.main__greeting {
-  display: inline-block;
-  position: relative;
-  font-size: 5rem;
-}
-
-.main__icon {
-  font-family: 'Material Icons';
-  display: none;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  position: absolute;
-  font-size: 2.4rem;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  right: -3rem;
-  width: 2.6rem;
-  height: 2.6rem;
-  border-radius: 100%;
+  font-size: 5rem;
 }
 
-.main__icon:hover {
-  background-color: #FFF6;
+.main__name {
+  display: inline-block;
+  outline: none;
+  margin-left: .5rem;
+  font-size: inherit;
+  border-bottom: 2px solid transparent;
+  padding-bottom: .3rem;
+  min-width: 0;
+  -webkit-transition: min-width .7s, background-color .3s, border-bottom .7s;
+  transition: min-width .7s, background-color .3s, border-bottom .7s;
+  border-radius: 3px;
+}
+
+.main__name:hover {
+  background-color: #FFF4;
+}
+
+.main__name:focus {
+  min-width: 15rem;
+  border-bottom: 2px solid white;
+}
+
+.main__name::-moz-selection {
+  background-color: #FFF7;
+}
+
+.main__name::selection {
+  background-color: #FFF7;
+}
+
+.main__punctuation {
+  font-size: inherit;
 }
 
 .main__quote {
@@ -188,10 +196,10 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  font-size: 3rem;
 }
 
 .focus__heading {
-  font-size: 3rem;
   margin-bottom: 1.5rem;
 }
 
@@ -201,8 +209,34 @@ body {
   outline: none;
   border-bottom: 2px solid white;
   color: white;
-  font-size: 3rem;
   text-align: center;
   padding-bottom: .3rem;
   max-width: 35.2rem;
+}
+
+.focus__editable {
+  outline: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: .2rem;
+  min-width: 0;
+  -webkit-transition: min-width .7s, background-color .3s, border-bottom .7s;
+  transition: min-width .7s, background-color .3s, border-bottom .7s;
+  border-radius: 3px;
+}
+
+.focus__editable:hover {
+  background-color: #FFF4;
+}
+
+.focus__editable:focus {
+  border-bottom: 2px solid white;
+  min-width: 20rem;
+}
+
+.focus__editable::-moz-selection {
+  background-color: #FFF7;
+}
+
+.focus__editable::selection {
+  background-color: #FFF7;
 }

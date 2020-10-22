@@ -1,10 +1,14 @@
-const main = document.getElementsByClassName('main')[0];
-const greet = document.getElementsByClassName('main__greeting')[0];
-const time = document.getElementsByClassName('main__time')[0];
-const date = document.getElementsByClassName('main__date')[0];
-const quote = document.getElementsByClassName('main__quote')[0];
-const author = document.getElementsByClassName('main__author')[0];
+// DOM Elements
+const main = document.getElementsByClassName('main')[0],
+  greet = document.getElementsByClassName('main__greeting')[0],
+  name = document.getElementsByClassName('main__name')[0],
+  focus = document.getElementsByClassName('focus__editable')[0],
+  time = document.getElementsByClassName('main__time')[0],
+  date = document.getElementsByClassName('main__date')[0],
+  quote = document.getElementsByClassName('main__quote')[0],
+  author = document.getElementsByClassName('main__author')[0];
 
+// Map objects
 const digitToWeekDay = {
   0: 'Sunday',
   1: 'Monday',
@@ -30,6 +34,7 @@ const digitToMonth = {
   11: 'December'
 };
 
+// Refresh function
 function checkTime() {
   let today = new Date();
   let h = today.getHours().toString().padStart(2, '0');
@@ -56,15 +61,11 @@ function checkTime() {
     localStorage.setItem('backgroundImage', imageNumber);
   }
   
-  if (!/\S/.test(greet.firstChild.nodeValue))
+  if (greet.textContent === '')
   {
-    greet.firstChild.nodeValue += `Good ${currentPeriod}`;
-    if (localStorage.getItem('name'))
-    {
-      greet.firstChild.nodeValue += ', ' + localStorage.getItem('name');
-    }
-    greet.firstChild.nodeValue += '.\n';
-
+    greet.textContent = `Good ${currentPeriod},`;
+    name.textContent = localStorage.getItem('name');
+    
     main.style.backgroundImage = `url("assets/images/${localStorage.getItem('currentPeriod')}/${localStorage.getItem('backgroundImage')}.jpg")`
   }
   
@@ -83,7 +84,7 @@ function checkTime() {
       });
       localStorage.setItem('day', day);
     }
-
+    
     if (localStorage.getItem('quoteText'))
     {
       quote.textContent = '“' + localStorage.getItem('quoteText') + '”';
@@ -101,11 +102,40 @@ document.getElementsByClassName('focus__input--loader')[0].addEventListener('key
   if (event.keyCode === 13)
   {
     event.preventDefault();
+    if (!event.target.value) return;
     localStorage.setItem('name', event.target.value);
     document.getElementsByClassName('loader')[0].style.display = 'none';
     setInterval(checkTime, 500);
   }
 });
+
+function setKey(key, event) {
+  if (event.keyCode === 13 || event.type === 'blur')
+  {
+    event.preventDefault();
+    if (this.textContent !== '')
+    {
+      localStorage.setItem(key, this.textContent);
+    }
+    else
+    {
+      this.textContent = localStorage.getItem(key);
+    }
+    this.blur();
+    window.getSelection().removeAllRanges();
+  }
+}
+
+name.addEventListener('keypress', setKey.bind(name, 'name'));
+name.addEventListener('blur', setKey.bind(name, 'name'));
+
+focus.addEventListener('keypress', setKey.bind(focus, 'focus'));
+focus.addEventListener('blur', setKey.bind(focus, 'focus'));
+
+if (localStorage.getItem('focus'))
+{
+  focus.textContent = localStorage.getItem('focus');
+}
 
 if (localStorage.getItem('name'))
 {

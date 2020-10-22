@@ -7,7 +7,6 @@
   <link href="https://fonts.cdnfonts.com/css/neue-haas-grotesk-text-pro?styles=16509,16511" rel="stylesheet"> <!-- Neue Haas Grotesk Text Pro 400 700 -->
   <link href="https://fonts.cdnfonts.com/css/helvetica-neue-9?styles=49034,49032" rel="stylesheet"> <!-- Helvetica Neue 700 900 -->
   <link href="https://fonts.cdnfonts.com/css/helvetica-255?styles=15805,30118,15802" rel="stylesheet"> <!-- Helvetica 400 500 700 -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <!-- Material Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
@@ -22,20 +21,20 @@
   </div>
   <main class='main'>
     <div class="main__overlay"></div>
-
+    
     <div class="main__top"></div>
-
+    
     <div class="main__middle">
       <h1 class="main__time"></h1>
       <h2 class="main__date"></h2>
-      <div class="main__greetDiv">
-        <h2 class="main__greeting">
-          <span class="main__icon">more_horiz</span>
-        </h2>
-      </div>
+      <h2 class="main__greetDiv">
+        <span class="main__greeting"></span>
+        <span class="main__name" contenteditable="true" spellcheck="false"></span>
+        <span class="main__punctuation">.</span>
+      </h2>
       <div class="focus">
         <h2 class="focus__heading">What is your main focus for today?</h2>
-        <input class="focus__input" type="text">
+        <span class="focus__editable" contenteditable="true" spellcheck="false">My focus is...</span>
       </div>
     </div>
     
