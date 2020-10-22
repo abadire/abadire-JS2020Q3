@@ -101,23 +101,6 @@ body {
   z-index: -1;
 }
 
-.main__bottom {
-  -ms-flex-preferred-size: 6rem;
-      flex-basis: 6rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  margin: 0 auto 1px auto;
-  text-align: right;
-}
-
 .main__time {
   font-size: 13rem;
   line-height: 90%;
@@ -129,7 +112,7 @@ body {
   margin-bottom: 1rem;
 }
 
-.main__greetDiv {
+.main__greet {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -137,6 +120,7 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   font-size: 5rem;
+  margin-bottom: 1rem;
 }
 
 .main__name {
@@ -173,13 +157,69 @@ body {
   font-size: inherit;
 }
 
+.main__bottom {
+  -ms-flex-preferred-size: 6rem;
+      flex-basis: 6rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 0 auto 1px auto;
+  text-align: right;
+  max-width: 70%;
+  opacity: 0;
+  position: relative;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+}
+
 .main__quote {
   font-size: 1.7rem;
   margin-bottom: .5rem;
+  text-align: center;
 }
 
 .main__author {
   font-size: 1.5rem;
+}
+
+.main__requote {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  top: 50%;
+  right: -4rem;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 3.3rem;
+  height: 3.3rem;
+  border: none;
+  border-radius: 100%;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  font-family: 'Material Icons';
+  color: white;
+  font-size: 3rem;
+  -webkit-transition: background-color .3s;
+  transition: background-color .3s;
+}
+
+.main__requote:hover {
+  background-color: #FFF4;
 }
 
 .focus {

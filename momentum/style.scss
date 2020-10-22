@@ -51,15 +51,6 @@ body {
     z-index: -1;
   }
   
-  &__bottom {
-    flex-basis: 6rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 0 auto 1px auto;
-    text-align: right;
-  }
-  
   &__time {
     font-size: 13rem;
     line-height: 90%;
@@ -71,10 +62,11 @@ body {
     margin-bottom: 1rem;
   }
   
-  &__greetDiv {
+  &__greet {
     display: flex;
     justify-content: center;
     font-size: 5rem;
+    margin-bottom: 1rem;
   }
 
   &__name {
@@ -106,13 +98,56 @@ body {
     font-size: inherit;
   }
   
+  &__bottom {
+    flex-basis: 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto 1px auto;
+    text-align: right;
+    max-width: 70%;
+    opacity: 0;
+    position: relative;
+    transition: opacity 1s;
+  }
+
   &__quote {
     font-size: 1.7rem;
     margin-bottom: .5rem;
+    text-align: center;
   }
   
   &__author {
     font-size: 1.5rem;
+  }
+
+  &__requote {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 50%;
+    right: -4rem;
+    transform: translateY(-50%);
+    width: 3.3rem;
+    height: 3.3rem;
+
+    border: none;
+    border-radius: 100%;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+
+    font-family: 'Material Icons';
+    color: white;
+    font-size: 3rem;
+
+    transition: background-color .3s;
+
+    &:hover {
+      background-color: #FFF4;
+    }
   }
 }
 

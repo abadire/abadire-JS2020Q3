@@ -1,12 +1,12 @@
 // DOM Elements
 const main = document.getElementsByClassName('main')[0],
-  greet = document.getElementsByClassName('main__greeting')[0],
-  name = document.getElementsByClassName('main__name')[0],
-  focus = document.getElementsByClassName('focus__editable')[0],
-  time = document.getElementsByClassName('main__time')[0],
-  date = document.getElementsByClassName('main__date')[0],
-  quote = document.getElementsByClassName('main__quote')[0],
-  author = document.getElementsByClassName('main__author')[0];
+greet = document.getElementsByClassName('main__greeting')[0],
+name = document.getElementsByClassName('main__name')[0],
+focus = document.getElementsByClassName('focus__editable')[0],
+time = document.getElementsByClassName('main__time')[0],
+date = document.getElementsByClassName('main__date')[0],
+quote = document.getElementsByClassName('main__quote')[0],
+author = document.getElementsByClassName('main__author')[0];
 
 // Map objects
 const digitToWeekDay = {
@@ -69,29 +69,6 @@ function checkTime() {
     main.style.backgroundImage = `url("assets/images/${localStorage.getItem('currentPeriod')}/${localStorage.getItem('backgroundImage')}.jpg")`
   }
   
-  if (quote.textContent === '')
-  {
-    if (!localStorage.getItem('quoteText') || +localStorage.getItem('day') !== day)
-    {
-      fetch("https://type.fit/api/quotes")
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
-        let quoteData = data[Math.floor(Math.random() * data.length)];
-        localStorage.setItem('quoteText', quoteData.text);
-        localStorage.setItem('quoteAuthor', quoteData.author);
-      });
-      localStorage.setItem('day', day);
-    }
-    
-    if (localStorage.getItem('quoteText'))
-    {
-      quote.textContent = '“' + localStorage.getItem('quoteText') + '”';
-      author.textContent = '- ' + localStorage.getItem('quoteAuthor');
-    }
-  }
-  
   if (main.style.opacity === '')
   {
     main.style.opacity = '1';
@@ -126,6 +103,19 @@ function setKey(key, event) {
   }
 }
 
+function reloadQuote() {
+  fetch("https://type.fit/api/quotes")
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(data) {
+    let quoteData = data[Math.floor(Math.random() * data.length)];
+    quote.textContent = '“' + quoteData.text + '”';
+    author.textContent = '- ' + (quoteData.author || 'Anonymous');
+    document.getElementsByClassName('main__bottom')[0].style.opacity = '1';
+  });
+}
+
 name.addEventListener('keypress', setKey.bind(name, 'name'));
 name.addEventListener('blur', setKey.bind(name, 'name'));
 
@@ -142,3 +132,5 @@ if (localStorage.getItem('name'))
   document.getElementsByClassName('loader')[0].style.display = 'none';
   setInterval(checkTime, 500);
 }
+
+reloadQuote();
