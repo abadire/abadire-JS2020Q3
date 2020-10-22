@@ -4,7 +4,7 @@ html {
   font-size: 62.5%;
   font-family: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: white;
-  text-shadow: 0 .3rem 3rem #000;
+  text-shadow: 0 0 2rem #000, 0 0 2rem #000;
 }
 
 body {
@@ -41,6 +41,34 @@ body {
   z-index: -2;
   transition: all 1s;
   
+  &__next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    width: 4rem;
+    height: 4rem;
+    
+    border: none;
+    border-radius: 100%;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+    
+    font-family: 'Material Icons';
+    color: white;
+    font-size: 4rem;
+    
+    transition: background-color .3s;
+    
+    &:hover {
+      background-color: #FFF4;
+    }
+  }
+  
   &__overlay {
     background-image: url('assets/images/overlay.png');
     position: fixed;
@@ -68,7 +96,7 @@ body {
     font-size: 5rem;
     margin-bottom: 1rem;
   }
-
+  
   &__name {
     display: inline-block;
     outline: none;
@@ -79,21 +107,21 @@ body {
     min-width: 0;
     transition: min-width .7s, background-color .3s, border-bottom .7s;
     border-radius: 3px;
-
+    
     &:hover {
       background-color: #FFF4;
     }
-
+    
     &:focus {
       min-width: 15rem;
       border-bottom: 2px solid white;
     }
-
+    
     &::selection {
       background-color: #FFF7;
     }
   }
-
+  
   &__punctuation {
     font-size: inherit;
   }
@@ -110,7 +138,7 @@ body {
     position: relative;
     transition: opacity 1s;
   }
-
+  
   &__quote {
     font-size: 1.7rem;
     margin-bottom: .5rem;
@@ -120,31 +148,31 @@ body {
   &__author {
     font-size: 1.5rem;
   }
-
+  
   &__requote {
     display: flex;
     justify-content: center;
     align-items: center;
-
+    
     position: absolute;
     top: 50%;
     right: -4rem;
     transform: translateY(-50%);
     width: 3.3rem;
     height: 3.3rem;
-
+    
     border: none;
     border-radius: 100%;
     background: transparent;
     outline: none;
     cursor: pointer;
-
+    
     font-family: 'Material Icons';
     color: white;
     font-size: 3rem;
-
+    
     transition: background-color .3s;
-
+    
     &:hover {
       background-color: #FFF4;
     }
@@ -172,7 +200,7 @@ body {
     padding-bottom: .3rem;
     max-width: 35.2rem;
   }
-
+  
   &__editable {
     outline: none;
     border-bottom: 2px solid transparent;
@@ -180,22 +208,23 @@ body {
     min-width: 0;
     transition: min-width .7s, background-color .3s, border-bottom .7s;
     border-radius: 3px;
-
+    
     &:hover {
       background-color: #FFF4;
     }
-
+    
     &:focus {
       border-bottom: 2px solid white;
       min-width: 20rem;
     }
-
+    
     &::selection {
       background-color: #FFF7;
     }
   }
 }
 
+// COPYPASTA 🍝
 .tooltiptext {
   font-family: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   visibility: hidden;
@@ -213,18 +242,35 @@ body {
   margin-left: -60px;
   opacity: 0;
   transition: opacity 0.3s;
+  
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  &--right {
+    transform: translateY(-50%);
+    left: 115%;
+    bottom: 50%;
+    transform: translateY(50%);
+    margin: 0;
+    
+    &::after {
+      top: 50%;
+      transform: translateY(-50%);
+      left: -7%;
+      margin: 0;
+      border-color: transparent #555 transparent transparent;
+    }
+  }
 }
 
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
 
 .tooltip:hover .tooltiptext {
   visibility: visible;

@@ -35,6 +35,23 @@ const digitToMonth = {
   11: 'December'
 };
 
+// Global variables
+let hour = NaN;
+let imageIndex = (new Date()).getHours();
+let imageIndices = [];
+for (let i = 0; i < 6; ++i)
+{
+  imageIndices.push((Math.floor(Math.random() * 20) + 1).toString().padStart(2, '0'));
+}
+
+// Helper functions
+function getPeriod(hour) {
+  if (+hour < 6) return 'night';
+  else if (+hour < 12) return 'morning';
+  else if (+hour < 18) return 'afternoon';
+  else return 'evening';
+}
+
 // Refresh function
 function checkTime() {
   let today = new Date();
@@ -43,31 +60,27 @@ function checkTime() {
   let day = today.getDate();
   let month = digitToMonth[today.getMonth()];
   let weekDay = digitToWeekDay[today.getDay()];
+
+  let currentPeriod = getPeriod(h);
+  let indexedPeriod = getPeriod(imageIndex);
+
+  if (hour !== h)
+  {
+    if (hour !== NaN) imageIndex = (imageIndex + 1) % 24;
+    hour = h;
+    const src = `assets/images/${indexedPeriod}/${imageIndices[imageIndex % 6]}.jpg`;
+    const img = document.createElement('img');
+    img.src = src;
+    img.onload = () => main.style.backgroundImage = `url(${src})`;
+  }
   
   time.textContent = h + ':' + m;
   date.textContent = `${weekDay}, ${day} ${month}`;
-  
-  let currentPeriod = '';
-  if (+h < 6) currentPeriod = 'night';
-  else if (+h < 12) currentPeriod = 'morning';
-  else if (+h < 18) currentPeriod = 'afternoon';
-  else currentPeriod = 'evening';
-  
-  if (!localStorage.getItem('currentPeriod')
-  || localStorage.getItem('currentPeriod') !== currentPeriod)
-  {
-    localStorage.setItem('currentPeriod', currentPeriod);
-    
-    let imageNumber = Math.floor(Math.random() * 20 + 1).toString().padStart(2, '0');
-    localStorage.setItem('backgroundImage', imageNumber);
-  }
   
   if (greet.textContent === '')
   {
     greet.textContent = `Good ${currentPeriod},`;
     name.textContent = localStorage.getItem('name');
-    
-    main.style.backgroundImage = `url("assets/images/${localStorage.getItem('currentPeriod')}/${localStorage.getItem('backgroundImage')}.jpg")`
   }
   
   if (main.style.opacity === '')
@@ -115,6 +128,8 @@ function reloadQuote() {
     author.textContent = '- ' + (quoteData.author || 'Anonymous');
     document.getElementsByClassName('main__bottom')[0].style.opacity = '1';
   });
+  requoter.disabled = true;
+  setTimeout(() => requoter.disabled = false, 1000);
 }
 
 name.addEventListener('keypress', setKey.bind(name, 'name'));
