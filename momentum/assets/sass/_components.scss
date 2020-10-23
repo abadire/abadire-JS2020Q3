@@ -14,7 +14,7 @@
   cursor: pointer;
   
   font-family: 'Material Icons';
-  color: white;  
+  color: white;
   font-size: 4rem;
   
   transition: background-color .3s;
@@ -77,6 +77,65 @@
   }
 }
 
+.weather {
+  position: fixed;
+  top: 1rem;
+  right: 2rem;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #0005;
+  border-radius: 4px;
+  padding: .8rem;
+
+  &__temp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+  }
+  
+  &__icon {
+    width: 4rem;
+    height: 4rem;
+    background-image: url("http://openweathermap.org/img/wn/10d@2x.png");
+    background-size: cover;
+    transition: background-image 1s;
+  }
+
+  &__city {
+    flex: 1 0 100%;
+    font-size: 2rem;
+
+    &:focus {
+      min-width: 7rem;
+    }
+  }
+
+  &__humidity {
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: .5rem;
+  }
+
+  &__dropsIcon {
+    width: 2rem;
+    margin-right: 1rem;
+  }
+
+  &__wind {
+    margin-bottom: .5rem;
+  }
+
+  &__windIcon {
+    width: 2rem;
+  }
+}
+
 // COPYPASTA 🍝
 .tooltiptext {
   font-family: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -111,13 +170,26 @@
     left: 115%;
     bottom: 50%;
     transform: translateY(50%);
-    margin: 0;
     
     &::after {
       transform: translateY(-50%);
       left: -8%;
-      margin: 0;
       border-color: transparent #555 transparent transparent;
+    }
+  }
+
+  &--bottom {
+    left: 50%;
+    bottom: -45%;
+    transform: translateX(-50%);
+    padding: 2px;
+    color: red;
+    
+    &::after {
+      top: -19%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-color: transparent transparent #555 transparent;
     }
   }
 }
@@ -125,6 +197,11 @@
 .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
+
+  &--error {
+    visibility: hidden;
+    opacity: 0;
+  }
 
   @include respond-tab-port {
     visibility: hidden;

@@ -8,7 +8,7 @@
   <link href="https://fonts.cdnfonts.com/css/helvetica-neue-9?styles=49034,49032" rel="stylesheet"> <!-- Helvetica Neue 700 900 -->
   <link href="https://fonts.cdnfonts.com/css/helvetica-255?styles=15805,30118,15802" rel="stylesheet"> <!-- Helvetica 400 500 700 -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+  rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
@@ -17,8 +17,7 @@
   <div class="loader">
     <div class="focus">
       <h2 class="focus__heading">Hello, what is your name?</h2>
-      <input class="focus__input focus__input--loader" type="text">
-      <input type="submit" style="display: none;">
+      <input class="focus__input focus__input--loader" type="text" spellcheck="false">
     </div>
   </div>
   <main class='main'>
@@ -29,7 +28,27 @@
     
     <div class="main__overlay"></div>
     
-    <div class="main__top"></div>
+    <div class="main__top">
+      <div class="weather tooltip">
+        <div class="weather__temp">
+          <div class="weather__icon"></div>
+          <span class="weather__num">--</span>
+          <span class="weather__deg">&deg;</span>
+        </div>
+        <div class="weather__humidity">
+          <img class="weather__dropsIcon" src="assets/images/humidity.svg" alt="Humidity">
+          <span class="weather__humidityNum">--</span>
+          <span class="weather__humidityPercent">%</span>
+        </div>
+        <div class="weather__wind">
+          <img class="weather__windIcon" src="assets/images/windsock.svg" alt="Wind speed">
+          <span class="weather__speed">--</span>
+          <span class="weather__ms">m/s</span>
+        </div>
+        <span class="weather__city focus__editable" contenteditable="true" spellcheck="false">Enter your city...</span>
+        <span class="tooltiptext tooltiptext--bottom tooltiptext--error">Unable to get data from server!</span>
+      </div>
+    </div>
     
     <div class="main__middle">
       <h1 class="main__time"></h1>

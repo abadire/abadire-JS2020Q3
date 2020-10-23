@@ -127,6 +127,88 @@ a {
   background-color: #FFF7;
 }
 
+.weather {
+  position: fixed;
+  top: 1rem;
+  right: 2rem;
+  font-size: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  background-color: #0005;
+  border-radius: 4px;
+  padding: .8rem;
+}
+
+.weather__temp {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 3rem;
+}
+
+.weather__icon {
+  width: 4rem;
+  height: 4rem;
+  background-image: url("http://openweathermap.org/img/wn/10d@2x.png");
+  background-size: cover;
+  -webkit-transition: background-image 1s;
+  transition: background-image 1s;
+}
+
+.weather__city {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 100%;
+          flex: 1 0 100%;
+  font-size: 2rem;
+}
+
+.weather__city:focus {
+  min-width: 7rem;
+}
+
+.weather__humidity {
+  font-size: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: .5rem;
+}
+
+.weather__dropsIcon {
+  width: 2rem;
+  margin-right: 1rem;
+}
+
+.weather__wind {
+  margin-bottom: .5rem;
+}
+
+.weather__windIcon {
+  width: 2rem;
+}
+
 .tooltiptext {
   font-family: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   visibility: hidden;
@@ -165,20 +247,40 @@ a {
   bottom: 50%;
   -webkit-transform: translateY(50%);
           transform: translateY(50%);
-  margin: 0;
 }
 
 .tooltiptext--right::after {
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
   left: -8%;
-  margin: 0;
   border-color: transparent #555 transparent transparent;
+}
+
+.tooltiptext--bottom {
+  left: 50%;
+  bottom: -45%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  padding: 2px;
+  color: red;
+}
+
+.tooltiptext--bottom::after {
+  top: -19%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  border-color: transparent transparent #555 transparent;
 }
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
+}
+
+.tooltip:hover .tooltiptext--error {
+  visibility: hidden;
+  opacity: 0;
 }
 
 @media (max-width: 47.3em) {
@@ -219,9 +321,7 @@ body {
   height: 100vh;
   top: 0;
   left: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: none;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -260,6 +360,15 @@ body {
 .main__next {
   top: 1rem;
   left: 1rem;
+}
+
+.main__top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 .main__overlay {
@@ -341,7 +450,7 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin: 0 auto 1px auto;
+  margin: 0 auto 1rem auto;
   text-align: right;
   max-width: 70%;
   opacity: 0;
