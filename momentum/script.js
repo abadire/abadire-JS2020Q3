@@ -155,7 +155,7 @@ function reloadWeather() {
       errorPopup.style.opacity = '1';
       errorPopup.style.visibility = 'visible';
       setTimeout(() => errorPopup.style.opacity = '0', 5000);
-      setTimeout(() => errorPopup.style.visibility = 'hidden', 5000);
+      setTimeout(() => errorPopup.style.visibility = 'hidden', 5300);
       document.getElementsByClassName('weather__num')[0].textContent = '--';
       document.getElementsByClassName('weather__humidityNum')[0].textContent = '--';
       document.getElementsByClassName('weather__speed')[0].textContent = '--';
@@ -217,5 +217,6 @@ if (localStorage.getItem('city'))
 }
 
 greet.textContent = `Good ${currentPeriod},`;
+localStorage.setItem('focus', 'My focus is...');
 
 reloadQuote();
