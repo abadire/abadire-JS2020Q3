@@ -1,0 +1,146 @@
+@import "assets/sass/reset";
+@import "assets/sass/mixins";
+@import "assets/sass/components";
+
+html {
+  font-size: 62.5%;
+  font-family: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: white;
+  text-shadow: 0 0 2rem #000, 0 0 2rem #000;
+  -webkit-tap-highlight-color: transparent;
+
+  @include respond-tab-port {
+    font-size: 43.75%; // 1rem == 8px
+  }
+}
+
+body {
+  user-select: none;
+  background-color: black;
+  position: relative;
+  z-index: -3;
+  height: 100vh;
+}
+
+.loader {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  opacity: 0;
+  position: relative;
+  z-index: -2;
+  transition: all 1s;
+  
+  &__next {
+    top: 1rem;
+    left: 1rem;
+  }
+
+  &__top {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  &__overlay {
+    background-image: url('assets/images/overlay.png');
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+  
+  &__time {
+    font-size: 13rem;
+    line-height: 90%;
+    text-shadow: 0 0.3rem 4rem #000;
+  }
+  
+  &__date {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  &__greet {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 5rem;
+    margin-bottom: 1rem;
+  }
+  
+  &__name {
+    display: inline-block;
+    outline: none;
+    margin-left: .5rem;
+    font-size: inherit;
+    border-bottom: 2px solid transparent;
+    padding-bottom: .3rem;
+    min-width: 0;
+    transition: min-width .7s, background-color .3s, border-bottom .7s;
+    border-radius: 3px;
+    
+    &:hover {
+      background-color: #FFF4;
+    }
+    
+    &:focus {
+      min-width: 15rem;
+      border-bottom: 2px solid white;
+    }
+    
+    &::selection {
+      background-color: #FFF7;
+    }
+  }
+  
+  &__punctuation {
+    font-size: inherit;
+  }
+  
+  &__bottom {
+    flex-basis: 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto 1rem auto;
+    text-align: right;
+    max-width: 70%;
+    opacity: 0;
+    position: relative;
+    transition: opacity 1s;
+  }
+  
+  &__quote {
+    font-size: 1.7rem;
+    margin-bottom: .5rem;
+    text-align: center;
+  }
+  
+  &__author {
+    font-size: 1.5rem;
+  }
+
+  &__requote {
+    right: 1rem;
+    bottom: 1rem;
+  }
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Momentum</title>
+  <link href="https://fonts.cdnfonts.com/css/neue-haas-grotesk-text-pro?styles=16509,16511" rel="stylesheet"> <!-- Neue Haas Grotesk Text Pro 400 700 -->
+  <link href="https://fonts.cdnfonts.com/css/helvetica-neue-9?styles=49034,49032" rel="stylesheet"> <!-- Helvetica Neue 700 900 -->
+  <link href="https://fonts.cdnfonts.com/css/helvetica-255?styles=15805,30118,15802" rel="stylesheet"> <!-- Helvetica 400 500 700 -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="loader">
+    <div class="focus">
+      <h2 class="focus__heading">Hello, what is your name?</h2>
+      <input class="focus__input focus__input--loader" type="text" spellcheck="false">
+    </div>
+  </div>
+  <main class='main'>
+    <button class="main__next btn tooltip">
+      navigate_next
+      <span class="tooltiptext tooltiptext--right">Next wallpaper</span>
+    </button>
+    
+    <div class="main__overlay"></div>
+    
+    <div class="main__top">
+      <div class="weather tooltip">
+        <div class="weather__temp">
+          <div class="weather__icon"></div>
+          <span class="weather__num">--</span>
+          <span class="weather__deg">&deg;</span>
+        </div>
+        <div class="weather__humidity">
+          <img class="weather__dropsIcon" src="assets/images/humidity.svg" alt="Humidity">
+          <span class="weather__humidityNum">--</span>
+          <span class="weather__humidityPercent">%</span>
+        </div>
+        <div class="weather__wind">
+          <img class="weather__windIcon" src="assets/images/windsock.svg" alt="Wind speed">
+          <span class="weather__speed">--</span>
+          <span class="weather__ms">m/s</span>
+        </div>
+        <span class="weather__city focus__editable" contenteditable="true" spellcheck="false">Enter your city...</span>
+        <span class="tooltiptext tooltiptext--bottom tooltiptext--error">Unable to get data from server!</span>
+      </div>
+    </div>
+    
+    <div class="main__middle">
+      <h1 class="main__time"></h1>
+      <h2 class="main__date"></h2>
+      <h2 class="main__greet">
+        <span class="main__greeting"></span>
+        <span class="main__name" contenteditable="true" spellcheck="false"></span>
+        <span class="main__punctuation">.</span>
+      </h2>
+      <div class="focus">
+        <h2 class="focus__heading">What is your main focus for today?</h2>
+        <span class="focus__editable" contenteditable="true" spellcheck="false">My focus is...</span>
+      </div>
+    </div>
+    
+    <div class="main__bottom">
+      <h3 class="main__quote"></h3>
+      <h4 class="main__author"></h4>
+      <button class="main__requote btn tooltip">
+        refresh
+        <span class="tooltiptext">Get a new quote</span>
+      </button>
+    </div>
+  </main>
+</body>
+</html>

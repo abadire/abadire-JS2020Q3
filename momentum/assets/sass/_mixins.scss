@@ -1,0 +1,3 @@
+@mixin respond-tab-port {
+  @media (max-width: 47.3em) { @content; }
+}
