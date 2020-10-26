@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 3rem 0;
-  z-index: 99;
+  z-index: 10;
   
   &--sticky {
     position: fixed;
@@ -12,6 +12,7 @@
     margin: 0 auto;
     max-width: 128rem;
     padding: 3rem 4rem;
+    z-index: 8;
     
     @include respond(tab-land) {
       padding: 3rem 3rem;
@@ -62,6 +63,7 @@
 }
 
 .navigation {
+  z-index: 11;
   
   &__checkbox {
     display: none;
@@ -78,7 +80,7 @@
     display: none;
     position: relative;
     cursor: pointer;
-    z-index: 30;
+    z-index: 100;
     top: 0;
     transition: transform .2s, top .2s;
     
@@ -134,7 +136,7 @@
       height: 100vh;
       max-width: 320px;
       width: 100%;
-      z-index: 20;
+      z-index: 99;
       display: flex;
       align-items: center;
       justify-content: center;

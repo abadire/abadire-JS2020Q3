@@ -5,14 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Our pets</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="overlay"></div>
-
+  
   <div class="wrapper">
     <header class="header header--sticky header--light">
+      <div class="overlay"></div>
       <div class="logo">
         <h1 class="logo__title logo__title--dark">Cozy House</h1>
         <p class="logo__subtitle logo__subtitle--dark">Shelter for pets in Boston</p>
@@ -42,46 +44,8 @@
     <div class="wrapper pets__content">
       <h3 class="pets__heading heading-m">Our friends who<br>are looking for a house</h3>
       <div class="gallery">
-        <div class="gallery__cards gallery__cards--two-row">
-          <div class="card">
-            <img src="../../assets/images/pets-katrine.jpg" alt="Katrine">
-            <h4 class="card__name">Katrine</h4>
-            <a href="#" class="btn">Learn more</a>
-          </div>
-          <div class="card">
-            <img src="../../assets/images/pets-jennifer.jpg" alt="Jennifer">
-            <h4 class="card__name">Jennifer</h4>
-            <a href="#" class="btn">Learn more</a>
-          </div>
-          <div class="card">
-            <img src="../../assets/images/pets-woody.jpg" alt="Woody">
-            <h4 class="card__name">Woody</h4>
-            <a href="#" class="btn">Learn more</a>
-          </div>
-          <div class="card">
-            <img src="../../assets/images/pets-sophia.jpg" alt="Sophia">
-            <h4 class="card__name">Sophia</h4>
-            <a href="#" class="btn">Learn more</a>
-          </div>
-          <div class="card">
-            <img src="../../assets/images/pets-timmy.jpg" alt="Timmy">
-            <h4 class="card__name">Timmy</h4>
-            <a href="#" class="btn">Learn more</a>
-          </div>
-          <div class="card">
-            <img src="../../assets/images/pets-charly.jpg" alt="Charly">
-            <h4 class="card__name">Charly</h4>
-            <a href="#" class="btn">Learn more</a>
-          </div>
-          <div class="card">
-            <img src="../../assets/images/pets-scarlet.jpg" alt="Scarlet">
-            <h4 class="card__name">Scarlett</h4>
-            <a href="#" class="btn">Learn more</a>
-          </div>
-          <div class="card">
-            <img src="../../assets/images/pets-freddie.jpg" alt="Freddie">
-            <h4 class="card__name">Freddie</h4>
-            <a href="#" class="btn">Learn more</a>
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
           </div>
         </div>
       </div>
@@ -95,23 +59,23 @@
     </div>
 
     <div class="popup">
-      <img class="popup__img" width="500" height="500">
+      <img class="popup__img">
       <div class="popup__info">
-        <h3 class="popup__heading">Jennifer</h3>
-        <h4 class="popup__subheading">Dog - Labrador</h4>
-        <p class="popup__text">Jennifer is a sweet 2 months old Labrador that is patiently waiting to find a new forever home. This girl really enjoys being able to go outside to run and play, but won't hesitate to play up a storm in the house if she has all of her favorite toys.</p>
+        <h3 class="popup__heading"></h3>
+        <h4 class="popup__subheading"></h4>
+        <p class="popup__text"></p>
         <ul class="popup__list">
-          <li class="popup__item"><b>Age: </b> 2 months</li>
-          <li class="popup__item"><b>Inoculations: </b> none</li>
-          <li class="popup__item"><b>Diseases: </b> none</li>
-          <li class="popup__item"><b>Parasites: </b> none</li>
+          <li class="popup__item"><b>Age: </b> <span age></span></li>
+          <li class="popup__item"><b>Inoculations: </b> <span inoculations></span></li>
+          <li class="popup__item"><b>Diseases: </b> <span diseases></span></li>
+          <li class="popup__item"><b>Parasites: </b> <span parasites></span></li>
         </ul>
       </div>
     </div>
     <button class="popup__close">
       <img src="../../assets/icons/cross.svg" alt="close">
     </button>
-  </section>
+    </section>
   
   <footer class="footer">
     <div class="wrapper footer__content">

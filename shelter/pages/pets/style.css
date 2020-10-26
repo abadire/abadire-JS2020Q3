@@ -99,7 +99,7 @@ body {
       -ms-flex-align: center;
           align-items: center;
   margin: 3rem 0;
-  z-index: 99;
+  z-index: 10;
 }
 
 .header--sticky {
@@ -108,6 +108,7 @@ body {
   margin: 0 auto;
   max-width: 128rem;
   padding: 3rem 4rem;
+  z-index: 8;
 }
 
 @media (max-width: 80em) {
@@ -161,6 +162,10 @@ body {
   color: #292929;
 }
 
+.navigation {
+  z-index: 11;
+}
+
 .navigation__checkbox {
   display: none;
 }
@@ -173,7 +178,7 @@ body {
   display: none;
   position: relative;
   cursor: pointer;
-  z-index: 30;
+  z-index: 100;
   top: 0;
   -webkit-transition: top .2s, -webkit-transform .2s;
   transition: top .2s, -webkit-transform .2s;
@@ -233,7 +238,7 @@ body {
     height: 100vh;
     max-width: 320px;
     width: 100%;
-    z-index: 20;
+    z-index: 99;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -567,7 +572,7 @@ body {
 .overlay {
   opacity: 0;
   position: fixed;
-  z-index: 10;
+  z-index: 9;
   top: 0;
   left: 0;
   height: 100vh;
@@ -803,6 +808,7 @@ body {
   width: 100%;
   margin: 0 3rem;
   padding: 0 20px;
+  max-height: 1500px;
 }
 
 @media (max-width: 80em) {
