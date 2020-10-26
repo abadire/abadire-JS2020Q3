@@ -21,6 +21,7 @@ function hideOverlay()
 }
 
 function showPopup() {
+  document.body.style.overflow = 'hidden';
   showOverlay();
   isPopupVisible = true;
   popup.style.width = '80vw';
@@ -30,6 +31,7 @@ function showPopup() {
 }
 
 function hidePopup() {
+  document.body.style.overflow = '';
   hideOverlay();
   isPopupVisible = false;
   popup.style.opacity = '0'
@@ -156,6 +158,7 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
     
     const card = document.createElement('div');
     card.classList.add('card');
+    card.index = animalIndices[i];
     
     const img = document.createElement('img');
     img.classList.add('card__img');
@@ -212,7 +215,15 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
   [...document.getElementsByClassName('card')].forEach(function (el) {
     el.addEventListener('click', function () {
       showOverlay();
-      document.getElementsByClassName('popup__img')[0].src = el.getElementsByClassName('card__img')[0].src;
+      const animal = animals[el.index];
+      document.getElementsByClassName('popup__img')[0].src = animal.img;
+      document.getElementsByClassName('popup__heading')[0].textContent = animal.name;
+      document.getElementsByClassName('popup__subheading')[0].textContent = animal.type + ' - ' + animal.breed;
+      document.getElementsByClassName('popup__text')[0].textContent = animal.description;
+      document.querySelector('[age]').textContent = animal.age;
+      document.querySelector('[inoculations]').textContent = animal.inoculations.join(', ');
+      document.querySelector('[diseases]').textContent = animal.diseases.join(', ');
+      document.querySelector('[parasites]').textContent = animal.parasites.join(', ');
       showPopup();
     });
   })
