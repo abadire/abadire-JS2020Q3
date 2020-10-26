@@ -25,7 +25,8 @@ function showPopup() {
   isPopupVisible = true;
   popup.style.width = '80vw';
   popup.style.opacity = '1';
-  popup.style.overflow = 'visible';
+  document.getElementsByClassName('popup__close')[0].style.display = 'flex';
+  document.getElementsByClassName('popup__close')[0].style.opacity = '1';
 }
 
 function hidePopup() {
@@ -34,7 +35,10 @@ function hidePopup() {
   popup.style.opacity = '0'
   setTimeout(() => {
     popup.style.width = '0';
-    popup.style.overflow = 'hidden';
+  }, 300)
+  document.getElementsByClassName('popup__close')[0].style.opacity = '0';
+  setTimeout(() => {
+    document.getElementsByClassName('popup__close')[0].style.display = 'none';
   }, 300)
 }
 
@@ -208,10 +212,8 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
   [...document.getElementsByClassName('card')].forEach(function (el) {
     el.addEventListener('click', function () {
       showOverlay();
-      isPopupVisible = true;
-      popup.style.width = '80vw';
-      popup.style.opacity = '1';
-      popup.style.overflow = 'visible';
+      document.getElementsByClassName('popup__img')[0].src = el.getElementsByClassName('card__img')[0].src;
+      showPopup();
     });
   })
 });
