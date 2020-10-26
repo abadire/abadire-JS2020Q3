@@ -184,7 +184,11 @@
     cursor: pointer;
     z-index: 60;
 
-    transition: opacity .3s;
+    transition: opacity .3s, background-color .3s;
+
+    &:hover {
+      background-color: #FFF5;
+    }
   }
 }
 
