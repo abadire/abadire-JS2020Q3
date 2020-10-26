@@ -167,12 +167,18 @@ body {
 
 .navigation__button {
   display: none;
+  position: relative;
+  cursor: pointer;
+  z-index: 30;
+  -webkit-transition: -webkit-transform .2s;
+  transition: -webkit-transform .2s;
+  transition: transform .2s;
+  transition: transform .2s, -webkit-transform .2s;
 }
 
 @media (max-width: 48em) {
   .navigation__button {
     display: block;
-    cursor: pointer;
   }
 }
 
@@ -520,6 +526,7 @@ body {
           align-items: center;
   margin: 0 5.3rem;
   overflow: hidden;
+  padding-bottom: 2rem;
 }
 
 .gallery__cards--two-row {
@@ -561,8 +568,10 @@ body {
   margin-bottom: 3rem;
   -ms-flex-negative: 0;
       flex-shrink: 0;
-  -webkit-transition: background-color .2s;
-  transition: background-color .2s;
+  -webkit-transition: background-color .2s, -webkit-box-shadow .2s;
+  transition: background-color .2s, -webkit-box-shadow .2s;
+  transition: background-color .2s, box-shadow .2s;
+  transition: background-color .2s, box-shadow .2s, -webkit-box-shadow .2s;
 }
 
 .card__name {
@@ -575,6 +584,8 @@ body {
 
 .card:hover {
   background-color: #FFF;
+  -webkit-box-shadow: 0 0 20px #0005;
+          box-shadow: 0 0 20px #0005;
 }
 
 .btn {
@@ -630,6 +641,11 @@ body {
 .btn--nav {
   width: 5.2rem;
   height: 5.2rem;
+}
+
+.swiper-container {
+  width: 600px;
+  height: 300px;
 }
 
 /*===NOT ONLY BLOCK===*/

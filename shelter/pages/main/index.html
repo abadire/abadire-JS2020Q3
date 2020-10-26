@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no">
   <title>Shelter</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -28,7 +28,7 @@
           <nav class="navigation__nav navigation__nav--dark">
             <ul class="navigation__items">
               
-              <li class="navigation__item"><a class="navigation__link navigation__link--active" href="#">About the shelter</a></li>
+              <li class="navigation__item"><a class="navigation__link navigation__link--active" href="index.html">About the shelter</a></li>
               <li class="navigation__item navigation__item--pets"><a class="navigation__link" href="../pets/index.html">Our pets</a></li>
               <li class="navigation__item navigation__item--help"><a class="navigation__link" href="#">Help the shelter</a></li>
               <li class="navigation__item navigation__item--contacts"><a class="navigation__link" href="#">Contacts</a></li>
@@ -88,6 +88,21 @@
       </div>
       <a href="#" class="btn btn--dark">Get to know the rest</a>
     </div>
+
+    <div class="swiper-container">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+          <!-- Slides -->
+          <div class="swiper-slide">Slide 1</div>
+          <div class="swiper-slide">Slide 2</div>
+          <div class="swiper-slide">Slide 3</div>
+          ...
+      </div>
+  
+      <!-- If we need navigation buttons -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+  </div>
   </section>
   
   <section class="help">

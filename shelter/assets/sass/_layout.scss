@@ -73,10 +73,13 @@
   
   &__button {
     display: none;
+    position: relative;
+    cursor: pointer;
+    z-index: 30;
+    transition: transform .2s;
     
     @include respond(tab-port) {
       display: block;
-      cursor: pointer;
     }
   }
   
