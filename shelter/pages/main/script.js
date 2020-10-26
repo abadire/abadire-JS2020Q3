@@ -73,6 +73,32 @@ overlay.addEventListener('click', function() {
   }
 });
 
+function shuffle(array) {
+  var i = array.length,
+  j = 0,
+  temp;
+  
+  while (i--) {
+    
+    j = Math.floor(Math.random() * (i+1));
+    
+    // swap randomly chosen element with current element
+    temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+    
+  }
+  
+  return array;
+}
+
+let animalIndices = [];
+for (let i = 0; i < 8; ++i)
+{
+  animalIndices.push(i);
+}
+animalIndices = shuffle(animalIndices);
+
 // Get animals from server
 let animals;
 fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/markups/level-2/shelter/pets.json")
@@ -80,35 +106,65 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
   return response.json();
 })
 .then(function(data) {
-  animals = data;
-});
-
-var swiper = new Swiper('.swiper-container', {
-  slidesPerView: 3,
-  spaceBetween: 30,
-  slidesPerGroup: 3,
-  loop: true,
-  loopFillGroupWithBlank: true,
-  // allowSlidePrev: false,
-  // allowSlideNext: false,
-  navigation: {
-    nextEl: '.pets__arrow--next',
-    prevEl: '.pets__arrow--prev',
-  },
-  breakpoints: {
-    320: {
-      slidesPerView: 1,
-      slidesPerGroup: 1,
-    },
-    768: {
-      slidesPerView: 2,
-      slidesPerGroup: 2,
-      spaceBetween: 40,
-    },
-    1280: {
-      slidesPerView: 3,
-      slidesPerGroup: 3,
-      spaceBetween: 90,
-    },
+  const slides = document.createDocumentFragment();
+  for (let i = 0; i < data.length; ++i)
+  {
+    const animal = data[animalIndices[i]];
+    
+    const slide = document.createElement('div');
+    slide.classList.add('swiper-slide');
+    
+    const card = document.createElement('div');
+    card.classList.add('card');
+    
+    const img = document.createElement('img');
+    img.width = '270';
+    img.height = '270';
+    const src = animal.img;
+    img.src = src;
+    img.alt = animal.name;
+    card.appendChild(img);
+    
+    const name = document.createElement('h4');
+    name.classList.add('card__name');
+    name.textContent = animal.name;
+    card.appendChild(name);
+    
+    const learnMore = document.createElement('a');
+    learnMore.classList.add('btn');
+    learnMore.href = '#';
+    learnMore.textContent = 'Learn More';
+    card.appendChild(learnMore);
+    
+    slide.appendChild(card);
+    slides.appendChild(slide);
   }
+  
+  document.getElementsByClassName('swiper-wrapper')[0].appendChild(slides);
+})
+.then(function() {
+  let swiper = new Swiper('.swiper-container', {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    slidesPerGroup: 1,
+    observer: true,
+    loop: true,
+    loopFillGroupWithBlank: true,
+    navigation: {
+      nextEl: '.pets__arrow--next',
+      prevEl: '.pets__arrow--prev',
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 2,
+        slidesPerGroup: 2,
+        spaceBetween: 40,
+      },
+      1280: {
+        slidesPerView: 3,
+        slidesPerGroup: 3,
+        spaceBetween: 90,
+      },
+    }
+  });
 });
