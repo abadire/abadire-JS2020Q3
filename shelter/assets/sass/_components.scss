@@ -45,8 +45,9 @@
   padding-bottom: 3rem;
   border-radius: 9px;
   overflow: hidden;
+  margin-top: 2rem;
   margin-bottom: 3rem;
-  flex-shrink: 0;
+  width: 27rem;
   
   transition: background-color .2s,
               box-shadow .2s;
@@ -72,6 +73,8 @@
   border-radius: 10rem;
   border: 2px solid $color-primary;
   display: inline-block;
+  outline: none;
+  cursor: pointer;
   
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 1.7rem;
@@ -116,4 +119,14 @@
     width: 5.2rem;
     height: 5.2rem;
   }
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
+.swiper-container {
+  width: 100%;
+  padding: 0 5rem;
 }

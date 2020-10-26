@@ -73,19 +73,42 @@ overlay.addEventListener('click', function() {
   }
 });
 
-var mySwiper = new Swiper('.swiper-container', {
-  // Optional parameters
-  direction: 'horizontal',
-  loop: true,
-  
-  // If we need pagination
-  pagination: {
-    el: '.swiper-pagination',
-  },
-  
-  // Navigation arrows
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
+// Get animals from server
+let animals;
+fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/markups/level-2/shelter/pets.json")
+.then(function(response) {
+  return response.json();
 })
+.then(function(data) {
+  animals = data;
+});
+
+var swiper = new Swiper('.swiper-container', {
+  slidesPerView: 3,
+  spaceBetween: 30,
+  slidesPerGroup: 3,
+  loop: true,
+  loopFillGroupWithBlank: true,
+  // allowSlidePrev: false,
+  // allowSlideNext: false,
+  navigation: {
+    nextEl: '.pets__arrow--next',
+    prevEl: '.pets__arrow--prev',
+  },
+  breakpoints: {
+    320: {
+      slidesPerView: 1,
+      slidesPerGroup: 1,
+    },
+    768: {
+      slidesPerView: 2,
+      slidesPerGroup: 2,
+      spaceBetween: 40,
+    },
+    1280: {
+      slidesPerView: 3,
+      slidesPerGroup: 3,
+      spaceBetween: 90,
+    },
+  }
+});

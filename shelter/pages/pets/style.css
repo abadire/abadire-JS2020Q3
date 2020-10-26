@@ -590,9 +590,9 @@ body {
   padding-bottom: 3rem;
   border-radius: 9px;
   overflow: hidden;
+  margin-top: 2rem;
   margin-bottom: 3rem;
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
+  width: 27rem;
   -webkit-transition: background-color .2s, -webkit-box-shadow .2s;
   transition: background-color .2s, -webkit-box-shadow .2s;
   transition: background-color .2s, box-shadow .2s;
@@ -619,6 +619,8 @@ body {
   border-radius: 10rem;
   border: 2px solid #F1CDB3;
   display: inline-block;
+  outline: none;
+  cursor: pointer;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 1.7rem;
   line-height: 130%;
@@ -666,6 +668,20 @@ body {
 .btn--nav {
   width: 5.2rem;
   height: 5.2rem;
+}
+
+.swiper-slide {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.swiper-container {
+  width: 100%;
+  padding: 0 5rem;
 }
 
 /*===NOT ONLY BLOCK===*/
