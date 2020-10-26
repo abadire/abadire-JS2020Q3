@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no">
   <title>Shelter</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
+  
   <section class="start">
     <div class="wrapper">
       <header class="header">
@@ -19,6 +20,7 @@
           <p class="logo__subtitle">Shelter for pets in Boston</p>
         </div>
         
+        <div class="overlay"></div>
         <div class="navigation">
           <input type="checkbox" class="navigation__checkbox" id="toggle">
           <label for="toggle" class="navigation__button">
@@ -28,15 +30,13 @@
           <nav class="navigation__nav navigation__nav--dark">
             <ul class="navigation__items">
               
-              <li class="navigation__item"><a class="navigation__link navigation__link--active" href="#">About the shelter</a></li>
+              <li class="navigation__item"><a class="navigation__link navigation__link--active" href="index.html">About the shelter</a></li>
               <li class="navigation__item navigation__item--pets"><a class="navigation__link" href="../pets/index.html">Our pets</a></li>
               <li class="navigation__item navigation__item--help"><a class="navigation__link" href="#">Help the shelter</a></li>
               <li class="navigation__item navigation__item--contacts"><a class="navigation__link" href="#">Contacts</a></li>
               <hr class="navigation__underline">
             </ul>
           </nav>
-          
-          <div class="navigation__overlay"></div>
         </div>
       </header>
       
@@ -66,28 +66,33 @@
     <div class="wrapper pets__content">
       <h3 class="pets__heading heading-m">Our friends who <br> are looking for a house</h3>
       <div class="gallery">
-        <a href="#" class="pets__arrow btn btn--small">&larr;</a>
-        <div class="gallery__cards">
-          <div class="card">
-            <img src="../../assets/images/pets-katrine.jpg" alt="Katrine">
-            <h4 class="card__name">Katrine</h4>
-            <a href="#" class="btn">Learn more</a>
-          </div>
-          <div class="card">
-            <img src="../../assets/images/pets-jennifer.jpg" alt="Katrine">
-            <h4 class="card__name">Jennifer</h4>
-            <a href="#" class="btn">Learn more</a>
-          </div>
-          <div class="card">
-            <img src="../../assets/images/pets-woody.jpg" alt="Katrine">
-            <h4 class="card__name">Woody</h4>
-            <a href="#" class="btn">Learn more</a>
+        <button class="pets__arrow pets__arrow--prev btn btn--small">&larr;</button>
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
           </div>
         </div>
-        <a href="#" class="pets__arrow btn btn--small">&rarr;</a>
+        <button class="pets__arrow pets__arrow--next btn btn--small">&rarr;</button>
       </div>
       <a href="#" class="btn btn--dark">Get to know the rest</a>
     </div>
+    
+    <div class="popup">
+      <img class="popup__img">
+      <div class="popup__info">
+        <h3 class="popup__heading"></h3>
+        <h4 class="popup__subheading"></h4>
+        <p class="popup__text"></p>
+        <ul class="popup__list">
+          <li class="popup__item"><b>Age: </b> <span age></span></li>
+          <li class="popup__item"><b>Inoculations: </b> <span inoculations></span></li>
+          <li class="popup__item"><b>Diseases: </b> <span diseases></span></li>
+          <li class="popup__item"><b>Parasites: </b> <span parasites></span></li>
+        </ul>
+      </div>
+    </div>
+    <button class="popup__close">
+      <img src="../../assets/icons/cross.svg" alt="close">
+    </button>
   </section>
   
   <section class="help">

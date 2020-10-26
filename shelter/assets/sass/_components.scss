@@ -1,36 +1,9 @@
 .gallery {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
-  position: relative; // To adjust controls vertically
   margin-bottom: 5.9rem;
   
-  &__cards {
-    max-height: 43.7rem;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
-    margin: 0 5.3rem;
-    overflow: hidden;
-    
-    &--two-row {
-      max-height: 90rem;
-      margin: 0;
-
-      @include respond(tab-land) {
-        max-height: 135rem
-      }
-    }
-    
-    @include respond(tab-land) {
-      justify-content: space-evenly;
-      margin: 0 1.2rem;
-    }
-  }
-
   @include respond(tab-port) {
     margin-bottom: 4rem;
     flex-wrap: wrap;
@@ -44,10 +17,14 @@
   padding-bottom: 3rem;
   border-radius: 9px;
   overflow: hidden;
+  margin-top: 2rem;
   margin-bottom: 3rem;
+  width: 27rem;
   flex-shrink: 0;
+  cursor: pointer;
   
-  transition: background-color .2s;
+  transition: background-color .2s,
+  box-shadow .2s;
   
   &__name {
     margin: 2.8rem 0 3rem 0;
@@ -60,7 +37,24 @@
   
   &:hover {
     background-color: $color-light-xl;
+    box-shadow: 0 0 20px #0005;
+    
+    .btn {
+      background-color: $color-primary;
+    }
   }
+}
+
+.overlay {
+  opacity: 0;
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 0;
+  background-color: rgba(41, 41, 41, 0.6);
+  transition: opacity .5s;
 }
 
 .btn {
@@ -69,6 +63,8 @@
   border-radius: 10rem;
   border: 2px solid $color-primary;
   display: inline-block;
+  outline: none;
+  cursor: pointer;
   
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 1.7rem;
@@ -112,5 +108,151 @@
   &--nav {
     width: 5.2rem;
     height: 5.2rem;
+  }
+}
+
+.popup {
+  display: none;
+  opacity: 0;
+  
+  position: fixed;
+  z-index: 50;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  background-color: $color-light-xl;
+  border-radius: 9px;
+  width: 80vw;
+  overflow: hidden;
+  
+  transition: opacity .3s;
+  
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  letter-spacing: .06em;
+  font-size: 1.5rem;
+  line-height: 110%;
+  
+  @include respond(tab-land) {
+    width: 85vw;
+  }
+  
+  &__img {
+    flex-shrink: 0;
+    
+    width: 50rem;
+    height: 50rem;
+    
+    @include respond(tab-land) {
+      height: 35rem;
+      width: 35rem;
+    }
+    
+    @include respond(tab-port) {
+      display: none;
+    }
+  }
+  
+  &__info {
+    margin: 5rem 2rem 0 3rem;
+    
+    @include respond(tab-land) {
+      margin: 1rem;
+    }
+  }
+  
+  &__heading {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    line-height: 130%;
+    
+    @include respond(tab-port) {
+      text-align: center;
+    }
+  }
+  
+  &__subheading {
+    font-size: 2rem;
+    line-height: 115%;
+    margin-bottom: 4rem;
+    
+    @include respond(tab-land) {
+      margin-bottom: 2rem;
+    }
+    
+    @include respond(tab-port) {
+      text-align: center;
+    }
+  }
+  
+  &__text {
+    margin-bottom: 4rem;
+    
+    @include respond(tab-land) {
+      margin-bottom: 2rem;
+      font-size: 1.3rem;
+    }
+  }
+  
+  &__item {
+    margin-bottom: 1rem;
+    
+    &::before {
+      content: '\2022';
+      color: $color-primary;
+      margin-right: 1rem;
+    }
+    
+    @include respond(tab-land) {
+      margin-bottom: .5rem;
+    }
+  }
+  
+  &__close {
+    position: fixed;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    right: 10vw;
+    top: calc(50% - 250px);
+    transform: translate(100%, -100%);
+    width: 5.2rem;
+    height: 5.2rem;
+    border: 2px solid $color-primary;
+    border-radius: 50%;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+    z-index: 60;
+    
+    transition: opacity .3s, background-color .3s;
+    
+    @include respond(tab-land) {
+      top: calc(50% - 175px);
+    }
+    
+    @include respond(tab-port) {
+      transform: translate(50%, -100%);
+    }
+    
+    &:hover {
+      background-color: #FFF5;
+    }
+  }
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
+.swiper-container {
+  width: 100%;
+  margin: 0 3rem;
+  padding: 0 20px;
+  max-height: 1500px;
+  
+  @include respond(tab-land) {
+    margin: 0;
   }
 }

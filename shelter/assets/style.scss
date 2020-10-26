@@ -363,6 +363,11 @@
     margin-bottom: 2rem;
     display: inline-flex;
     align-items: center;
+    transition: background-color .3s;
+
+    &:hover {
+      background-color: $color-primary-light;
+    }
   }
   
   &__number {
