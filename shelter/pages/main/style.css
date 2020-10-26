@@ -668,11 +668,6 @@ body {
   height: 5.2rem;
 }
 
-.swiper-container {
-  width: 600px;
-  height: 300px;
-}
-
 /*===NOT ONLY BLOCK===*/
 .start {
   width: 100%;
@@ -1157,6 +1152,12 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-transition: background-color .3s;
+  transition: background-color .3s;
+}
+
+.donation__bank:hover {
+  background-color: #FDDCC4;
 }
 
 .donation__number {
