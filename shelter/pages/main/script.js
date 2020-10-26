@@ -1,9 +1,42 @@
 const links = document.getElementsByClassName("navigation__link");
 const logo = document.getElementsByClassName("logo")[0];
 const linkAbout = document.getElementsByClassName("navigation__link--active")[0];
-const overlay = document.getElementsByClassName("navigation__overlay")[0];
+const overlay = document.getElementsByClassName("overlay")[0];
 const navigationBurger = document.getElementsByClassName("navigation__button")[0];
+const popup = document.getElementsByClassName("popup")[0];
 let isMenuShown = false;
+let isPopupVisible = false;
+let cards;
+
+function showOverlay()
+{
+  overlay.style.width = '100vw';
+  overlay.style.opacity = '1';
+}
+
+function hideOverlay()
+{
+  overlay.style.opacity = '0';
+  setTimeout(() => overlay.style.width = '0', 500);
+}
+
+function showPopup() {
+  showOverlay();
+  isPopupVisible = true;
+  popup.style.width = '80vw';
+  popup.style.opacity = '1';
+  popup.style.overflow = 'visible';
+}
+
+function hidePopup() {
+  hideOverlay();
+  isPopupVisible = false;
+  popup.style.opacity = '0'
+  setTimeout(() => {
+    popup.style.width = '0';
+    popup.style.overflow = 'hidden';
+  }, 300)
+}
 
 for (let i = 0; i < links.length; ++i)
 {
@@ -34,17 +67,13 @@ navigationBurger.addEventListener('click', function () {
     }, 300);
     setTimeout(() => logo.style.opacity = '1', 300);
     
-    // Hide overlay
-    overlay.style.opacity = '0';
-    setTimeout(() => overlay.style.width = '0', 500);
+    hideOverlay();
   }
   else
   {
     isMenuShown = true;
     
-    // Show overlay
-    overlay.style.width = '100vw';
-    overlay.style.opacity = '1';
+    showOverlay();
     
     navigationBurger.style.transform = 'rotate(90deg)';
     navigationBurger.style.top = `${window.scrollY}px`;
@@ -63,13 +92,18 @@ navigationBurger.addEventListener('click', function () {
 });
 
 overlay.addEventListener('click', function() {
-  if (document.getElementById('toggle').checked) {
+  if (document.getElementById('toggle').checked)
+  {
     isMenuShown = false;
     document.getElementById('toggle').checked = false;
     navigationBurger.style.transform = '';
     document.body.style.overflow = 'visible';
-    overlay.style.opacity = '0';
-    setTimeout(() => overlay.style.width = '0', 500);
+    hideOverlay();
+  }
+  
+  if (isPopupVisible)
+  {
+    hidePopup();
   }
 });
 
@@ -78,20 +112,20 @@ function shuffle(array) {
   j = 0,
   temp;
   
-  while (i--) {
-    
+  while (i--)
+  {
     j = Math.floor(Math.random() * (i+1));
     
     // swap randomly chosen element with current element
     temp = array[i];
     array[i] = array[j];
     array[j] = temp;
-    
   }
   
   return array;
 }
 
+// Generate indices
 let animalIndices = [];
 for (let i = 0; i < 8; ++i)
 {
@@ -100,13 +134,6 @@ for (let i = 0; i < 8; ++i)
 animalIndices = shuffle(animalIndices);
 
 // Get animals from server
-
-// const cards = [];
-// const current = [];
-// for (let i = 0; i < 3; ++i)
-// {
-//   current.push(animalIndices[i]);
-// }
 let animals;
 
 fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/markups/level-2/shelter/pets.json")
@@ -177,42 +204,16 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
       },
     }
   });
-
-  // for (let i = 0; i < 2; ++i)
-  // {
-  //   cards.push(document.getElementsByClassName('swiper-wrapper')[0].children[i]);
-  // }
+  
+  [...document.getElementsByClassName('card')].forEach(function (el) {
+    el.addEventListener('click', function () {
+      showOverlay();
+      isPopupVisible = true;
+      popup.style.width = '80vw';
+      popup.style.opacity = '1';
+      popup.style.overflow = 'visible';
+    });
+  })
 });
 
-// let active;
-// let counter = 0;
-// let isFirst = true;
-
-// Array.from(document.getElementsByClassName('pets__arrow')).forEach(() => {
-//   this.addEventListener('click', function() {
-//     if (window.innerWidth <= 768)
-//     {
-//       for (let el of cards)
-//       {
-//         if (!el.classList.contains('swiper-slider-active'))
-//         {
-//           setTimeout(() => {
-//             let index;
-//             do {
-//               index = Math.floor(Math.random() * 8);
-//             } while (!current.includes(index));
-//             el.getElementsByClassName('card__img')[0].src = animals[index].img;
-//           }, 300);
-//         }
-//       }
-//     }
-//     else if (window.innerWidth <= 1280)
-//     {
-
-//     }
-//     else
-//     {
-
-//     }
-//   });
-// })
+document.getElementsByClassName('popup__close')[0].addEventListener('click', hidePopup);

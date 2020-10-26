@@ -1,7 +1,7 @@
 const links = document.getElementsByClassName("navigation__link");
 const logo = document.getElementsByClassName("logo")[0];
 const linkPets = document.getElementsByClassName("navigation__link--active")[0];
-const overlay = document.getElementsByClassName("navigation__overlay")[0];
+const overlay = document.getElementsByClassName("overlay")[0];
 const navigationBurger = document.getElementsByClassName("navigation__button")[0];
 let isMenuShown = false;
 

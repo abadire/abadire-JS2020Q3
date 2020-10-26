@@ -11,6 +11,8 @@
   <script src="script.js" defer></script>
 </head>
 <body>
+  <div class="overlay"></div>
+  
   <section class="start">
     <div class="wrapper">
       <header class="header">
@@ -35,8 +37,6 @@
               <hr class="navigation__underline">
             </ul>
           </nav>
-          
-          <div class="navigation__overlay"></div>
         </div>
       </header>
       
@@ -68,15 +68,30 @@
       <div class="gallery">
         <button class="pets__arrow pets__arrow--prev btn btn--small">&larr;</button>
         <div class="swiper-container">
-          <!-- Additional required wrapper -->
           <div class="swiper-wrapper">
-            <!-- Slides -->
           </div>
-          <!-- If we need navigation buttons -->
         </div>
         <button class="pets__arrow pets__arrow--next btn btn--small">&rarr;</button>
       </div>
       <a href="#" class="btn btn--dark">Get to know the rest</a>
+    </div>
+    
+    <div class="popup">
+      <img class="popup__img" width="500" height="500">
+      <div class="popup__info">
+        <h3 class="popup__heading">Jennifer</h3>
+        <h4 class="popup__subheading">Dog - Labrador</h4>
+        <p class="popup__text">Jennifer is a sweet 2 months old Labrador that is patiently waiting to find a new forever home. This girl really enjoys being able to go outside to run and play, but won't hesitate to play up a storm in the house if she has all of her favorite toys.</p>
+        <ul class="popup__list">
+          <li class="popup__item"><b>Age: </b> 2 months</li>
+          <li class="popup__item"><b>Inoculations: </b> none</li>
+          <li class="popup__item"><b>Diseases: </b> none</li>
+          <li class="popup__item"><b>Parasites: </b> none</li>
+        </ul>
+      </div>
+      <button class="popup__close">
+        <img src="../../assets/icons/cross.svg" alt="close">
+      </button>
     </div>
   </section>
   
