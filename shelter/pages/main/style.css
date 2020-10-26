@@ -552,6 +552,7 @@ body {
   width: 27rem;
   -ms-flex-negative: 0;
       flex-shrink: 0;
+  cursor: pointer;
   -webkit-transition: background-color .2s, -webkit-box-shadow .2s;
   transition: background-color .2s, -webkit-box-shadow .2s;
   transition: background-color .2s, box-shadow .2s;
@@ -570,6 +571,10 @@ body {
   background-color: #FFF;
   -webkit-box-shadow: 0 0 20px #0005;
           box-shadow: 0 0 20px #0005;
+}
+
+.card:hover .btn {
+  background-color: #F1CDB3;
 }
 
 .btn {

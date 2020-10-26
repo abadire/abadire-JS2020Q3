@@ -21,6 +21,7 @@
   margin-bottom: 3rem;
   width: 27rem;
   flex-shrink: 0;
+  cursor: pointer;
   
   transition: background-color .2s,
               box-shadow .2s;
@@ -37,6 +38,10 @@
   &:hover {
     background-color: $color-light-xl;
     box-shadow: 0 0 20px #0005;
+
+    .btn {
+      background-color: $color-primary;
+    }
   }
 }
 

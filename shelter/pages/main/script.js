@@ -100,14 +100,23 @@ for (let i = 0; i < 8; ++i)
 animalIndices = shuffle(animalIndices);
 
 // Get animals from server
+
+// const cards = [];
+// const current = [];
+// for (let i = 0; i < 3; ++i)
+// {
+//   current.push(animalIndices[i]);
+// }
 let animals;
+
 fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/markups/level-2/shelter/pets.json")
 .then(function(response) {
   return response.json();
 })
 .then(function(data) {
+  animals = data;
   const slides = document.createDocumentFragment();
-  for (let i = 0; i < data.length; ++i)
+  for (let i = 0; i < 8; ++i)
   {
     const animal = data[animalIndices[i]];
     
@@ -118,6 +127,7 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
     card.classList.add('card');
     
     const img = document.createElement('img');
+    img.classList.add('card__img');
     img.width = '270';
     img.height = '270';
     const src = animal.img;
@@ -167,4 +177,42 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
       },
     }
   });
+
+  // for (let i = 0; i < 2; ++i)
+  // {
+  //   cards.push(document.getElementsByClassName('swiper-wrapper')[0].children[i]);
+  // }
 });
+
+// let active;
+// let counter = 0;
+// let isFirst = true;
+
+// Array.from(document.getElementsByClassName('pets__arrow')).forEach(() => {
+//   this.addEventListener('click', function() {
+//     if (window.innerWidth <= 768)
+//     {
+//       for (let el of cards)
+//       {
+//         if (!el.classList.contains('swiper-slider-active'))
+//         {
+//           setTimeout(() => {
+//             let index;
+//             do {
+//               index = Math.floor(Math.random() * 8);
+//             } while (!current.includes(index));
+//             el.getElementsByClassName('card__img')[0].src = animals[index].img;
+//           }, 300);
+//         }
+//       }
+//     }
+//     else if (window.innerWidth <= 1280)
+//     {
+
+//     }
+//     else
+//     {
+
+//     }
+//   });
+// })
