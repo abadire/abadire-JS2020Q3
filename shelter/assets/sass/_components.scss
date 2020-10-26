@@ -3,7 +3,7 @@
   align-items: center;
   width: 100%;
   margin-bottom: 5.9rem;
-
+  
   @include respond(tab-port) {
     margin-bottom: 4rem;
     flex-wrap: wrap;
@@ -24,7 +24,7 @@
   cursor: pointer;
   
   transition: background-color .2s,
-              box-shadow .2s;
+  box-shadow .2s;
   
   &__name {
     margin: 2.8rem 0 3rem 0;
@@ -38,7 +38,7 @@
   &:hover {
     background-color: $color-light-xl;
     box-shadow: 0 0 20px #0005;
-
+    
     .btn {
       background-color: $color-primary;
     }
@@ -112,61 +112,102 @@
 }
 
 .popup {
-  display: flex;
+  display: none;
   opacity: 0;
-
+  
   position: fixed;
   z-index: 50;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
+  
   background-color: $color-light-xl;
   border-radius: 9px;
-  width: 0;
+  width: 80vw;
   overflow: hidden;
   
   transition: opacity .3s;
-
+  
   font-family: Georgia, 'Times New Roman', Times, serif;
   letter-spacing: .06em;
   font-size: 1.5rem;
   line-height: 110%;
-
+  
+  @include respond(tab-land) {
+    width: 85vw;
+  }
+  
   &__img {
     flex-shrink: 0;
+    
+    width: 50rem;
+    height: 50rem;
+    
+    @include respond(tab-land) {
+      height: 35rem;
+      width: 35rem;
+    }
+    
+    @include respond(tab-port) {
+      display: none;
+    }
   }
-
+  
   &__info {
-    margin: 5rem 2rem 0 3rem
+    margin: 5rem 2rem 0 3rem;
+    
+    @include respond(tab-land) {
+      margin: 1rem;
+    }
   }
-
+  
   &__heading {
     font-size: 3.5rem;
     margin-bottom: 1rem;
     line-height: 130%;
+    
+    @include respond(tab-port) {
+      text-align: center;
+    }
   }
-
+  
   &__subheading {
     font-size: 2rem;
     line-height: 115%;
     margin-bottom: 4rem;
+    
+    @include respond(tab-land) {
+      margin-bottom: 2rem;
+    }
+    
+    @include respond(tab-port) {
+      text-align: center;
+    }
   }
-
+  
   &__text {
     margin-bottom: 4rem;
+    
+    @include respond(tab-land) {
+      margin-bottom: 2rem;
+      font-size: 1.3rem;
+    }
   }
-
+  
   &__item {
     margin-bottom: 1rem;
-
+    
     &::before {
       content: '\2022';
       color: $color-primary;
       margin-right: 1rem;
     }
+    
+    @include respond(tab-land) {
+      margin-bottom: .5rem;
+    }
   }
-
+  
   &__close {
     position: fixed;
     display: none;
@@ -183,9 +224,17 @@
     outline: none;
     cursor: pointer;
     z-index: 60;
-
+    
     transition: opacity .3s, background-color .3s;
-
+    
+    @include respond(tab-land) {
+      top: calc(50% - 175px);
+    }
+    
+    @include respond(tab-port) {
+      transform: translate(50%, -100%);
+    }
+    
     &:hover {
       background-color: #FFF5;
     }
@@ -201,8 +250,8 @@
   width: 100%;
   margin: 0 3rem;
   padding: 0 20px;
-
+  
   @include respond(tab-land) {
-  margin: 0;
+    margin: 0;
   }
 }

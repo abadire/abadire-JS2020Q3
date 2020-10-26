@@ -24,10 +24,14 @@ function showPopup() {
   document.body.style.overflow = 'hidden';
   showOverlay();
   isPopupVisible = true;
-  popup.style.width = '80vw';
-  popup.style.opacity = '1';
+  popup.style.display = 'flex';
+  setTimeout(() => {
+    popup.style.opacity = '1';
+  }, 1);
   document.getElementsByClassName('popup__close')[0].style.display = 'flex';
-  document.getElementsByClassName('popup__close')[0].style.opacity = '1';
+  setTimeout(() => {
+    document.getElementsByClassName('popup__close')[0].style.opacity = '1';
+  }, 1);
 }
 
 function hidePopup() {
@@ -36,7 +40,7 @@ function hidePopup() {
   isPopupVisible = false;
   popup.style.opacity = '0'
   setTimeout(() => {
-    popup.style.width = '0';
+    popup.style.display = 'none';
   }, 300)
   document.getElementsByClassName('popup__close')[0].style.opacity = '0';
   setTimeout(() => {
@@ -217,6 +221,7 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
       showOverlay();
       const animal = animals[el.index];
       document.getElementsByClassName('popup__img')[0].src = animal.img;
+      document.getElementsByClassName('popup__img')[0].alt = animal.name;
       document.getElementsByClassName('popup__heading')[0].textContent = animal.name;
       document.getElementsByClassName('popup__subheading')[0].textContent = animal.type + ' - ' + animal.breed;
       document.getElementsByClassName('popup__text')[0].textContent = animal.description;
