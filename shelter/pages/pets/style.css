@@ -137,6 +137,7 @@ body {
   z-index: 30;
   -webkit-transition: opacity .2s;
   transition: opacity .2s;
+  cursor: pointer;
 }
 
 .logo__title {
@@ -563,10 +564,6 @@ body {
   background-color: #FFF;
   -webkit-box-shadow: 0 0 20px #0005;
           box-shadow: 0 0 20px #0005;
-}
-
-.card:hover .btn {
-  background-color: #F1CDB3;
 }
 
 .overlay {

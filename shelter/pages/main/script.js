@@ -180,7 +180,6 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
     
     const learnMore = document.createElement('a');
     learnMore.classList.add('btn');
-    learnMore.href = '#';
     learnMore.textContent = 'Learn More';
     card.appendChild(learnMore);
     
