@@ -175,16 +175,6 @@
       width: 13%;
     }
     
-    &--help:hover ~ .navigation__underline {
-      left: 54.7%;
-      width: 23.5%;
-    }
-    
-    &--contacts:hover ~ .navigation__underline {
-      left: 87%;
-      width: 12.5%;
-    }
-    
     @include respond(tab-port) {
       margin-bottom: 4rem;
     }
@@ -195,6 +185,7 @@
     font-size: 1.5rem;
     line-height: 150%;
     transition: color .3s;
+    user-select: none;
     
     &--dark {
       color: $color-dark-l;
@@ -227,7 +218,15 @@
       
       &.navigation__link--dark {
         color: $color-dark-3xl;
+
+        &.navigation__link--inactive {
+          color: $color-dark-l;
+        }
       }
+    }
+
+    &--inactive:hover {
+      color: $color-dark-s;
     }
 
     @include respond(tab-port) {

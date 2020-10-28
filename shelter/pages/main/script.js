@@ -1,4 +1,4 @@
-const links = document.getElementsByClassName("navigation__link");
+const links = Array.from(document.getElementsByClassName("navigation__link")).slice(0, 2);
 const logo = document.getElementsByClassName("logo")[0];
 const linkAbout = document.getElementsByClassName("navigation__link--active")[0];
 const overlay = document.getElementsByClassName("overlay")[0];

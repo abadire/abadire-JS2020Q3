@@ -307,10 +307,6 @@ body {
   line-height: 150%;
   -webkit-transition: color .3s;
   transition: color .3s;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
 }
 
 .navigation__link--dark {
@@ -345,14 +341,6 @@ body {
 
 .navigation__link:hover.navigation__link--dark {
   color: #292929;
-}
-
-.navigation__link:hover.navigation__link--dark.navigation__link--inactive {
-  color: #545454;
-}
-
-.navigation__link--inactive:hover {
-  color: #CDCDCD;
 }
 
 @media (max-width: 48em) {
