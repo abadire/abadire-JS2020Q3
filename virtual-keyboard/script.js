@@ -229,7 +229,7 @@ function createKeys() {
           {
             btn.classList.remove('keyboard__key--large');
             btn.addEventListener('click', () => {
-              if (caretPosition !== 0)
+              if (caretPosition !== textArea.value.length)
               {
                 textArea.selectionStart = textArea.selectionEnd = ++caretPosition;
               }
