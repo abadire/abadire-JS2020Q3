@@ -205,6 +205,7 @@ function createKeys() {
           }
           case 'check_circle':
           {
+            btn.classList.add('keyboard__key--dark')
             btn.addEventListener('click', hideKbd);
             break;
           }
@@ -247,7 +248,7 @@ function createKeys() {
                 buttons.forEach(({btn, value}) => {
                   // Don't change the keycap value if it's a number
                   if (/\d/.test(btn.textContent)) return;
-
+                  
                   btn.textContent = shiftsRu[value] || enToRu[value];
                   if (isCapital && !isShifted || !isCapital && isShifted) btn.textContent = btn.textContent.toUpperCase();
                 });
@@ -259,7 +260,7 @@ function createKeys() {
                 buttons.forEach(({btn, value}) => {
                   // Don't change the keycap value if it's a number
                   if (/\d/.test(btn.textContent)) return;
-
+                  
                   btn.textContent = shiftsEn[value] || value;
                   if (isCapital && !isShifted || !isCapital && isShifted) btn.textContent = btn.textContent.toUpperCase();
                 });
@@ -278,6 +279,13 @@ function createKeys() {
     btn.addEventListener('click', () => {
       textArea.focus();
       textArea.selectionStart = textArea.selectionEnd = caretPosition;
+      
+      // btn.style.backgroundColor = '#FFFA';
+      // btn.style.transform = 'scale(.93)';
+      // setTimeout(() => {
+      //   btn.style.backgroundColor = '#FFF5';
+      //   btn.style.transform = '';
+      // }, 200);
     });
     
     fragment.appendChild(btn);
@@ -323,7 +331,7 @@ function toggleShift()
     buttons.forEach(({btn, value}) => {
       if (isEn) btn.textContent = shiftsEn[value] || value;
       else btn.textContent = shiftsRu[enToRu[value]] || shiftsRu[value] || enToRu[value];
-
+      
       if (!isCapital) btn.textContent = btn.textContent.toUpperCase();
     });
   }
@@ -333,7 +341,7 @@ function toggleShift()
     buttons.forEach(({btn, value}) => {
       if (isEn) btn.textContent = value;
       else btn.textContent = enToRu[value] || value;
-
+      
       if (isCapital) btn.textContent = btn.textContent.toUpperCase();
     });
   }
@@ -364,3 +372,25 @@ document.body.appendChild(keyboard);
 
 document.getElementsByClassName('text-input')[0].addEventListener('click', showKbd);
 /*****************************/
+
+document.addEventListener('keydown', logKey);
+document.addEventListener('keyup', e => {
+  let letter = e.code[3].toLowerCase();
+  buttons.find(({value}) => value === letter).btn.classList.remove('keyboard__key--pressed');
+  e.isDown = false;
+});
+
+function logKey(e) {
+  showKbd();
+  if (e.code.startsWith('Key'))
+  {
+    e.preventDefault();
+    let letter = e.code[3].toLowerCase();
+    if (!e.isDown)
+    {
+      e.isDown = true;
+      buttons.find(({value}) => value === letter).btn.classList.add('keyboard__key--pressed');
+    }
+    buttons.find(({value}) => value === letter).btn.click();
+  }
+}

@@ -118,24 +118,20 @@ body {
   right: 1rem;
 }
 
+.keyboard__key--pressed {
+  background-color: #FFFA;
+  -webkit-transform: scale(0.93);
+          transform: scale(0.93);
+}
+
 .keyboard__key--active:after {
   background-color: #FFF;
   -webkit-box-shadow: 0 0 .5rem #FFF;
           box-shadow: 0 0 .5rem #FFF;
 }
 
-.keyboard__key:active {
-  background-color: #FFFA;
-  -webkit-transform: scale(0.93);
-          transform: scale(0.93);
-}
-
 .keyboard__key--dark {
   background-color: #992699;
-}
-
-.keyboard__key--dark:active {
-  background-color: #d451d4;
 }
 
 .keyboard--hidden {

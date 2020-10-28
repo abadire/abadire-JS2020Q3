@@ -74,6 +74,11 @@ body {
         right: 1rem;
       }
     }
+
+    &--pressed {
+      background-color: #FFFA;
+      transform: scale(.93);
+    }
     
     &--active {
       &:after{
@@ -82,17 +87,8 @@ body {
       }
     }
     
-    &:active {
-      background-color: #FFFA;
-      transform: scale(.93);
-    }
-    
     &--dark {
       background-color: #992699;
-      
-      &:active {
-        background-color: lighten(#992699, 20%);
-      }
     }
   }
   
