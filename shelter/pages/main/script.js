@@ -48,6 +48,27 @@ function hidePopup() {
   }, 300)
 }
 
+function nextSlide()
+{
+  const next = [];
+  while (next.length < 3)
+  {
+    const idx = Math.floor(Math.random() * 8);
+    if (!current.includes(idx) && !next.includes(idx)) next.push(idx);
+  }
+
+  current = next;
+
+  for (let i = 0; i < 3; ++i)
+  {
+    const card = document.getElementsByClassName('card')[i];
+    card.index = next[i];
+    card.getElementsByClassName('card__img')[0].src = animals[next[i]].img;
+    card.getElementsByClassName('card__img')[0].alt = animals[next[i]].name;
+    card.getElementsByClassName('card__name')[0].textContent = animals[next[i]].name;
+  }
+}
+
 for (let i = 0; i < links.length; ++i)
 {
   if (!links[i].className.split(' ').includes("navigation__link--active"))
@@ -145,6 +166,7 @@ animalIndices = shuffle(animalIndices);
 
 // Get animals from server
 let animals;
+let current = [];
 
 fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/markups/level-2/shelter/pets.json")
 .then(function(response) {
@@ -156,10 +178,8 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
   for (let i = 0; i < 3; ++i)
   {
     const animal = data[animalIndices[i]];
-    
-    // const slide = document.createElement('div');
-    // slide.classList.add('swiper-slide');
-    
+    current.push(animalIndices[i]);
+
     const card = document.createElement('div');
     card.classList.add('card');
     card.index = animalIndices[i];
@@ -183,11 +203,27 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
     learnMore.textContent = 'Learn More';
     card.appendChild(learnMore);
     
-    // slide.appendChild(card);
     slides.appendChild(card);
   }
   
   document.getElementsByClassName('gallery__cards')[0].appendChild(slides);
+
+  [...document.getElementsByClassName('card')].forEach(function (el) {
+    el.addEventListener('click', function () {
+      showOverlay();
+      const animal = animals[el.index];
+      document.getElementsByClassName('popup__img')[0].src = animal.img;
+      document.getElementsByClassName('popup__img')[0].alt = animal.name;
+      document.getElementsByClassName('popup__heading')[0].textContent = animal.name;
+      document.getElementsByClassName('popup__subheading')[0].textContent = animal.type + ' - ' + animal.breed;
+      document.getElementsByClassName('popup__text')[0].textContent = animal.description;
+      document.querySelector('[age]').textContent = animal.age;
+      document.querySelector('[inoculations]').textContent = animal.inoculations.join(', ');
+      document.querySelector('[diseases]').textContent = animal.diseases.join(', ');
+      document.querySelector('[parasites]').textContent = animal.parasites.join(', ');
+      showPopup();
+    });
+  })
 })
 .then(function() {
   // let swiper = new Swiper('.swiper-container', {
@@ -215,24 +251,27 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
   //   }
   // });
   
-  [...document.getElementsByClassName('card')].forEach(function (el) {
-    el.addEventListener('click', function () {
-      showOverlay();
-      const animal = animals[el.index];
-      document.getElementsByClassName('popup__img')[0].src = animal.img;
-      document.getElementsByClassName('popup__img')[0].alt = animal.name;
-      document.getElementsByClassName('popup__heading')[0].textContent = animal.name;
-      document.getElementsByClassName('popup__subheading')[0].textContent = animal.type + ' - ' + animal.breed;
-      document.getElementsByClassName('popup__text')[0].textContent = animal.description;
-      document.querySelector('[age]').textContent = animal.age;
-      document.querySelector('[inoculations]').textContent = animal.inoculations.join(', ');
-      document.querySelector('[diseases]').textContent = animal.diseases.join(', ');
-      document.querySelector('[parasites]').textContent = animal.parasites.join(', ');
-      showPopup();
-    });
-  })
+  // [...document.getElementsByClassName('card')].forEach(function (el) {
+  //   el.addEventListener('click', function () {
+  //     showOverlay();
+  //     const animal = animals[el.index];
+  //     document.getElementsByClassName('popup__img')[0].src = animal.img;
+  //     document.getElementsByClassName('popup__img')[0].alt = animal.name;
+  //     document.getElementsByClassName('popup__heading')[0].textContent = animal.name;
+  //     document.getElementsByClassName('popup__subheading')[0].textContent = animal.type + ' - ' + animal.breed;
+  //     document.getElementsByClassName('popup__text')[0].textContent = animal.description;
+  //     document.querySelector('[age]').textContent = animal.age;
+  //     document.querySelector('[inoculations]').textContent = animal.inoculations.join(', ');
+  //     document.querySelector('[diseases]').textContent = animal.diseases.join(', ');
+  //     document.querySelector('[parasites]').textContent = animal.parasites.join(', ');
+  //     showPopup();
+  //   });
+  // })
 });
 
+Array.from(document.getElementsByClassName('pets__arrow')).forEach(function(el) {
+  el.addEventListener('click', nextSlide);
+});
 document.getElementsByClassName('popup__close')[0].addEventListener('click', hidePopup);
 overlay.addEventListener('mouseover', () => document.getElementsByClassName('popup__close')[0].style.backgroundColor = '#FFF5');
 overlay.addEventListener('mouseout', () => document.getElementsByClassName('popup__close')[0].style.backgroundColor = '');
