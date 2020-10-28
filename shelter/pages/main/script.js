@@ -153,12 +153,12 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
 .then(function(data) {
   animals = data;
   const slides = document.createDocumentFragment();
-  for (let i = 0; i < 8; ++i)
+  for (let i = 0; i < 3; ++i)
   {
     const animal = data[animalIndices[i]];
     
-    const slide = document.createElement('div');
-    slide.classList.add('swiper-slide');
+    // const slide = document.createElement('div');
+    // slide.classList.add('swiper-slide');
     
     const card = document.createElement('div');
     card.classList.add('card');
@@ -183,37 +183,37 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
     learnMore.textContent = 'Learn More';
     card.appendChild(learnMore);
     
-    slide.appendChild(card);
-    slides.appendChild(slide);
+    // slide.appendChild(card);
+    slides.appendChild(card);
   }
   
-  document.getElementsByClassName('swiper-wrapper')[0].appendChild(slides);
+  document.getElementsByClassName('gallery__cards')[0].appendChild(slides);
 })
 .then(function() {
-  let swiper = new Swiper('.swiper-container', {
-    slidesPerView: 1,
-    spaceBetween: 30,
-    slidesPerGroup: 1,
-    observer: true,
-    loop: true,
-    loopFillGroupWithBlank: true,
-    navigation: {
-      nextEl: '.pets__arrow--next',
-      prevEl: '.pets__arrow--prev',
-    },
-    breakpoints: {
-      768: {
-        slidesPerView: 2,
-        slidesPerGroup: 2,
-        spaceBetween: 40,
-      },
-      1280: {
-        slidesPerView: 3,
-        slidesPerGroup: 3,
-        spaceBetween: 90,
-      },
-    }
-  });
+  // let swiper = new Swiper('.swiper-container', {
+  //   slidesPerView: 1,
+  //   spaceBetween: 30,
+  //   slidesPerGroup: 1,
+  //   observer: true,
+  //   loop: true,
+  //   loopFillGroupWithBlank: true,
+  //   navigation: {
+  //     nextEl: '.pets__arrow--next',
+  //     prevEl: '.pets__arrow--prev',
+  //   },
+  //   breakpoints: {
+  //     768: {
+  //       slidesPerView: 2,
+  //       slidesPerGroup: 2,
+  //       spaceBetween: 40,
+  //     },
+  //     1280: {
+  //       slidesPerView: 3,
+  //       slidesPerGroup: 3,
+  //       spaceBetween: 90,
+  //     },
+  //   }
+  // });
   
   [...document.getElementsByClassName('card')].forEach(function (el) {
     el.addEventListener('click', function () {
