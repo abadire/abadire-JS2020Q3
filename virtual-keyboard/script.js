@@ -1,7 +1,13 @@
+/**** DOM CONSTS ****/
 const textArea = document.getElementsByClassName('text-input')[0];
-const capslockable = []; // For CAPSLOCKable buttons
+/********************/
+
+/**** MISC VARIABLES ****/
+const buttons = []; // For CAPSLOCKable buttons
 let caretPosition = 0;
-const shifts = {
+let isCapital = false;
+
+const shiftsEn = {
   1: '!',
   2: '@',
   3: '#',
@@ -12,11 +18,66 @@ const shifts = {
   8: '*',
   9: '(',
   0: ')',
+  '[': '{',
+  ']': '}',
+  ';': ':',
+  '\'': '"',
   ',': '<',
   '.': '>',
   '?': '/'
 };
-let shiftOn = false;
+const shiftsRu = {
+  1: '!',
+  2: '"',
+  3: '№',
+  4: ';',
+  5: '%',
+  6: ':',
+  7: '?',
+  8: '*',
+  9: '(',
+  0: ')',
+  '.': ','
+};
+let isShifted = false;
+
+let isEn = true;
+let enToRu = {
+  'q': 'й',
+  'w': 'ц',
+  'e': 'у',
+  'r': 'к',
+  't': 'е',
+  'y': 'н',
+  'u': 'г',
+  'i': 'ш',
+  'o': 'щ',
+  'p': 'з',
+  '[': 'х',
+  ']': 'ъ',
+  'a': 'ф',
+  's': 'ы',
+  'd': 'в',
+  'f': 'а',
+  'g': 'п',
+  'h': 'р',
+  'j': 'о',
+  'k': 'л',
+  'l': 'д',
+  ';': 'ж',
+  '\'': 'э',
+  'z': 'я',
+  'x': 'ч',
+  'c': 'с',
+  'v': 'м',
+  'b': 'и',
+  'n': 'т',
+  'm': 'ь',
+  ',': 'б',
+  '.': 'ю',
+  '?': '.'
+};
+/************************/
 
 function createKeys() {
   const fragment = document.createDocumentFragment();
@@ -43,6 +104,8 @@ function createKeys() {
     'i',
     'o',
     'p',
+    '[',
+    ']',
     'br',
     'keyboard_capslock',
     'a',
@@ -54,6 +117,8 @@ function createKeys() {
     'j',
     'k',
     'l',
+    ';',
+    '\'',
     'keyboard_return',
     'br',
     'arrow_upward',
@@ -91,7 +156,7 @@ function createKeys() {
           textArea.value = textArea.value.slice(0, textArea.selectionStart) + this.textContent + textArea.value.slice(textArea.selectionStart);
           caretPosition++;
         });
-        capslockable.push(btn);
+        buttons.push({btn, value: btn.textContent});
       }
       else // for command keys
       {
@@ -175,7 +240,30 @@ function createKeys() {
           {
             span.classList.remove('material-icons');
             btn.addEventListener('click', () => {
-              
+              if (btn.textContent == 'en')
+              {
+                isEn = false;
+                btn.textContent = 'ru';
+                buttons.forEach(({btn, value}) => {
+                  // Don't change the keycap value if it's a number
+                  if (/\d/.test(btn.textContent)) return;
+
+                  btn.textContent = shiftsRu[value] || enToRu[value];
+                  if (isCapital && !isShifted || !isCapital && isShifted) btn.textContent = btn.textContent.toUpperCase();
+                });
+              }
+              else
+              {
+                isEn = true;
+                btn.textContent = 'en';
+                buttons.forEach(({btn, value}) => {
+                  // Don't change the keycap value if it's a number
+                  if (/\d/.test(btn.textContent)) return;
+
+                  btn.textContent = shiftsEn[value] || value;
+                  if (isCapital && !isShifted || !isCapital && isShifted) btn.textContent = btn.textContent.toUpperCase();
+                });
+              }
             });
             break;
           }
@@ -203,13 +291,27 @@ function toggleCaps()
 {
   if (this.classList.toggle('keyboard__key--active'))
   {
-    if (shiftOn) capslockable.forEach(btn => btn.textContent = btn.textContent.toLowerCase());
-    else  capslockable.forEach(btn => btn.textContent = btn.textContent.toUpperCase());
+    isCapital = true;
+    if (isShifted)
+    {
+      buttons.forEach(({btn}) => btn.textContent = btn.textContent.toLowerCase());
+    }
+    else
+    {
+      buttons.forEach(({btn}) => btn.textContent = btn.textContent.toUpperCase());
+    }
   }
   else
   {
-    if (shiftOn) capslockable.forEach(btn => btn.textContent = btn.textContent.toUpperCase());
-    else  capslockable.forEach(btn => btn.textContent = btn.textContent.toLowerCase());
+    isCapital = false;
+    if (isShifted)
+    {
+      buttons.forEach(({btn}) => btn.textContent = btn.textContent.toUpperCase());
+    }
+    else
+    {
+      buttons.forEach(({btn}) => btn.textContent = btn.textContent.toLowerCase());
+    }
   }
 }
 
@@ -217,20 +319,22 @@ function toggleShift()
 {
   if (this.classList.toggle('keyboard__key--active'))
   {
-    shiftOn = true;
-    capslockable.forEach(btn => {
-      if (/[A-Z]/.test(btn.textContent)) btn.textContent = btn.textContent.toLowerCase();
-      else if (/[a-z]/.test(btn.textContent)) btn.textContent = btn.textContent.toUpperCase();
-      else btn.textContent = shifts[btn.textContent];
+    isShifted = true;
+    buttons.forEach(({btn, value}) => {
+      if (isEn) btn.textContent = shiftsEn[value] || value;
+      else btn.textContent = shiftsRu[enToRu[value]] || shiftsRu[value] || enToRu[value];
+
+      if (!isCapital) btn.textContent = btn.textContent.toUpperCase();
     });
   }
   else
   {
-    shiftOn = false;
-    capslockable.forEach(btn => {
-      if (/[A-Z]/.test(btn.textContent)) btn.textContent = btn.textContent.toLowerCase();
-      else if (/[a-z]/.test(btn.textContent)) btn.textContent = btn.textContent.toUpperCase();
-      else btn.textContent = Object.keys(shifts).find(key => shifts[key] === btn.textContent);
+    isShifted = false;
+    buttons.forEach(({btn, value}) => {
+      if (isEn) btn.textContent = value;
+      else btn.textContent = enToRu[value] || value;
+
+      if (isCapital) btn.textContent = btn.textContent.toUpperCase();
     });
   }
 }
