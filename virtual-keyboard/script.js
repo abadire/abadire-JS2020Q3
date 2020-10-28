@@ -69,6 +69,7 @@ function createKeys() {
     '?',
     'br',
     'check_circle',
+    'en',
     'space_bar',
     'keyboard_arrow_left',
     'keyboard_arrow_right'
@@ -167,6 +168,14 @@ function createKeys() {
               {
                 textArea.selectionStart = textArea.selectionEnd = ++caretPosition;
               }
+            });
+            break;
+          }
+          case 'en':
+          {
+            span.classList.remove('material-icons');
+            btn.addEventListener('click', () => {
+              
             });
             break;
           }
