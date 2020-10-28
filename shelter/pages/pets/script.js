@@ -228,3 +228,5 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
 });
 
 document.getElementsByClassName('popup__close')[0].addEventListener('click', hidePopup);
+overlay.addEventListener('mouseover', () => document.getElementsByClassName('popup__close')[0].style.backgroundColor = '#FFF5');
+overlay.addEventListener('mouseout', () => document.getElementsByClassName('popup__close')[0].style.backgroundColor = '');

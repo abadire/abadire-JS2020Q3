@@ -72,7 +72,7 @@ navigationBurger.addEventListener('click', function () {
     // Move logo back
     logo.style.opacity = '0';
     setTimeout(() => {
-      logo.style.left = '';
+      logo.style.left = '0';
       logo.style.top = '0';
     }, 300);
     setTimeout(() => logo.style.opacity = '1', 300);
@@ -234,3 +234,5 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
 });
 
 document.getElementsByClassName('popup__close')[0].addEventListener('click', hidePopup);
+overlay.addEventListener('mouseover', () => document.getElementsByClassName('popup__close')[0].style.backgroundColor = '#FFF5');
+overlay.addEventListener('mouseout', () => document.getElementsByClassName('popup__close')[0].style.backgroundColor = '');
