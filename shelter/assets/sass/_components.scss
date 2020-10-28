@@ -13,18 +13,42 @@
     flex-wrap: wrap;
     overflow: hidden;
     max-height: 47.5rem;
-    padding: 0 2rem;
+    padding: 2rem;
+    padding-bottom: 0;
     -webkit-tap-highlight-color: #0000;
-    
-    
-    @include respond(tab-land) {
-      width: 84rem;
+
+    &--row {
+      @include respond(tab-land) {
+        width: 84rem;
+      }
+      
+      @include respond(tab-port) {
+        justify-content: space-around;
+        width: 30rem;
+        margin-bottom: 0;
+      }
     }
-    
-    @include respond(tab-port) {
-      justify-content: space-around;
-      width: 30rem;
-      margin-bottom: 0;
+
+    &--grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 2rem;
+      max-height: 100rem;
+      justify-items: center;
+      align-content: start;
+
+      @include respond(tab-land) {
+        max-height: 150rem;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+      }
+
+      @include respond(tab-port) {
+        display: flex;
+        flex-direction: column;
+        width: 30rem;
+      }
     }
   }
   
@@ -48,7 +72,6 @@
   padding-bottom: 3rem;
   border-radius: 9px;
   overflow: hidden;
-  margin-top: 2rem;
   margin-bottom: 3rem;
   width: 27rem;
   flex-shrink: 0;

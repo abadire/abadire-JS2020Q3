@@ -143,6 +143,7 @@ animalIndices = shuffle(animalIndices);
 
 // Get animals from server
 let animals;
+let current = [];
 
 fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/markups/level-2/shelter/pets.json")
 .then(function(response) {
@@ -151,13 +152,11 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
 .then(function(data) {
   animals = data;
   const slides = document.createDocumentFragment();
-  for (let i = 0; i < 8; ++i)
+  for (let i = 0; i < 6; ++i)
   {
     const animal = data[animalIndices[i]];
-    
-    const slide = document.createElement('div');
-    slide.classList.add('swiper-slide');
-    
+    current.push(animalIndices[i]);
+
     const card = document.createElement('div');
     card.classList.add('card');
     card.index = animalIndices[i];
@@ -178,37 +177,14 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
     
     const learnMore = document.createElement('a');
     learnMore.classList.add('btn');
-    learnMore.href = '#';
     learnMore.textContent = 'Learn More';
     card.appendChild(learnMore);
     
-    slide.appendChild(card);
-    slides.appendChild(slide);
+    slides.appendChild(card);
   }
   
-  document.getElementsByClassName('swiper-wrapper')[0].appendChild(slides);
-})
-.then(function() {
-  let swiper = new Swiper('.swiper-container', {
-    slidesPerView: 1,
-    // slidesPerGroup: 3,
-    slidesPerColumn: 3,
-    // observer: true,
-    // breakpoints: {
-    //   768: {
-    //     slidesPerView: 2,
-    //     slidesPerGroup: 6,
-    //     slidesPerColumn: 3,
-    //   },
-    //   1280: {
-    //     slidesPerView: 3,
-    //     slidesPerGroup: 6,
-    //     slidesPerColumn: 2,
-    //     spaceBetween: 90,
-    //   },
-    // }
-  });
-  
+  document.getElementsByClassName('gallery__cards')[0].appendChild(slides);
+
   [...document.getElementsByClassName('card')].forEach(function (el) {
     el.addEventListener('click', function () {
       showOverlay();
@@ -225,6 +201,11 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
       showPopup();
     });
   })
+
+})
+.then(function() {
+  
+
 });
 
 document.getElementsByClassName('popup__close')[0].addEventListener('click', hidePopup);
