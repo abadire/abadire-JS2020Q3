@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Our pets</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
@@ -48,11 +48,11 @@
         </div>
       </div>
       <div class="btn-section">
-        <a href="#" class="btn btn--small btn--nav btn--disabled" disabled><span class="btn__content">&lt;&lt;</span></a>
-        <a href="#" class="btn btn--small btn--nav btn--disabled" disabled><span class="btn__content">&lt;</span></a>
-        <a href="#" class="btn btn--small btn--nav btn--disabled btn--dark" disabled><span class="btn__content">1</span></a>
-        <a href="#" class="btn btn--small btn--nav"><span class="btn__content">&gt;</span></a>
-        <a href="#" class="btn btn--small btn--nav"><span class="btn__content">&gt;&gt;</span></a>
+        <a class="btn btn--small btn--nav btn--disabled" disabled first><span class="btn__content">&lt;&lt;</span></a>
+        <a class="btn btn--small btn--nav btn--disabled" disabled prev><span class="btn__content">&lt;</span></a>
+        <a class="btn btn--small btn--nav btn--disabled btn--dark" disabled page><span class="btn__content">1</span></a>
+        <a class="btn btn--small btn--nav" next><span class="btn__content">&gt;</span></a>
+        <a class="btn btn--small btn--nav" last><span class="btn__content">&gt;&gt;</span></a>
       </div>
     </div>
 
