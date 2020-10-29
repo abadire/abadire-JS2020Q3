@@ -96,7 +96,7 @@ const hardSymbols = {
 function playSound(sound)
 {
   if (!isAudible) return;
-  
+
   let audio;
   if (isEn) audio = document.querySelector('[data-sound="en"]');
   else audio = document.querySelector('[data-sound="ru"]');
@@ -327,7 +327,10 @@ function createKeys() {
           }
           case 'volume_up':
           {
+            btn.classList.add('keyboard__key--toggle');
+            btn.classList.add('keyboard__key--active');
             btn.addEventListener('click', function() {
+              btn.classList.toggle('keyboard__key--active');
               if (isAudible)
               {
                 isAudible = false;
