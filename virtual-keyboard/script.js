@@ -1,3 +1,4 @@
+'use strict'
 /**** DOM CONSTS ****/
 const textArea = document.getElementsByClassName('text-input')[0];
 /********************/
@@ -6,6 +7,7 @@ const textArea = document.getElementsByClassName('text-input')[0];
 const buttons = []; // For CAPSLOCKable buttons
 let caretPosition = 0;
 let isCapital = false;
+const hardKeys = {};
 
 const shiftsEn = {
   1: '!',
@@ -24,7 +26,7 @@ const shiftsEn = {
   '\'': '"',
   ',': '<',
   '.': '>',
-  '?': '/'
+  '/': '?'
 };
 const shiftsRu = {
   1: '!',
@@ -75,7 +77,17 @@ let enToRu = {
   'm': 'ь',
   ',': 'б',
   '.': 'ю',
-  '?': '.'
+  '/': '.'
+};
+
+const hardSymbols = {
+  ',': 'Comma',
+  '.': 'Period',
+  '/': 'Slash',
+  ';': 'Semicolon',
+  '\'': 'Quote',
+  '[': 'BracketLeft',
+  ']': 'BracketRight'
 };
 /************************/
 
@@ -131,7 +143,7 @@ function createKeys() {
     'm',
     ',',
     '.',
-    '?',
+    '/',
     'br',
     'check_circle',
     'en',
@@ -157,6 +169,9 @@ function createKeys() {
           caretPosition++;
         });
         buttons.push({btn, value: btn.textContent});
+        if (/[0-9]/.test(letter)) hardKeys[`Digit${letter}`] = btn;
+        else if (/[a-z]/.test(letter)) hardKeys[`Key${letter.toUpperCase()}`] = btn;
+        else hardKeys[hardSymbols[letter]] = btn;
       }
       else // for command keys
       {
@@ -178,12 +193,14 @@ function createKeys() {
                 caretPosition--;
               }
             });
+            hardKeys['Backspace'] = btn;
             break;
           }
           case 'keyboard_capslock':
           {
             btn.classList.add('keyboard__key--toggle');
             btn.addEventListener('click', toggleCaps);
+            hardKeys['CapsLock'] = btn;
             break;
           }
           case 'space_bar':
@@ -193,6 +210,7 @@ function createKeys() {
               textArea.value = textArea.value.slice(0, textArea.selectionStart) + ' ' + textArea.value.slice(textArea.selectionStart);
               caretPosition++;
             });
+            hardKeys['Space'] = btn;
             break;
           }
           case 'keyboard_return':
@@ -201,6 +219,7 @@ function createKeys() {
               textArea.value = textArea.value.slice(0, textArea.selectionStart) + '\n' + textArea.value.slice(textArea.selectionStart);
               caretPosition++;
             });
+            hardKeys['Enter'] = btn;
             break;
           }
           case 'check_circle':
@@ -213,6 +232,8 @@ function createKeys() {
           {
             btn.classList.add('keyboard__key--toggle');
             btn.addEventListener('click', toggleShift);
+            hardKeys['ShiftLeft'] = btn;
+            hardKeys['ShiftRight'] = btn;
             break;
           }
           case 'keyboard_arrow_left':
@@ -224,6 +245,7 @@ function createKeys() {
                 textArea.selectionStart = textArea.selectionEnd = --caretPosition;
               }
             });
+            hardKeys['ArrowLeft'] = btn;
             break;
           }
           case 'keyboard_arrow_right':
@@ -235,6 +257,7 @@ function createKeys() {
                 textArea.selectionStart = textArea.selectionEnd = ++caretPosition;
               }
             });
+            hardKeys['ArrowRight'] = btn;
             break;
           }
           case 'en':
@@ -249,7 +272,7 @@ function createKeys() {
                   // Don't change the keycap value if it's a number
                   if (/\d/.test(btn.textContent)) return;
                   
-                  btn.textContent = shiftsRu[value] || enToRu[value];
+                  btn.textContent = enToRu[value] || shiftsRu[value];
                   if (isCapital && !isShifted || !isCapital && isShifted) btn.textContent = btn.textContent.toUpperCase();
                 });
               }
@@ -279,13 +302,6 @@ function createKeys() {
     btn.addEventListener('click', () => {
       textArea.focus();
       textArea.selectionStart = textArea.selectionEnd = caretPosition;
-      
-      // btn.style.backgroundColor = '#FFFA';
-      // btn.style.transform = 'scale(.93)';
-      // setTimeout(() => {
-      //   btn.style.backgroundColor = '#FFF5';
-      //   btn.style.transform = '';
-      // }, 200);
     });
     
     fragment.appendChild(btn);
@@ -330,7 +346,7 @@ function toggleShift()
     isShifted = true;
     buttons.forEach(({btn, value}) => {
       if (isEn) btn.textContent = shiftsEn[value] || value;
-      else btn.textContent = shiftsRu[enToRu[value]] || shiftsRu[value] || enToRu[value];
+      else btn.textContent = enToRu[value] || shiftsRu[enToRu[value]] || shiftsRu[value];
       
       if (!isCapital) btn.textContent = btn.textContent.toUpperCase();
     });
@@ -375,22 +391,43 @@ document.getElementsByClassName('text-input')[0].addEventListener('click', showK
 
 document.addEventListener('keydown', logKey);
 document.addEventListener('keyup', e => {
-  let letter = e.code[3].toLowerCase();
-  buttons.find(({value}) => value === letter).btn.classList.remove('keyboard__key--pressed');
-  e.isDown = false;
+  let btn;
+  if (e.code.startsWith('Key'))
+  {
+    const letter = e.code[3].toLowerCase();
+    btn = buttons.find(({value}) => value === letter).btn;
+  }
+  else if (hardKeys[e.code])
+  {
+    btn = hardKeys[e.code];
+    if (e.code === 'ShiftLeft' || e.code === 'ShiftLeft') btn.click();
+  }
+  else return;
+  btn.classList.remove('keyboard__key--pressed');
+  btn.isDown = false;
 });
 
 function logKey(e) {
-  showKbd();
+  console.log(e.code);
+  let btn;
   if (e.code.startsWith('Key'))
   {
-    e.preventDefault();
-    let letter = e.code[3].toLowerCase();
-    if (!e.isDown)
-    {
-      e.isDown = true;
-      buttons.find(({value}) => value === letter).btn.classList.add('keyboard__key--pressed');
-    }
-    buttons.find(({value}) => value === letter).btn.click();
+    const letter = e.code[3].toLowerCase();
+    btn = buttons.find(({value}) => value === letter).btn;
   }
+  else if (hardKeys[e.code])
+  {
+    btn = hardKeys[e.code];
+    if ((e.code === 'ShiftLeft' || e.code === 'ShiftRight') && btn.isDown) return;
+  }
+  else return;
+  e.preventDefault();
+  showKbd();
+  
+  if (!btn.isDown)
+  {
+    btn.isDown = true;
+    btn.classList.add('keyboard__key--pressed');
+  }
+  btn.click();
 }

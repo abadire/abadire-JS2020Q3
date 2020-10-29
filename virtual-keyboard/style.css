@@ -134,6 +134,12 @@ body {
   background-color: #992699;
 }
 
+.keyboard__key:active {
+  background-color: #FFFA;
+  -webkit-transform: scale(0.93);
+          transform: scale(0.93);
+}
+
 .keyboard--hidden {
   bottom: -50%;
 }

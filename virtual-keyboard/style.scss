@@ -90,9 +90,15 @@ body {
     &--dark {
       background-color: #992699;
     }
+    
+    &:active {
+      background-color: #FFFA;
+      transform: scale(.93);
+    }
   }
   
   &--hidden {
     bottom: -50%;
   }
+
 }
