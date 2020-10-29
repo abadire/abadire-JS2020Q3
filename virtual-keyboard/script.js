@@ -8,6 +8,7 @@ const buttons = []; // For CAPSLOCKable buttons
 let caretPosition = 0;
 let isCapital = false;
 let isShown = false;
+let isAudible = true;
 const hardKeys = {};
 
 const shiftsEn = {
@@ -94,6 +95,8 @@ const hardSymbols = {
 
 function playSound(sound)
 {
+  if (!isAudible) return;
+  
   let audio;
   if (isEn) audio = document.querySelector('[data-sound="en"]');
   else audio = document.querySelector('[data-sound="ru"]');
@@ -163,7 +166,8 @@ function createKeys() {
     'en',
     'space_bar',
     'keyboard_arrow_left',
-    'keyboard_arrow_right'
+    'keyboard_arrow_right',
+    'volume_up'
   ];
   
   letters.forEach((letter) => {
@@ -317,6 +321,22 @@ function createKeys() {
                   btn.textContent = shiftsEn[value] || value;
                   if (isCapital && !isShifted || !isCapital && isShifted) btn.textContent = btn.textContent.toUpperCase();
                 });
+              }
+            });
+            break;
+          }
+          case 'volume_up':
+          {
+            btn.addEventListener('click', function() {
+              if (isAudible)
+              {
+                isAudible = false;
+                btn.firstElementChild.textContent = 'volume_off'
+              }
+              else
+              {
+                isAudible = true;
+                btn.firstElementChild.textContent = 'volume_up'
               }
             });
             break;
