@@ -9,6 +9,35 @@ let caretPosition = 0;
 let isCapital = false;
 let isShown = false;
 let isAudible = true;
+
+let isListening = false;
+let recognition;
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+recognition = new SpeechRecognition();
+recognition.interimResults = true;
+
+let text = '';
+
+recognition.addEventListener('result', function(e) {
+  text = Array.from(e.results)
+  .map(result => result[0])
+  .map(result => result.transcript)
+  .join('');
+});
+
+recognition.addEventListener('end', function () {
+  textArea.value = textArea.value.slice(0, textArea.selectionStart) + text + textArea.value.slice(textArea.selectionStart);
+  caretPosition += text.length;
+  textArea.selectionStart = textArea.selectionEnd = caretPosition;
+  textArea.focus();
+  if (!isListening)
+  {
+    recognition.stop();
+    return;
+  }
+  recognition.start();
+})
+
 const hardKeys = {};
 
 const shiftsEn = {
@@ -96,7 +125,7 @@ const hardSymbols = {
 function playSound(sound)
 {
   if (!isAudible) return;
-
+  
   let audio;
   if (isEn) audio = document.querySelector('[data-sound="en"]');
   else audio = document.querySelector('[data-sound="ru"]');
@@ -123,6 +152,7 @@ function createKeys() {
     '0',
     'backspace',
     'br',
+    'mic_off',
     'q',
     'w',
     'e',
@@ -340,6 +370,28 @@ function createKeys() {
               {
                 isAudible = true;
                 btn.firstElementChild.textContent = 'volume_up'
+              }
+            });
+            break;
+          }
+          case 'mic_off':
+          {
+            btn.classList.add('keyboard__key--toggle');
+            btn.addEventListener('click', function() {
+              playSound(document.querySelector('[data-sound="speech"]'));
+              btn.classList.toggle('keyboard__key--active');
+              if (isListening)
+              {
+                isListening = false;
+                btn.firstElementChild.textContent = 'mic_off'
+                recognition.stop();
+              }
+              else
+              {
+                isListening = true;
+                recognition.lang = isEn ? 'en' : 'ru';
+                btn.firstElementChild.textContent = 'mic'
+                recognition.start();
               }
             });
             break;
