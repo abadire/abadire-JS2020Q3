@@ -481,6 +481,10 @@ body {
   line-height: 130%;
   letter-spacing: .06em;
   color: #FFF;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .footer__heading--contacts {
@@ -495,6 +499,10 @@ body {
       -ms-flex-align: center;
           align-items: center;
   margin-bottom: 3.5rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .footer__figure--location {

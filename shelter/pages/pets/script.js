@@ -159,6 +159,19 @@ function listenCards()
   })
 }
 
+function resetPage()
+{
+  document.querySelector('[page]').textContent = page = 1;
+  document.querySelector('[first]').setAttribute('disabled', '');
+  document.querySelector('[first]').classList.add('btn--disabled');
+  document.querySelector('[prev]').setAttribute('disabled', '');
+  document.querySelector('[prev]').classList.add('btn--disabled');
+  document.querySelector('[next]').removeAttribute('disabled');
+  document.querySelector('[next]').classList.remove('btn--disabled');
+  document.querySelector('[last]').removeAttribute('disabled');
+  document.querySelector('[last]').classList.remove('btn--disabled');
+}
+
 navigationBurger.addEventListener('click', function () {
   if (isMenuShown)
   {
@@ -273,6 +286,7 @@ window.addEventListener('resize', function() {
   const numCards = toGenerate();
   if (numCards !== cards.length)
   {
+    resetPage();
     pagination = generatePagination();
     cards = pagination.slice((page - 1) * numCards, page * numCards);
     relayoutCards(cards);
@@ -285,6 +299,8 @@ document.querySelector('[next]').addEventListener('click', function () {
   {
     this.setAttribute('disabled', '');
     this.classList.add('btn--disabled');
+    document.querySelector('[last]').setAttribute('disabled', '');
+    document.querySelector('[last]').classList.add('btn--disabled');
   }
   document.querySelector('[prev]').removeAttribute('disabled');
   document.querySelector('[prev]').classList.remove('btn--disabled');
