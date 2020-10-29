@@ -91,6 +91,16 @@ const hardSymbols = {
 };
 /************************/
 
+function playSound()
+{
+  let audio;
+  if (isEn) audio = document.querySelector('[data-lang="en"]');
+  else audio = document.querySelector('[data-lang="ru"]');
+  if (!audio) return;
+  audio.currentTime = 0;
+  audio.play();
+}
+
 function createKeys() {
   const fragment = document.createDocumentFragment();
   const letters = [
@@ -168,6 +178,7 @@ function createKeys() {
           textArea.value = textArea.value.slice(0, textArea.selectionStart) + this.textContent + textArea.value.slice(textArea.selectionStart);
           caretPosition++;
         });
+        btn.addEventListener('click', playSound);
         buttons.push({btn, value: btn.textContent});
         if (/[0-9]/.test(letter)) hardKeys[`Digit${letter}`] = btn;
         else if (/[a-z]/.test(letter)) hardKeys[`Key${letter.toUpperCase()}`] = btn;
