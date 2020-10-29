@@ -7,6 +7,7 @@ const textArea = document.getElementsByClassName('text-input')[0];
 const buttons = []; // For CAPSLOCKable buttons
 let caretPosition = 0;
 let isCapital = false;
+let isShown = false;
 const hardKeys = {};
 
 const shiftsEn = {
@@ -97,9 +98,9 @@ function playSound(sound)
   if (isEn) audio = document.querySelector('[data-sound="en"]');
   else audio = document.querySelector('[data-sound="ru"]');
   if (!audio) return;
-
+  
   if (sound) audio = sound;
-
+  
   audio.currentTime = 0;
   audio.play();
 }
@@ -214,6 +215,10 @@ function createKeys() {
           case 'keyboard_capslock':
           {
             btn.classList.add('keyboard__key--toggle');
+            btn.addEventListener('click', () => {
+              if (isCapital) playSound(document.querySelector('[data-sound="capsOff"]'));
+              else playSound(document.querySelector('[data-sound="capsOn"]'));
+            });
             btn.addEventListener('click', toggleCaps);
             hardKeys['CapsLock'] = btn;
             break;
@@ -222,6 +227,7 @@ function createKeys() {
           {
             btn.classList.add('keyboard__key--space');
             btn.addEventListener('click', () => {
+              playSound(document.querySelector('[data-sound="space"]'));
               textArea.value = textArea.value.slice(0, textArea.selectionStart) + ' ' + textArea.value.slice(textArea.selectionStart);
               caretPosition++;
             });
@@ -248,6 +254,9 @@ function createKeys() {
           {
             btn.classList.add('keyboard__key--toggle');
             btn.addEventListener('click', toggleShift);
+            btn.addEventListener('click', () => {
+              playSound(document.querySelector('[data-sound="shift"]'));
+            });
             hardKeys['ShiftLeft'] = btn;
             hardKeys['ShiftRight'] = btn;
             break;
@@ -258,8 +267,10 @@ function createKeys() {
             btn.addEventListener('click', () => {
               if (caretPosition !== 0)
               {
+                playSound(document.querySelector('[data-sound="left"]'));
                 textArea.selectionStart = textArea.selectionEnd = --caretPosition;
               }
+              else playSound(document.querySelector('[data-sound="stop"]'));
             });
             hardKeys['ArrowLeft'] = btn;
             break;
@@ -270,8 +281,10 @@ function createKeys() {
             btn.addEventListener('click', () => {
               if (caretPosition !== textArea.value.length)
               {
+                playSound(document.querySelector('[data-sound="right"]'));
                 textArea.selectionStart = textArea.selectionEnd = ++caretPosition;
               }
+              else playSound(document.querySelector('[data-sound="stop"]'));
             });
             hardKeys['ArrowRight'] = btn;
             break;
@@ -280,6 +293,7 @@ function createKeys() {
           {
             span.classList.remove('material-icons');
             btn.addEventListener('click', () => {
+              playSound(document.querySelector('[data-sound="lang"]'));
               if (btn.textContent == 'en')
               {
                 isEn = false;
@@ -381,10 +395,14 @@ function toggleShift()
 
 function showKbd()
 {
+  isShown = true;
+  playSound(document.querySelector('[data-sound="show"]'));
   keyboard.classList.remove('keyboard--hidden');
 }
 
 function hideKbd() {
+  isShown = false;
+  playSound(document.querySelector('[data-sound="hide"]'));
   keyboard.classList.add('keyboard--hidden');
 }
 
@@ -424,7 +442,6 @@ document.addEventListener('keyup', e => {
 });
 
 function logKey(e) {
-  console.log(e.code);
   let btn;
   if (e.code.startsWith('Key'))
   {
@@ -438,7 +455,7 @@ function logKey(e) {
   }
   else return;
   e.preventDefault();
-  showKbd();
+  if (!isShown) showKbd();
   
   if (!btn.isDown)
   {
