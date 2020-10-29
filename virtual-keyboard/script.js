@@ -201,6 +201,7 @@ function createKeys() {
           case 'backspace':
           {
             btn.addEventListener('click', () => {
+              playSound(document.querySelector('[data-sound="backspace"]'));
               if (caretPosition !== 0)
               {
                 textArea.value = textArea.value.slice(0, textArea.selectionStart - 1) + textArea.value.slice(textArea.selectionStart);
