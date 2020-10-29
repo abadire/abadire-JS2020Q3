@@ -8,3 +8,5 @@ Private repository for @abadire
 [Shelter](https://rolling-scopes-school.github.io/abadire-JS2020Q3/shelter/pages/main/) - CSS (SASS, responsive), HTML, JS (DOM manipulation)
 
 [Momentum](https://rolling-scopes-school.github.io/abadire-JS2020Q3/momentum/) - CSS (SASS, responsive), HTML, JS (weather and quote APIs, promises, DOM manipulation)
+
+[Virtual keyboard](https://rolling-scopes-school.github.io/abadire-JS2020Q3/virtual-keyboard/) - CSS (SASS, responsive), HTML, JS (DOM manipulation, sounds, keyboard events, speech recognition API)
