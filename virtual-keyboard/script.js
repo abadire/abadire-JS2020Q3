@@ -91,12 +91,15 @@ const hardSymbols = {
 };
 /************************/
 
-function playSound()
+function playSound(sound)
 {
   let audio;
-  if (isEn) audio = document.querySelector('[data-lang="en"]');
-  else audio = document.querySelector('[data-lang="ru"]');
+  if (isEn) audio = document.querySelector('[data-sound="en"]');
+  else audio = document.querySelector('[data-sound="ru"]');
   if (!audio) return;
+
+  if (sound) audio = sound;
+
   audio.currentTime = 0;
   audio.play();
 }
@@ -178,7 +181,7 @@ function createKeys() {
           textArea.value = textArea.value.slice(0, textArea.selectionStart) + this.textContent + textArea.value.slice(textArea.selectionStart);
           caretPosition++;
         });
-        btn.addEventListener('click', playSound);
+        btn.addEventListener('click', () => playSound());
         buttons.push({btn, value: btn.textContent});
         if (/[0-9]/.test(letter)) hardKeys[`Digit${letter}`] = btn;
         else if (/[a-z]/.test(letter)) hardKeys[`Key${letter.toUpperCase()}`] = btn;
@@ -227,6 +230,7 @@ function createKeys() {
           case 'keyboard_return':
           {
             btn.addEventListener('click', () => {
+              playSound(document.querySelector('[data-sound="return"]'));
               textArea.value = textArea.value.slice(0, textArea.selectionStart) + '\n' + textArea.value.slice(textArea.selectionStart);
               caretPosition++;
             });
