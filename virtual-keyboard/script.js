@@ -13,30 +13,38 @@ let isAudible = true;
 let isListening = false;
 let recognition;
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-recognition = new SpeechRecognition();
-recognition.interimResults = true;
-
-let text = '';
-
-recognition.addEventListener('result', function(e) {
-  text = Array.from(e.results)
-  .map(result => result[0])
-  .map(result => result.transcript)
-  .join('');
-});
-
-recognition.addEventListener('end', function () {
-  textArea.value = textArea.value.slice(0, textArea.selectionStart) + text + textArea.value.slice(textArea.selectionStart);
-  caretPosition += text.length;
-  textArea.selectionStart = textArea.selectionEnd = caretPosition;
-  textArea.focus();
-  if (!isListening)
-  {
-    recognition.stop();
-    return;
-  }
-  recognition.start();
-})
+if (window.SpeechRecognition)
+{
+  recognition = new SpeechRecognition();
+  recognition.interimResults = true;
+  
+  let text = '';
+  
+  recognition.addEventListener('result', function(e) {
+    text = Array.from(e.results)
+    .map(result => result[0])
+    .map(result => result.transcript)
+    .join('');
+  });
+  
+  recognition.addEventListener('end', function () {
+    textArea.value = textArea.value.slice(0, textArea.selectionStart) + text + textArea.value.slice(textArea.selectionStart);
+    caretPosition += text.length;
+    text = '';
+    textArea.selectionStart = textArea.selectionEnd = caretPosition;
+    textArea.focus();
+    if (!isListening)
+    {
+      recognition.stop();
+      return;
+    }
+    recognition.start();
+  })
+}
+else
+{
+  alert(`Speech recognition is unavailable in your browser!`);
+}
 
 const hardKeys = {};
 
@@ -394,6 +402,7 @@ function createKeys() {
                 recognition.start();
               }
             });
+            if (!window.SpeechRecognition) btn.style.display = 'none';
             break;
           }
         }
