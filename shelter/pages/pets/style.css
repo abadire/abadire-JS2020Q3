@@ -644,10 +644,10 @@ body {
       flex-shrink: 0;
   opacity: 1;
   cursor: pointer;
-  -webkit-transition: background-color .2s, opacity .8s, -webkit-box-shadow .2s;
-  transition: background-color .2s, opacity .8s, -webkit-box-shadow .2s;
-  transition: background-color .2s, box-shadow .2s, opacity .8s;
-  transition: background-color .2s, box-shadow .2s, opacity .8s, -webkit-box-shadow .2s;
+  -webkit-transition: background-color .2s, opacity .4s, -webkit-box-shadow .2s;
+  transition: background-color .2s, opacity .4s, -webkit-box-shadow .2s;
+  transition: background-color .2s, box-shadow .2s, opacity .4s;
+  transition: background-color .2s, box-shadow .2s, opacity .4s, -webkit-box-shadow .2s;
 }
 
 .card__name {

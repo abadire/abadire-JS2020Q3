@@ -129,7 +129,7 @@ function toGenerate()
 function relayoutCards(cards)
 {
   Array.from(galleryCards.children).forEach(card => card.style.opacity = '0');
-
+  
   setTimeout(() => {
     while (galleryCards.firstElementChild)
     {
@@ -139,14 +139,20 @@ function relayoutCards(cards)
     for (let i = 0; i < cards.length; ++i)
     {
       const card = generateCard(cards[i]);
-      galleryCards.appendChild(generateCard(cards[i]));
+      card.style.opacity = '0';
+      galleryCards.appendChild(card);
     }
-  
-    Array.from(galleryCards.children).forEach(card => card.style.opacity = '0');
-    setTimeout(() => {
-      Array.from(galleryCards.children).forEach(card => card.style.opacity = '1');
-    }, 500);
-  }, 500);
+
+      Array.from(galleryCards.children).forEach(card => {
+        card.querySelector('.card__img').addEventListener('load', e => {
+          let card = e.target.parentElement;
+          setTimeout(() => {
+            card.style.opacity = '1';
+          }, 400);
+        });
+      });
+
+  }, 400);
 }
 
 function listenCards()
@@ -353,12 +359,12 @@ document.querySelector('[last]').addEventListener('click', function () {
   this.classList.add('btn--disabled');
   document.querySelector('[next]').setAttribute('disabled', '');
   document.querySelector('[next]').classList.add('btn--disabled');
-
+  
   document.querySelector('[prev]').removeAttribute('disabled');
   document.querySelector('[prev]').classList.remove('btn--disabled');
   document.querySelector('[first]').removeAttribute('disabled');
   document.querySelector('[first]').classList.remove('btn--disabled');
-
+  
   page = 48 / toGenerate();
   
   cards = pagination.slice((page - 1) * numCards);
@@ -374,12 +380,12 @@ document.querySelector('[first]').addEventListener('click', function () {
   this.classList.add('btn--disabled');
   document.querySelector('[prev]').setAttribute('disabled', '');
   document.querySelector('[prev]').classList.add('btn--disabled');
-
+  
   document.querySelector('[next]').removeAttribute('disabled');
   document.querySelector('[next]').classList.remove('btn--disabled');
   document.querySelector('[last]').removeAttribute('disabled');
   document.querySelector('[last]').classList.remove('btn--disabled');
-
+  
   page = 1;
   
   cards = pagination.slice(0, numCards);

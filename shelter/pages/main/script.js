@@ -66,9 +66,9 @@ function nextSlide()
     setTimeout(() => {
       card.index = next[i];
       card.getElementsByClassName('card__img')[0].src = animals[next[i]].img;
+      card.getElementsByClassName('card__img')[0].addEventListener('load', function() {this.parentElement.style.opacity = '1'});
       card.getElementsByClassName('card__img')[0].alt = animals[next[i]].name;
       card.getElementsByClassName('card__name')[0].textContent = animals[next[i]].name;
-      card.style.opacity = '1';
     }, 800);
   }
 }
