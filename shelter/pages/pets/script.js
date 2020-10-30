@@ -154,6 +154,7 @@ function listenCards()
       document.querySelector('[inoculations]').textContent = animal.inoculations.join(', ');
       document.querySelector('[diseases]').textContent = animal.diseases.join(', ');
       document.querySelector('[parasites]').textContent = animal.parasites.join(', ');
+      document.querySelector('.navigation').style.zIndex = '5';
       showPopup();
     });
   })
@@ -230,6 +231,7 @@ overlay.addEventListener('click', function() {
   if (isPopupVisible)
   {
     isPopupVisible = false;
+    document.querySelector('.navigation').style.zIndex = '';
     hidePopup();
   }
 });
@@ -278,7 +280,7 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
 })
 
 document.getElementsByClassName('popup__close')[0].addEventListener('click', hidePopup);
-overlay.addEventListener('mouseover', () => document.getElementsByClassName('popup__close')[0].style.backgroundColor = '#FFF5');
+overlay.addEventListener('mouseover', () => document.getElementsByClassName('popup__close')[0].style.backgroundColor = '#F1CDB3');
 overlay.addEventListener('mouseout', () => document.getElementsByClassName('popup__close')[0].style.backgroundColor = '');
 
 let page = 1;

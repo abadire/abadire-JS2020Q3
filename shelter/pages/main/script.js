@@ -224,54 +224,11 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
       showPopup();
     });
   })
-})
-.then(function() {
-  // let swiper = new Swiper('.swiper-container', {
-  //   slidesPerView: 1,
-  //   spaceBetween: 30,
-  //   slidesPerGroup: 1,
-  //   observer: true,
-  //   loop: true,
-  //   loopFillGroupWithBlank: true,
-  //   navigation: {
-  //     nextEl: '.pets__arrow--next',
-  //     prevEl: '.pets__arrow--prev',
-  //   },
-  //   breakpoints: {
-  //     768: {
-  //       slidesPerView: 2,
-  //       slidesPerGroup: 2,
-  //       spaceBetween: 40,
-  //     },
-  //     1280: {
-  //       slidesPerView: 3,
-  //       slidesPerGroup: 3,
-  //       spaceBetween: 90,
-  //     },
-  //   }
-  // });
-  
-  // [...document.getElementsByClassName('card')].forEach(function (el) {
-  //   el.addEventListener('click', function () {
-  //     showOverlay();
-  //     const animal = animals[el.index];
-  //     document.getElementsByClassName('popup__img')[0].src = animal.img;
-  //     document.getElementsByClassName('popup__img')[0].alt = animal.name;
-  //     document.getElementsByClassName('popup__heading')[0].textContent = animal.name;
-  //     document.getElementsByClassName('popup__subheading')[0].textContent = animal.type + ' - ' + animal.breed;
-  //     document.getElementsByClassName('popup__text')[0].textContent = animal.description;
-  //     document.querySelector('[age]').textContent = animal.age;
-  //     document.querySelector('[inoculations]').textContent = animal.inoculations.join(', ');
-  //     document.querySelector('[diseases]').textContent = animal.diseases.join(', ');
-  //     document.querySelector('[parasites]').textContent = animal.parasites.join(', ');
-  //     showPopup();
-  //   });
-  // })
 });
 
 Array.from(document.getElementsByClassName('pets__arrow')).forEach(function(el) {
   el.addEventListener('click', nextSlide);
 });
 document.getElementsByClassName('popup__close')[0].addEventListener('click', hidePopup);
-overlay.addEventListener('mouseover', () => document.getElementsByClassName('popup__close')[0].style.backgroundColor = '#FFF5');
+overlay.addEventListener('mouseover', () => document.getElementsByClassName('popup__close')[0].style.backgroundColor = '#F1CDB3');
 overlay.addEventListener('mouseout', () => document.getElementsByClassName('popup__close')[0].style.backgroundColor = '');
