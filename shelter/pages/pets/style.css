@@ -1225,8 +1225,8 @@ body {
 
 @media (max-width: 767px) {
   .help__icons {
-    -ms-grid-columns: (minmax(13rem, 1fr))[auto-fit];
-        grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    -ms-grid-columns: (minmax(12rem, 1fr))[auto-fit];
+        grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
     -webkit-column-gap: 3rem;
             column-gap: 3rem;
     row-gap: 3rem;

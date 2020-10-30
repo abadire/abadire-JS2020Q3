@@ -239,7 +239,7 @@
     }
     
     @include respond(tab-port) {
-      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
       column-gap: 3rem;
       row-gap: 3rem;
       margin-bottom: 4.2rem;
