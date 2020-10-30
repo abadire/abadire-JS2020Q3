@@ -68,11 +68,12 @@ function checkTime() {
   let today = new Date();
   let h = today.getHours().toString().padStart(2, '0');
   let m = today.getMinutes().toString().padStart(2, '0');
+  let s = today.getSeconds().toString().padStart(2, '0');
   let day = today.getDate();
   let month = digitToMonth[today.getMonth()];
   let weekDay = digitToWeekDay[today.getDay()];
   
-  time.textContent = h + ':' + m;
+  time.textContent = h + ':' + m + ':' + s;
   date.textContent = `${weekDay}, ${day} ${month}`;
   
   if (currentPeriod !== getPeriod(h))
@@ -186,12 +187,21 @@ document.getElementsByClassName('main__next')[0].addEventListener('click', funct
 
 name.addEventListener('keypress', setKey.bind(name, 'name'));
 name.addEventListener('blur', setKey.bind(name, 'name'));
+name.addEventListener('click', () => {
+  if (name.textContent !== '') name.textContent = '';
+});
 
 city.addEventListener('keypress', setKey.bind(city, 'city'));
 city.addEventListener('blur', setKey.bind(city, 'city'));
+city.addEventListener('click', () => {
+  if (city.textContent !== '') city.textContent = '';
+});
 
 focus.addEventListener('keypress', setKey.bind(focus, 'focus'));
 focus.addEventListener('blur', setKey.bind(focus, 'focus'));
+focus.addEventListener('click', () => {
+  if (focus.textContent !== '') focus.textContent = '';
+});
 
 requoter.addEventListener('click', reloadQuote);
 
