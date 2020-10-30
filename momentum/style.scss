@@ -73,6 +73,10 @@ body {
     font-size: 13rem;
     line-height: 90%;
     text-shadow: 0 0.3rem 4rem #000;
+
+    @include respond-tab-port {
+      font-size: 10rem;
+    }
   }
   
   &__date {

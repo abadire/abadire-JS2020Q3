@@ -68,11 +68,12 @@ function checkTime() {
   let today = new Date();
   let h = today.getHours().toString().padStart(2, '0');
   let m = today.getMinutes().toString().padStart(2, '0');
+  let s = today.getSeconds().toString().padStart(2, '0');
   let day = today.getDate();
   let month = digitToMonth[today.getMonth()];
   let weekDay = digitToWeekDay[today.getDay()];
   
-  time.textContent = h + ':' + m;
+  time.textContent = h + ':' + m + ':' + s;
   date.textContent = `${weekDay}, ${day} ${month}`;
   
   if (currentPeriod !== getPeriod(h))

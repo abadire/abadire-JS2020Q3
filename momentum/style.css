@@ -388,6 +388,12 @@ body {
   text-shadow: 0 0.3rem 4rem #000;
 }
 
+@media (max-width: 47.3em) {
+  .main__time {
+    font-size: 10rem;
+  }
+}
+
 .main__date {
   font-size: 3.5rem;
   margin-bottom: 1rem;
