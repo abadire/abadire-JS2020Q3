@@ -121,8 +121,8 @@ function generatePagination()
 
 function toGenerate()
 {
-  if (window.innerWidth > 1280) return 8;
-  else if (window.innerWidth > 768) return 6;
+  if (window.innerWidth >= 1280) return 8;
+  else if (window.innerWidth >= 768) return 6;
   else return 3;
 }
 
