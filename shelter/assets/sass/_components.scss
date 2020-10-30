@@ -47,7 +47,11 @@
       @include respond(tab-port) {
         display: flex;
         flex-direction: column;
+        align-items: center;
+        align-content: center;
         width: 30rem;
+        padding: 0;
+        padding-top: 2rem;
       }
     }
   }
@@ -75,10 +79,12 @@
   margin-bottom: 3rem;
   width: 27rem;
   flex-shrink: 0;
+  opacity: 1;
   cursor: pointer;
   
   transition: background-color .2s,
-  box-shadow .2s;
+  box-shadow .2s,
+  opacity .8s;
   
   &__name {
     margin: 2.8rem 0 3rem 0;

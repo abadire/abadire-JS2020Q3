@@ -128,15 +128,25 @@ function toGenerate()
 
 function relayoutCards(cards)
 {
-  while (galleryCards.firstElementChild)
-  {
-    galleryCards.firstElementChild.remove();
-  }
+  Array.from(galleryCards.children).forEach(card => card.style.opacity = '0');
+
+  setTimeout(() => {
+    while (galleryCards.firstElementChild)
+    {
+      galleryCards.firstElementChild.remove();
+    }
+    
+    for (let i = 0; i < cards.length; ++i)
+    {
+      const card = generateCard(cards[i]);
+      galleryCards.appendChild(generateCard(cards[i]));
+    }
   
-  for (let i = 0; i < cards.length; ++i)
-  {
-    galleryCards.appendChild(generateCard(cards[i]));
-  }
+    Array.from(galleryCards.children).forEach(card => card.style.opacity = '0');
+    setTimeout(() => {
+      Array.from(galleryCards.children).forEach(card => card.style.opacity = '1');
+    }, 500);
+  }, 500);
 }
 
 function listenCards()

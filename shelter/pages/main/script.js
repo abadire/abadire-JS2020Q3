@@ -62,10 +62,14 @@ function nextSlide()
   for (let i = 0; i < 3; ++i)
   {
     const card = document.getElementsByClassName('card')[i];
-    card.index = next[i];
-    card.getElementsByClassName('card__img')[0].src = animals[next[i]].img;
-    card.getElementsByClassName('card__img')[0].alt = animals[next[i]].name;
-    card.getElementsByClassName('card__name')[0].textContent = animals[next[i]].name;
+    card.style.opacity = '0';
+    setTimeout(() => {
+      card.index = next[i];
+      card.getElementsByClassName('card__img')[0].src = animals[next[i]].img;
+      card.getElementsByClassName('card__img')[0].alt = animals[next[i]].name;
+      card.getElementsByClassName('card__name')[0].textContent = animals[next[i]].name;
+      card.style.opacity = '1';
+    }, 800);
   }
 }
 
