@@ -278,6 +278,10 @@ let cards = [];
 
 fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/markups/level-2/shelter/pets.json")
 .then(function(response) {
+  if (!response.ok)
+  {
+    throw new Error('Network error!');
+  }
   return response.json();
 })
 .then(function(data) {
@@ -294,6 +298,9 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
   
   listenCards();
 })
+.catch(err => {
+  console.log(err);
+});
 
 document.getElementsByClassName('popup__close')[0].addEventListener('click', hidePopup);
 overlay.addEventListener('mouseover', () => document.getElementsByClassName('popup__close')[0].style.backgroundColor = '#F1CDB3');
