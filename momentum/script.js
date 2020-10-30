@@ -187,12 +187,21 @@ document.getElementsByClassName('main__next')[0].addEventListener('click', funct
 
 name.addEventListener('keypress', setKey.bind(name, 'name'));
 name.addEventListener('blur', setKey.bind(name, 'name'));
+name.addEventListener('click', () => {
+  if (name.textContent !== '') name.textContent = '';
+});
 
 city.addEventListener('keypress', setKey.bind(city, 'city'));
 city.addEventListener('blur', setKey.bind(city, 'city'));
+city.addEventListener('click', () => {
+  if (city.textContent !== '') city.textContent = '';
+});
 
 focus.addEventListener('keypress', setKey.bind(focus, 'focus'));
 focus.addEventListener('blur', setKey.bind(focus, 'focus'));
+focus.addEventListener('click', () => {
+  if (focus.textContent !== '') focus.textContent = '';
+});
 
 requoter.addEventListener('click', reloadQuote);
 
