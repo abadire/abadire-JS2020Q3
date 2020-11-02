@@ -1,9 +1,10 @@
-const links = document.getElementsByClassName("navigation__link");
+const links = Array.from(document.getElementsByClassName("navigation__link")).slice(0, 2);
 const logo = document.getElementsByClassName("logo")[0];
 const linkPets = document.getElementsByClassName("navigation__link--active")[0];
 const overlay = document.getElementsByClassName("overlay")[0];
 const navigationBurger = document.getElementsByClassName("navigation__button")[0];
 const popup = document.getElementsByClassName("popup")[0];
+const galleryCards = document.getElementsByClassName("gallery__cards")[0];
 let isMenuShown = false;
 let isPopupVisible = false;
 
@@ -60,6 +61,133 @@ function hidePopup() {
   }, 300)
 }
 
+function generateCard(index)
+{
+  const animal = animals[index];
+  const card = document.createElement('div');
+  card.classList.add('card');
+  card.index = index;
+  
+  const img = document.createElement('img');
+  img.classList.add('card__img');
+  img.width = '270';
+  img.height = '270';
+  const src = animal.img;
+  img.src = src;
+  img.alt = animal.name;
+  card.appendChild(img);
+  
+  const name = document.createElement('h4');
+  name.classList.add('card__name');
+  name.textContent = animal.name;
+  card.appendChild(name);
+  
+  const learnMore = document.createElement('a');
+  learnMore.classList.add('btn');
+  learnMore.textContent = 'Learn More';
+  card.appendChild(learnMore);
+  
+  return card;
+}
+
+function generatePagination()
+{
+  let firstPage = [];
+  let cardsPerPage = toGenerate();
+  for (let i = 0; i < cardsPerPage; ++i)
+  {
+    firstPage.push(i);
+  }
+  firstPage = shuffle(firstPage);
+  
+  let pagination = firstPage.slice();
+  for (let i = cardsPerPage; i < 48; i += cardsPerPage)
+  {
+    let prev = pagination.slice(i - cardsPerPage, i);
+    const current = [];
+    for (let j = 0; j < cardsPerPage; ++j)
+    {
+      let randIndex;
+      do {
+        randIndex = Math.floor(Math.random() * 8);
+      } while (current.includes(randIndex));
+      current.push(randIndex);
+      pagination.push(randIndex);
+    }
+  }
+  
+  return pagination;
+}
+
+function toGenerate()
+{
+  if (window.innerWidth >= 1280) return 8;
+  else if (window.innerWidth >= 768) return 6;
+  else return 3;
+}
+
+function relayoutCards(cards)
+{
+  Array.from(galleryCards.children).forEach(card => card.style.opacity = '0');
+  
+  setTimeout(() => {
+    while (galleryCards.firstElementChild)
+    {
+      galleryCards.firstElementChild.remove();
+    }
+    
+    for (let i = 0; i < cards.length; ++i)
+    {
+      const card = generateCard(cards[i]);
+      card.style.opacity = '0';
+      galleryCards.appendChild(card);
+    }
+
+      Array.from(galleryCards.children).forEach(card => {
+        card.querySelector('.card__img').addEventListener('load', e => {
+          let card = e.target.parentElement;
+          setTimeout(() => {
+            card.style.opacity = '1';
+          }, 400);
+        });
+      });
+
+  }, 400);
+}
+
+function listenCards()
+{
+  [...document.getElementsByClassName('card')].forEach(function (el) {
+    el.addEventListener('click', function () {
+      showOverlay();
+      const animal = animals[el.index];
+      document.getElementsByClassName('popup__img')[0].src = animal.img;
+      document.getElementsByClassName('popup__img')[0].alt = animal.name;
+      document.getElementsByClassName('popup__heading')[0].textContent = animal.name;
+      document.getElementsByClassName('popup__subheading')[0].textContent = animal.type + ' - ' + animal.breed;
+      document.getElementsByClassName('popup__text')[0].textContent = animal.description;
+      document.querySelector('[age]').textContent = animal.age;
+      document.querySelector('[inoculations]').textContent = animal.inoculations.join(', ');
+      document.querySelector('[diseases]').textContent = animal.diseases.join(', ');
+      document.querySelector('[parasites]').textContent = animal.parasites.join(', ');
+      document.querySelector('.navigation').style.zIndex = '5';
+      showPopup();
+    });
+  })
+}
+
+function resetPage()
+{
+  document.querySelector('[page]').textContent = page = 1;
+  document.querySelector('[first]').setAttribute('disabled', '');
+  document.querySelector('[first]').classList.add('btn--disabled');
+  document.querySelector('[prev]').setAttribute('disabled', '');
+  document.querySelector('[prev]').classList.add('btn--disabled');
+  document.querySelector('[next]').removeAttribute('disabled');
+  document.querySelector('[next]').classList.remove('btn--disabled');
+  document.querySelector('[last]').removeAttribute('disabled');
+  document.querySelector('[last]').classList.remove('btn--disabled');
+}
 
 navigationBurger.addEventListener('click', function () {
   if (isMenuShown)
@@ -72,8 +200,7 @@ navigationBurger.addEventListener('click', function () {
     // Move logo back
     logo.style.opacity = '0';
     setTimeout(() => {
-      logo.style.left = '';
-      logo.style.top = '0';
+      logo.style.left = '0';
     }, 300);
     setTimeout(() => logo.style.opacity = '1', 300);
     
@@ -102,7 +229,15 @@ navigationBurger.addEventListener('click', function () {
 overlay.addEventListener('click', function() {
   if (document.getElementById('toggle').checked)
   {
-    isMenuShown = false;
+    if (isMenuShown)
+    {
+      logo.style.opacity = '0';
+      setTimeout(() => {
+        logo.style.left = '0';
+      }, 300);
+      setTimeout(() => logo.style.opacity = '1', 300);
+      isMenuShown = false;
+    }
     document.getElementById('toggle').checked = false;
     navigationBurger.style.transform = '';
     document.body.style.overflow = 'visible';
@@ -111,6 +246,8 @@ overlay.addEventListener('click', function() {
   
   if (isPopupVisible)
   {
+    isPopupVisible = false;
+    document.querySelector('.navigation').style.zIndex = '';
     hidePopup();
   }
 });
@@ -133,98 +270,134 @@ function shuffle(array) {
   return array;
 }
 
-// Generate indices
-let animalIndices = [];
-for (let i = 0; i < 8; ++i)
-{
-  animalIndices.push(i);
-}
-animalIndices = shuffle(animalIndices);
+let pagination = generatePagination();
 
 // Get animals from server
-let animals;
+let animals = {};
+let cards = [];
 
 fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/markups/level-2/shelter/pets.json")
 .then(function(response) {
+  if (!response.ok)
+  {
+    throw new Error('Network error!');
+  }
   return response.json();
 })
 .then(function(data) {
   animals = data;
   const slides = document.createDocumentFragment();
-  for (let i = 0; i < 8; ++i)
+  let amountCards = toGenerate();
+  for (let i = 0; i < amountCards; ++i)
   {
-    const animal = data[animalIndices[i]];
-    
-    const slide = document.createElement('div');
-    slide.classList.add('swiper-slide');
-    
-    const card = document.createElement('div');
-    card.classList.add('card');
-    card.index = animalIndices[i];
-    
-    const img = document.createElement('img');
-    img.classList.add('card__img');
-    img.width = '270';
-    img.height = '270';
-    const src = animal.img;
-    img.src = src;
-    img.alt = animal.name;
-    card.appendChild(img);
-    
-    const name = document.createElement('h4');
-    name.classList.add('card__name');
-    name.textContent = animal.name;
-    card.appendChild(name);
-    
-    const learnMore = document.createElement('a');
-    learnMore.classList.add('btn');
-    learnMore.href = '#';
-    learnMore.textContent = 'Learn More';
-    card.appendChild(learnMore);
-    
-    slide.appendChild(card);
-    slides.appendChild(slide);
+    slides.appendChild(generateCard(pagination[i]));
   }
   
-  document.getElementsByClassName('swiper-wrapper')[0].appendChild(slides);
-})
-.then(function() {
-  let swiper = new Swiper('.swiper-container', {
-    slidesPerView: 1,
-    // slidesPerGroup: 3,
-    slidesPerColumn: 3,
-    // observer: true,
-    // breakpoints: {
-    //   768: {
-    //     slidesPerView: 2,
-    //     slidesPerGroup: 6,
-    //     slidesPerColumn: 3,
-    //   },
-    //   1280: {
-    //     slidesPerView: 3,
-    //     slidesPerGroup: 6,
-    //     slidesPerColumn: 2,
-    //     spaceBetween: 90,
-    //   },
-    // }
-  });
+  document.getElementsByClassName('gallery__cards')[0].appendChild(slides);
+  cards = pagination.slice(0, amountCards);
   
-  [...document.getElementsByClassName('card')].forEach(function (el) {
-    el.addEventListener('click', function () {
-      showOverlay();
-      const animal = animals[el.index];
-      document.getElementsByClassName('popup__img')[0].src = animal.img;
-      document.getElementsByClassName('popup__img')[0].alt = animal.name;
-      document.getElementsByClassName('popup__heading')[0].textContent = animal.name;
-      document.getElementsByClassName('popup__subheading')[0].textContent = animal.type + ' - ' + animal.breed;
-      document.getElementsByClassName('popup__text')[0].textContent = animal.description;
-      document.querySelector('[age]').textContent = animal.age;
-      document.querySelector('[inoculations]').textContent = animal.inoculations.join(', ');
-      document.querySelector('[diseases]').textContent = animal.diseases.join(', ');
-      document.querySelector('[parasites]').textContent = animal.parasites.join(', ');
-      showPopup();
-    });
-  })
+  listenCards();
+})
+.catch(err => {
+  console.log(err);
 });
 
 document.getElementsByClassName('popup__close')[0].addEventListener('click', hidePopup);
+overlay.addEventListener('mouseover', () => document.getElementsByClassName('popup__close')[0].style.backgroundColor = '#F1CDB3');
+overlay.addEventListener('mouseout', () => document.getElementsByClassName('popup__close')[0].style.backgroundColor = '');
+
+let page = 1;
+window.addEventListener('resize', function() {
+  const numCards = toGenerate();
+  if (numCards !== cards.length)
+  {
+    resetPage();
+    pagination = generatePagination();
+    cards = pagination.slice((page - 1) * numCards, page * numCards);
+    relayoutCards(cards);
+  }
+});
+
+document.querySelector('[next]').addEventListener('click', function () {
+  const numCards = toGenerate();
+  if (++page === 48 / numCards)
+  {
+    this.setAttribute('disabled', '');
+    this.classList.add('btn--disabled');
+    document.querySelector('[last]').setAttribute('disabled', '');
+    document.querySelector('[last]').classList.add('btn--disabled');
+  }
+  document.querySelector('[prev]').removeAttribute('disabled');
+  document.querySelector('[prev]').classList.remove('btn--disabled');
+  document.querySelector('[first]').removeAttribute('disabled');
+  document.querySelector('[first]').classList.remove('btn--disabled');
+  
+  cards = pagination.slice((page - 1) * numCards, page * numCards);
+  relayoutCards(cards);
+  listenCards();
+  
+  document.querySelector('[page]').textContent = page;
+});
+
+document.querySelector('[prev]').addEventListener('click', function () {
+  const numCards = toGenerate();
+  if (--page === 1)
+  {
+    this.setAttribute('disabled', '');
+    this.classList.add('btn--disabled');
+    document.querySelector('[first]').setAttribute('disabled', '');
+    document.querySelector('[first]').classList.add('btn--disabled');
+  }
+  document.querySelector('[next]').removeAttribute('disabled');
+  document.querySelector('[next]').classList.remove('btn--disabled');
+  document.querySelector('[last]').removeAttribute('disabled');
+  document.querySelector('[last]').classList.remove('btn--disabled');
+  
+  cards = pagination.slice((page - 1) * numCards, page * numCards);
+  relayoutCards(cards);
+  listenCards();
+  
+  document.querySelector('[page]').textContent = page;
+});
+
+document.querySelector('[last]').addEventListener('click', function () {
+  const numCards = toGenerate();
+  this.setAttribute('disabled', '');
+  this.classList.add('btn--disabled');
+  document.querySelector('[next]').setAttribute('disabled', '');
+  document.querySelector('[next]').classList.add('btn--disabled');
+  
+  document.querySelector('[prev]').removeAttribute('disabled');
+  document.querySelector('[prev]').classList.remove('btn--disabled');
+  document.querySelector('[first]').removeAttribute('disabled');
+  document.querySelector('[first]').classList.remove('btn--disabled');
+  
+  page = 48 / toGenerate();
+  
+  cards = pagination.slice((page - 1) * numCards);
+  relayoutCards(cards);
+  listenCards();
+  
+  document.querySelector('[page]').textContent = page;
+});
+
+document.querySelector('[first]').addEventListener('click', function () {
+  const numCards = toGenerate();
+  this.setAttribute('disabled', '');
+  this.classList.add('btn--disabled');
+  document.querySelector('[prev]').setAttribute('disabled', '');
+  document.querySelector('[prev]').classList.add('btn--disabled');
+  
+  document.querySelector('[next]').removeAttribute('disabled');
+  document.querySelector('[next]').classList.remove('btn--disabled');
+  document.querySelector('[last]').removeAttribute('disabled');
+  document.querySelector('[last]').classList.remove('btn--disabled');
+  
+  page = 1;
+  
+  cards = pagination.slice(0, numCards);
+  relayoutCards(cards);
+  listenCards();
+  
+  document.querySelector('[page]').textContent = page;
+});

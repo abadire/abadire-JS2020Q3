@@ -1,8 +1,67 @@
 .gallery {
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 100%;
   margin-bottom: 5.9rem;
+  
+  &__cards {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    flex-wrap: wrap;
+    overflow: hidden;
+    max-height: 47.5rem;
+    padding: 2rem;
+    padding-bottom: 0;
+    -webkit-tap-highlight-color: #0000;
+
+    &--row {
+      @include respond(tab-land) {
+        width: 84rem;
+      }
+      
+      @include respond(tab-port) {
+        justify-content: space-around;
+        width: 30rem;
+        margin-bottom: 0;
+      }
+    }
+
+    &--grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 2rem;
+      max-height: 100rem;
+      justify-items: center;
+      align-content: start;
+
+      @include respond(tab-land) {
+        max-height: 150rem;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+      }
+
+      @include respond(tab-port) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
+        width: 30rem;
+        padding: 0;
+        padding-top: 2rem;
+      }
+    }
+  }
+  
+  &__break {
+    @include respond(tab-port) {
+      width: 100%;
+      height: 10px;
+    }
+  }
   
   @include respond(tab-port) {
     margin-bottom: 4rem;
@@ -17,14 +76,15 @@
   padding-bottom: 3rem;
   border-radius: 9px;
   overflow: hidden;
-  margin-top: 2rem;
   margin-bottom: 3rem;
   width: 27rem;
   flex-shrink: 0;
+  opacity: 1;
   cursor: pointer;
   
   transition: background-color .2s,
-  box-shadow .2s;
+  box-shadow .2s,
+  opacity .4s;
   
   &__name {
     margin: 2.8rem 0 3rem 0;
@@ -38,10 +98,6 @@
   &:hover {
     background-color: $color-light-xl;
     box-shadow: 0 0 20px #0005;
-    
-    .btn {
-      background-color: $color-primary;
-    }
   }
 }
 
@@ -63,7 +119,9 @@
   border-radius: 10rem;
   border: 2px solid $color-primary;
   display: inline-block;
+  user-select: none;
   outline: none;
+  -webkit-tap-highlight-color: #0000;
   cursor: pointer;
   
   font-family: Georgia, 'Times New Roman', Times, serif;
@@ -236,7 +294,7 @@
     }
     
     &:hover {
-      background-color: #FFF5;
+      background-color: $color-primary;
     }
   }
 }

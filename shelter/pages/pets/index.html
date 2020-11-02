@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Our pets</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
@@ -15,10 +15,10 @@
   <div class="wrapper">
     <header class="header header--sticky header--light">
       <div class="overlay"></div>
-      <div class="logo">
+      <a class="logo" href="../main/index.html">
         <h1 class="logo__title logo__title--dark">Cozy House</h1>
         <p class="logo__subtitle logo__subtitle--dark">Shelter for pets in Boston</p>
-      </div>
+      </a>
       <div class="navigation">
         <input type="checkbox" class="navigation__checkbox" id="toggle">
         <label for="toggle" class="navigation__button">
@@ -29,8 +29,8 @@
           <ul class="navigation__items">
             <li class="navigation__item navigation__item--about"><a class="navigation__link navigation__link--dark" href="../main/index.html">About the shelter</a></li>
             <li class="navigation__item navigation__item--pets"><a class="navigation__link navigation__link--dark navigation__link--active" href="index.html">Our pets</a></li>
-            <li class="navigation__item navigation__item--help"><a class="navigation__link navigation__link--dark" href="#">Help the shelter</a></li>
-            <li class="navigation__item navigation__item--contacts"><a class="navigation__link navigation__link--dark" href="#">Contacts</a></li>
+            <li class="navigation__item navigation__item--help"><a class="navigation__link navigation__link--inactive navigation__link--dark">Help the shelter</a></li>
+            <li class="navigation__item navigation__item--contacts"><a class="navigation__link navigation__link--inactive navigation__link--dark">Contacts</a></li>
             <hr class="navigation__underline navigation__underline--pets">
           </ul>
         </nav>
@@ -41,20 +41,18 @@
   <div class="header-offset"></div>
   
   <section class="pets">
-    <div class="wrapper pets__content">
+    <div class="pets__content">
       <h3 class="pets__heading heading-m">Our friends who<br>are looking for a house</h3>
       <div class="gallery">
-        <div class="swiper-container">
-          <div class="swiper-wrapper">
-          </div>
+        <div class="gallery__cards gallery__cards--grid">
         </div>
       </div>
       <div class="btn-section">
-        <a href="#" class="btn btn--small btn--nav btn--disabled" disabled><span class="btn__content">&lt;&lt;</span></a>
-        <a href="#" class="btn btn--small btn--nav btn--disabled" disabled><span class="btn__content">&lt;</span></a>
-        <a href="#" class="btn btn--small btn--nav btn--disabled btn--dark" disabled><span class="btn__content">1</span></a>
-        <a href="#" class="btn btn--small btn--nav"><span class="btn__content">&gt;</span></a>
-        <a href="#" class="btn btn--small btn--nav"><span class="btn__content">&gt;&gt;</span></a>
+        <a class="btn btn--small btn--nav btn--disabled" disabled first><span class="btn__content">&lt;&lt;</span></a>
+        <a class="btn btn--small btn--nav btn--disabled" disabled prev><span class="btn__content">&lt;</span></a>
+        <a class="btn btn--small btn--nav btn--disabled btn--dark" disabled page><span class="btn__content">1</span></a>
+        <a class="btn btn--small btn--nav" next><span class="btn__content">&gt;</span></a>
+        <a class="btn btn--small btn--nav" last><span class="btn__content">&gt;&gt;</span></a>
       </div>
     </div>
 

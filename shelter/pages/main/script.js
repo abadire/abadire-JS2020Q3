@@ -1,4 +1,4 @@
-const links = document.getElementsByClassName("navigation__link");
+const links = Array.from(document.getElementsByClassName("navigation__link")).slice(0, 2);
 const logo = document.getElementsByClassName("logo")[0];
 const linkAbout = document.getElementsByClassName("navigation__link--active")[0];
 const overlay = document.getElementsByClassName("overlay")[0];
@@ -48,6 +48,31 @@ function hidePopup() {
   }, 300)
 }
 
+function nextSlide()
+{
+  const next = [];
+  while (next.length < 3)
+  {
+    const idx = Math.floor(Math.random() * 8);
+    if (!current.includes(idx) && !next.includes(idx)) next.push(idx);
+  }
+
+  current = next;
+
+  for (let i = 0; i < 3; ++i)
+  {
+    const card = document.getElementsByClassName('card')[i];
+    card.style.opacity = '0';
+    setTimeout(() => {
+      card.index = next[i];
+      card.getElementsByClassName('card__img')[0].src = animals[next[i]].img;
+      card.getElementsByClassName('card__img')[0].addEventListener('load', function() {this.parentElement.style.opacity = '1'});
+      card.getElementsByClassName('card__img')[0].alt = animals[next[i]].name;
+      card.getElementsByClassName('card__name')[0].textContent = animals[next[i]].name;
+    }, 800);
+  }
+}
+
 for (let i = 0; i < links.length; ++i)
 {
   if (!links[i].className.split(' ').includes("navigation__link--active"))
@@ -72,7 +97,7 @@ navigationBurger.addEventListener('click', function () {
     // Move logo back
     logo.style.opacity = '0';
     setTimeout(() => {
-      logo.style.left = '';
+      logo.style.left = '0';
       logo.style.top = '0';
     }, 300);
     setTimeout(() => logo.style.opacity = '1', 300);
@@ -145,6 +170,7 @@ animalIndices = shuffle(animalIndices);
 
 // Get animals from server
 let animals;
+let current = [];
 
 fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/markups/level-2/shelter/pets.json")
 .then(function(response) {
@@ -153,13 +179,11 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
 .then(function(data) {
   animals = data;
   const slides = document.createDocumentFragment();
-  for (let i = 0; i < 8; ++i)
+  for (let i = 0; i < 3; ++i)
   {
     const animal = data[animalIndices[i]];
-    
-    const slide = document.createElement('div');
-    slide.classList.add('swiper-slide');
-    
+    current.push(animalIndices[i]);
+
     const card = document.createElement('div');
     card.classList.add('card');
     card.index = animalIndices[i];
@@ -180,42 +204,14 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
     
     const learnMore = document.createElement('a');
     learnMore.classList.add('btn');
-    learnMore.href = '#';
     learnMore.textContent = 'Learn More';
     card.appendChild(learnMore);
     
-    slide.appendChild(card);
-    slides.appendChild(slide);
+    slides.appendChild(card);
   }
   
-  document.getElementsByClassName('swiper-wrapper')[0].appendChild(slides);
-})
-.then(function() {
-  let swiper = new Swiper('.swiper-container', {
-    slidesPerView: 1,
-    spaceBetween: 30,
-    slidesPerGroup: 1,
-    observer: true,
-    loop: true,
-    loopFillGroupWithBlank: true,
-    navigation: {
-      nextEl: '.pets__arrow--next',
-      prevEl: '.pets__arrow--prev',
-    },
-    breakpoints: {
-      768: {
-        slidesPerView: 2,
-        slidesPerGroup: 2,
-        spaceBetween: 40,
-      },
-      1280: {
-        slidesPerView: 3,
-        slidesPerGroup: 3,
-        spaceBetween: 90,
-      },
-    }
-  });
-  
+  document.getElementsByClassName('gallery__cards')[0].appendChild(slides);
+
   [...document.getElementsByClassName('card')].forEach(function (el) {
     el.addEventListener('click', function () {
       showOverlay();
@@ -234,4 +230,9 @@ fetch("https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/task
   })
 });
 
+Array.from(document.getElementsByClassName('pets__arrow')).forEach(function(el) {
+  el.addEventListener('click', nextSlide);
+});
 document.getElementsByClassName('popup__close')[0].addEventListener('click', hidePopup);
+overlay.addEventListener('mouseover', () => document.getElementsByClassName('popup__close')[0].style.backgroundColor = '#F1CDB3');
+overlay.addEventListener('mouseout', () => document.getElementsByClassName('popup__close')[0].style.backgroundColor = '');
