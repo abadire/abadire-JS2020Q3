@@ -29,6 +29,15 @@ a {
   color: inherit;
 }
 
+button {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+}
+
 html {
   font-size: 62.5%;
 }
@@ -58,6 +67,7 @@ body {
   -ms-flex-pack: distribute;
       justify-content: space-around;
   margin-bottom: 1rem;
+  font-size: 2rem;
 }
 
 .field {
@@ -71,7 +81,6 @@ body {
   height: 40rem;
   padding: .5rem;
   gap: .5rem;
-  border: 1px solid black;
   border-radius: 5px;
   -webkit-box-shadow: 0 .5rem 1rem #0006;
           box-shadow: 0 .5rem 1rem #0006;
@@ -82,4 +91,8 @@ body {
   width: 100%;
   height: 100%;
   cursor: pointer;
+}
+
+.field__chip--blank {
+  background-color: lightcoral;
 }
