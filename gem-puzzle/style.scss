@@ -23,13 +23,14 @@ body {
 }
 
 .field {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
   width: $field;
   height: $field;
   padding: .5rem;
-  gap: .5rem;
+  gap: $field-gap;
   border-radius: 5px;
   box-shadow: 0 .5rem 1rem #0006;
   
@@ -39,22 +40,27 @@ body {
     height: 100%;
     border-radius: 5px;
     cursor: pointer;
+    position: relative;
 
     font-size: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    
+    transform: translate(0, 0);
+    transition: transform $chip-transition;
 
     &:hover {
       background-color: lighten(thistle, 7);
     }
 
     &--blank {
-      background-color: lightcoral;
+      z-index: -1;
+      background-color: transparent;
       cursor: auto;
 
       &:hover {
-        background-color: lightcoral;
+        background-color: transparent;
       }
     }
   }

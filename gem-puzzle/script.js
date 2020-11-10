@@ -1,7 +1,48 @@
+/* GLOBALS */
+let dim = 3; // Default dimensions
+const grid = [];
+let idxBlank = 0;
+/***********/
+
+/* FUNCTIONS */
+function moveChip() {
+  const idx = grid.indexOf(this);
+  const distance = idx - idxBlank;
+  switch (distance) {
+    case -1: {
+      this.style.transform = 'translateX(calc(100% + .5rem))';
+      break;
+    }
+    case 1: {
+      this.style.transform = 'translateX(calc(-100% - .5rem))';
+      break;
+    }
+    // case -3: {
+    //   this.style.transform = 'translateY(calc(100% + .5rem))';
+    //   break;
+    // }
+  }
+  setTimeout(() => {
+    this.style.transition = 'transform 0s';
+    this.style.transform = '';
+    switch (distance) {
+      case -1: field.insertBefore(grid[idxBlank], this); break;
+      case 1: field.insertBefore(this, grid[idxBlank]); break;
+      // case -3: {
+      //   field.insertBefore(this, grid[idxBlank]);
+      //   break;
+      // }
+    }
+    setTimeout(() => this.style.transition = '', 100);
+    [grid[idx], grid[idxBlank]] = [grid[idxBlank], grid[idx]];
+    idxBlank = grid.findIndex(el => el.classList.contains('field__chip--blank'));
+  }, 300);
+}
+/*************/
+
 /* DOM GENERATION */
 function generateDom(dim) {
   const generated = document.createDocumentFragment();
-  
   const main = document.createElement('main');
   main.classList.add('container');
   generated.appendChild(main);
@@ -40,18 +81,22 @@ function generateDom(dim) {
     const chip = document.createElement('div');
     chip.classList.add('field__chip');
     chip.textContent = i + 1;
+    chip.addEventListener('click', moveChip);
+    grid.push(chip);
     field.appendChild(chip);
   }
   
   field.lastElementChild.classList.add('field__chip--blank');
   field.lastElementChild.textContent = '';
   main.appendChild(field);
+
+  idxBlank = dim * dim - 1;
   return main;
 }
 
-document.body.appendChild(generateDom(4));
+document.body.appendChild(generateDom(dim));
 /******************/
 
-/* GLOBALS */
-const grid = [];
-/***********/
+/* DOM ELEMENTS */
+const field = document.getElementsByClassName('field')[0];
+/****************/

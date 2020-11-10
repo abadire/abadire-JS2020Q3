@@ -75,6 +75,7 @@ body {
 }
 
 .field {
+  position: relative;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (1fr)[4];
@@ -84,7 +85,7 @@ body {
   width: 40rem;
   height: 40rem;
   padding: .5rem;
-  gap: .5rem;
+  gap: 0.5rem;
   border-radius: 5px;
   -webkit-box-shadow: 0 .5rem 1rem #0006;
           box-shadow: 0 .5rem 1rem #0006;
@@ -96,6 +97,7 @@ body {
   height: 100%;
   border-radius: 5px;
   cursor: pointer;
+  position: relative;
   font-size: 3rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -106,6 +108,12 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-transform: translate(0, 0);
+          transform: translate(0, 0);
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
 }
 
 .field__chip:hover {
@@ -113,10 +121,11 @@ body {
 }
 
 .field__chip--blank {
-  background-color: lightcoral;
+  z-index: -1;
+  background-color: transparent;
   cursor: auto;
 }
 
 .field__chip--blank:hover {
-  background-color: lightcoral;
+  background-color: transparent;
 }
