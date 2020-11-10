@@ -22,7 +22,7 @@ function moveChip() {
   let distance = idx - idxBlank;
   switch (distance) {
     case -1: {
-      if (rows[idx] !== rows[idxBlank]) return;
+      if (rows[idx] !== rows[idxBlank]) return; // if rows don't match
       this.style.transform = 'translateX(calc(100% + .5rem))';
       break;
     }
@@ -105,6 +105,16 @@ function generateDom(dim) {
   field.lastElementChild.classList.add('field__chip--blank');
   field.lastElementChild.textContent = '';
   main.appendChild(field);
+
+  const overlay = document.createElement('div');
+  overlay.classList.add('overlay');
+  const nav = document.createElement('nav');
+  nav.classList.add('overlay__nav');
+  overlay.appendChild(nav);
+  const navList = document.createElement('ul');
+  navList.classList.add('overlay__items');
+  nav.appendChild(navList);
+
   
   idxBlank = dim * dim - 1;
   for (let i = 0; i < dim; ++i) {
