@@ -5,6 +5,16 @@ let idxBlank = 0;
 /***********/
 
 /* FUNCTIONS */
+function swap(node1, node2) {
+  const afterNode2 = node2.nextElementSibling;
+  const parent = node2.parentNode;
+  if (node1 === afterNode2) parent.insertBefore(node1, node2);
+  else {
+    node1.replaceWith(node2);
+    parent.insertBefore(node1, afterNode2);
+  }
+}
+
 function moveChip() {
   const idx = grid.indexOf(this);
   const distance = idx - idxBlank;
@@ -17,26 +27,27 @@ function moveChip() {
       this.style.transform = 'translateX(calc(-100% - .5rem))';
       break;
     }
-    // case -3: {
-    //   this.style.transform = 'translateY(calc(100% + .5rem))';
-    //   break;
-    // }
-  }
-  setTimeout(() => {
-    this.style.transition = 'transform 0s';
-    this.style.transform = '';
-    switch (distance) {
-      case -1: field.insertBefore(grid[idxBlank], this); break;
-      case 1: field.insertBefore(this, grid[idxBlank]); break;
-      // case -3: {
-      //   field.insertBefore(this, grid[idxBlank]);
-      //   break;
-      // }
+    case -3: {
+      this.style.transform = 'translateY(calc(100% + .5rem))';
+      break;
     }
-    setTimeout(() => this.style.transition = '', 100);
-    [grid[idx], grid[idxBlank]] = [grid[idxBlank], grid[idx]];
-    idxBlank = grid.findIndex(el => el.classList.contains('field__chip--blank'));
-  }, 300);
+    case 3: {
+      this.style.transform = 'translateY(calc(-100% - .5rem))';
+      break;
+    }
+  }
+  if (this.style.transform) {
+    this.pointerEvents = 'none';
+    setTimeout(() => {
+      this.style.transition = 'transform 0s';
+      this.style.transform = '';
+      swap(this, grid[idxBlank]);
+      setTimeout(() => this.style.transition = '', 100);
+      [grid[idx], grid[idxBlank]] = [grid[idxBlank], grid[idx]];
+      idxBlank = grid.findIndex(el => el.classList.contains('field__chip--blank'));
+      this.pointerEvents = '';
+    }, 300);
+  }
 }
 /*************/
 
@@ -76,7 +87,7 @@ function generateDom(dim) {
   field.classList.add('field');
   field.style.gridTemplateColumns = `repeat(${dim}, 1fr)`
   field.style.gridTemplateRows = `repeat(${dim}, 1fr)`
-
+  
   for (let i = 0; i < dim*dim; ++i) {
     const chip = document.createElement('div');
     chip.classList.add('field__chip');
@@ -89,7 +100,7 @@ function generateDom(dim) {
   field.lastElementChild.classList.add('field__chip--blank');
   field.lastElementChild.textContent = '';
   main.appendChild(field);
-
+  
   idxBlank = dim * dim - 1;
   return main;
 }
