@@ -1,5 +1,5 @@
 /* DOM GENERATION */
-function generateDom() {
+function generateDom(dim) {
   const generated = document.createDocumentFragment();
   
   const main = document.createElement('main');
@@ -33,15 +33,25 @@ function generateDom() {
   
   const field = document.createElement('div');
   field.classList.add('field');
-  for (let i = 0; i < 16; ++i) {
+  field.style.gridTemplateColumns = `repeat(${dim}, 1fr)`
+  field.style.gridTemplateRows = `repeat(${dim}, 1fr)`
+
+  for (let i = 0; i < dim*dim; ++i) {
     const chip = document.createElement('div');
     chip.classList.add('field__chip');
+    chip.textContent = i + 1;
     field.appendChild(chip);
   }
   
   field.lastElementChild.classList.add('field__chip--blank');
+  field.lastElementChild.textContent = '';
   main.appendChild(field);
   return main;
 }
 
-document.body.appendChild(generateDom());
+document.body.appendChild(generateDom(4));
+/******************/
+
+/* GLOBALS */
+const grid = [];
+/***********/
