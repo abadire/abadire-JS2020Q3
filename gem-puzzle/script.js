@@ -2,6 +2,8 @@
 let dim = 3; // Default dimensions
 const grid = [];
 let idxBlank = 0;
+let steps;
+let rows = [];
 /***********/
 
 /* FUNCTIONS */
@@ -17,13 +19,15 @@ function swap(node1, node2) {
 
 function moveChip() {
   const idx = grid.indexOf(this);
-  const distance = idx - idxBlank;
+  let distance = idx - idxBlank;
   switch (distance) {
     case -1: {
+      if (rows[idx] !== rows[idxBlank]) return;
       this.style.transform = 'translateX(calc(100% + .5rem))';
       break;
     }
     case 1: {
+      if (rows[idx] !== rows[idxBlank]) return;
       this.style.transform = 'translateX(calc(-100% - .5rem))';
       break;
     }
@@ -35,19 +39,19 @@ function moveChip() {
       this.style.transform = 'translateY(calc(-100% - .5rem))';
       break;
     }
+    default: return;
   }
-  if (this.style.transform) {
-    this.pointerEvents = 'none';
-    setTimeout(() => {
-      this.style.transition = 'transform 0s';
-      this.style.transform = '';
-      swap(this, grid[idxBlank]);
-      setTimeout(() => this.style.transition = '', 100);
-      [grid[idx], grid[idxBlank]] = [grid[idxBlank], grid[idx]];
-      idxBlank = grid.findIndex(el => el.classList.contains('field__chip--blank'));
-      this.pointerEvents = '';
-    }, 300);
-  }
+  steps.textContent = ++steps.textContent;
+  this.pointerEvents = 'none';
+  setTimeout(() => {
+    this.style.transition = 'transform 0s';
+    this.style.transform = '';
+    swap(this, grid[idxBlank]);
+    setTimeout(() => this.style.transition = '', 100);
+    [grid[idx], grid[idxBlank]] = [grid[idxBlank], grid[idx]];
+    idxBlank = grid.findIndex(el => el.classList.contains('field__chip--blank'));
+    this.pointerEvents = '';
+  }, 300);
 }
 /*************/
 
@@ -68,25 +72,26 @@ function generateDom(dim) {
   clock.setAttribute('data-clock', '');
   clock.textContent = '--:--';
   time.appendChild(clock);
-  const steps = document.createElement('span');
-  steps.classList.add('header__steps');
-  steps.textContent = 'Steps: ';
+  const stepsSpan = document.createElement('span');
+  stepsSpan.classList.add('header__steps');
+  stepsSpan.textContent = 'Steps: ';
   const stepAmount = document.createElement('span');
   stepAmount.setAttribute('data-steps', '');
-  stepAmount.textContent = '--'
-  steps.appendChild(stepAmount);
+  stepAmount.textContent = '0';
+  steps = stepAmount;
+  stepsSpan.appendChild(stepAmount);
   const button = document.createElement('button');
   button.classList.add('header__button');
-  button.textContent = 'Pause game'
+  button.textContent = 'Pause game';
   header.appendChild(time);
-  header.appendChild(steps);
+  header.appendChild(stepsSpan);
   header.appendChild(button);
   main.appendChild(header);
   
   const field = document.createElement('div');
   field.classList.add('field');
-  field.style.gridTemplateColumns = `repeat(${dim}, 1fr)`
-  field.style.gridTemplateRows = `repeat(${dim}, 1fr)`
+  field.style.gridTemplateColumns = `repeat(${dim}, 1fr)`;
+  field.style.gridTemplateRows = `repeat(${dim}, 1fr)`;
   
   for (let i = 0; i < dim*dim; ++i) {
     const chip = document.createElement('div');
@@ -102,6 +107,9 @@ function generateDom(dim) {
   main.appendChild(field);
   
   idxBlank = dim * dim - 1;
+  for (let i = 0; i < dim; ++i) {
+    for (let j = 0; j < dim; ++j) rows.push(i);
+  }
   return main;
 }
 
