@@ -113,8 +113,21 @@ function generateDom(dim) {
   overlay.appendChild(nav);
   const navList = document.createElement('ul');
   navList.classList.add('overlay__items');
+  for (let i = 0; i < 5; ++i) {
+    const li = document.createElement('li');
+    const button = document.createElement('button');
+    li.classList.add('overlay__item');
+    button.classList.add('overlay__button');
+    li.appendChild(button);
+    navList.appendChild(li);
+  }
+  navList.children[0].firstElementChild.textContent = 'New game';
+  navList.children[1].firstElementChild.textContent = 'Saved games';
+  navList.children[2].firstElementChild.textContent = 'Best scores';
+  navList.children[3].firstElementChild.textContent = 'Rules';
+  navList.children[4].firstElementChild.textContent = 'Settings';
   nav.appendChild(navList);
-
+  field.appendChild(overlay);
 
   idxBlank = dim * dim - 1;
   for (let i = 0; i < dim; ++i) {
