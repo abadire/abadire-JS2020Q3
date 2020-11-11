@@ -5,6 +5,7 @@ let idxBlank = 0;
 let blank;
 let steps;
 let rows = [];
+let isPaused = true;
 const buttons = [];
 /***********/
 
@@ -102,6 +103,28 @@ function regenerateGrid(grid) {
     idxBlank = updateIdxBlank(grid);
   } while (!isSolvable(grid));
 }
+
+function hideOverlay() {
+  buttons.forEach(btn => {
+    btn.style.color = 'transparent';
+    btn.style.borderBottom = '2px solid transparent';
+    delay(300)
+      .then(() => {
+        btn.style.display = 'none';
+        btn.style.color = '';
+        btn.style.borderBottom = '';
+      });
+  });
+  delay(300)
+    .then(() => {
+      overlay.style.opacity = '0';
+
+      return delay(300);
+    })
+    .then(() => {
+      overlay.style.display = 'none';
+    });
+}
 /*************/
 
 /* DOM GENERATION */
@@ -133,7 +156,8 @@ function generateDom(dim) {
   buttonContainer.classList.add('header__container');
   const button = document.createElement('button');
   button.classList.add('header__button');
-  button.textContent = 'Pause game';
+  button.textContent = 'Pause';
+  button.style.pointerEvents = 'none';
   buttonContainer.appendChild(button);
   header.appendChild(time);
   header.appendChild(stepsSpan);
@@ -211,34 +235,45 @@ newGame.addEventListener('click', function() {
         btn.style.display = 'none';
         btn.style.color = '';
         btn.style.borderBottom = '';
-
-        overlay.style.backgroundColor = '#fff';
-
-        return delay(800);
-      })
-      .then(() => {
-        regenerateGrid(grid);
-        relayoutField(field, grid);
-        overlay.style.opacity = '0';
-
-        return delay(400);
-      })
-      .then(() => {
-        overlay.style.display = 'none';
-        overlay.style.backgroundColor = '#fff7';
       });
   });
+  delay(300)
+    .then(() => {
+      overlay.style.backgroundColor = '#fff';
+
+      return delay(800);
+    })
+    .then(() => {
+      overlay.style.opacity = '0';
+      regenerateGrid(grid);
+      relayoutField(field, grid);
+      return delay(400);
+    })
+    .then(() => {
+      overlay.style.display = 'none';
+      overlay.style.backgroundColor = '';
+    });
+  pause.textContent = 'Pause';
+  pause.style.pointerEvents = '';
+  isPaused = false;
 });
 
 pause.addEventListener('click', function() {
-  overlay.style.display = '';
-  pause.textContent = 'Resume';
-  delay(10)
-    .then(() => {
-      overlay.style.opacity = '';
-      buttons.forEach(btn => {
-        btn.style.display = '';
+  if (isPaused) {
+    pause.textContent = 'Pause';
+    hideOverlay();
+    isPaused = false;
+  } else {
+    overlay.style.display = '';
+    pause.textContent = 'Resume';
+    delay(10)
+      .then(() => {
+        overlay.style.opacity = '';
+        buttons.forEach(btn => {
+          btn.style.display = '';
+        });
       });
-    });
+    isPaused = true;
+  }
 });
 /*******************/
