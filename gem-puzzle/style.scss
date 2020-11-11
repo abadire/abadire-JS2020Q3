@@ -21,6 +21,17 @@ body {
   justify-content: space-around;
   margin-bottom: 1rem;
   font-size: 2rem;
+  padding: .5rem 0;
+  
+  &__button {
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    
+    &:hover {
+      color: salmon;
+      border-bottom: 2px solid salmon;
+    }
+  }
 }
 
 .field {
@@ -42,7 +53,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
     position: relative;
-
+    
     font-size: 3rem;
     display: flex;
     justify-content: center;
@@ -50,16 +61,16 @@ body {
     
     transform: translate(0, 0);
     transition: transform $chip-transition;
-
+    
     &:hover {
       background-color: lighten(thistle, 7);
     }
-
+    
     &--blank {
       z-index: -1;
       background-color: transparent;
       cursor: auto;
-
+      
       &:hover {
         background-color: transparent;
       }

@@ -61,7 +61,7 @@ function generateDom(dim) {
   const main = document.createElement('main');
   main.classList.add('container');
   generated.appendChild(main);
-  
+
   const header = document.createElement('header');
   header.classList.add('header');
   const time = document.createElement('span');
@@ -87,13 +87,13 @@ function generateDom(dim) {
   header.appendChild(stepsSpan);
   header.appendChild(button);
   main.appendChild(header);
-  
+
   const field = document.createElement('div');
   field.classList.add('field');
   field.style.gridTemplateColumns = `repeat(${dim}, 1fr)`;
   field.style.gridTemplateRows = `repeat(${dim}, 1fr)`;
-  
-  for (let i = 0; i < dim*dim; ++i) {
+
+  for (let i = 0; i < dim * dim; ++i) {
     const chip = document.createElement('div');
     chip.classList.add('field__chip');
     chip.textContent = i + 1;
@@ -101,7 +101,7 @@ function generateDom(dim) {
     grid.push(chip);
     field.appendChild(chip);
   }
-  
+
   field.lastElementChild.classList.add('field__chip--blank');
   field.lastElementChild.textContent = '';
   main.appendChild(field);
@@ -115,7 +115,7 @@ function generateDom(dim) {
   navList.classList.add('overlay__items');
   nav.appendChild(navList);
 
-  
+
   idxBlank = dim * dim - 1;
   for (let i = 0; i < dim; ++i) {
     for (let j = 0; j < dim; ++j) rows.push(i);

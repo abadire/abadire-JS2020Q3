@@ -76,6 +76,17 @@ body {
       justify-content: space-around;
   margin-bottom: 1rem;
   font-size: 2rem;
+  padding: .5rem 0;
+}
+
+.header__button {
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.header__button:hover {
+  color: salmon;
+  border-bottom: 2px solid salmon;
 }
 
 .field {
