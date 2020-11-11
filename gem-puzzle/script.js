@@ -1,5 +1,5 @@
 /* GLOBALS */
-let dim = 3; // Default dimensions
+let dim = 4; // Default dimensions
 const grid = [];
 let idxBlank = 0;
 let steps;
@@ -32,11 +32,11 @@ function moveChip() {
       this.style.transform = 'translateX(calc(-100% - .5rem))';
       break;
     }
-    case -3: {
+    case -dim: {
       this.style.transform = 'translateY(calc(100% + .5rem))';
       break;
     }
-    case 3: {
+    case dim: {
       this.style.transform = 'translateY(calc(-100% - .5rem))';
       break;
     }
