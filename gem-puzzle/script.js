@@ -4,6 +4,7 @@ const grid = [];
 let idxBlank = 0;
 let steps;
 let rows = [];
+const buttons = [];
 /***********/
 
 /* FUNCTIONS */
@@ -120,6 +121,8 @@ function generateDom(dim) {
     button.classList.add('overlay__button');
     li.appendChild(button);
     navList.appendChild(li);
+
+    buttons.push(button);
   }
   navList.children[0].firstElementChild.textContent = 'New game';
   navList.children[1].firstElementChild.textContent = 'Saved games';
@@ -140,5 +143,30 @@ document.body.appendChild(generateDom(dim));
 /******************/
 
 /* DOM ELEMENTS */
-const field = document.getElementsByClassName('field')[0];
+// const field = document.getElementsByClassName('field')[0];
+const newGame = document.getElementsByClassName('overlay__button')[0];
+const overlay = document.getElementsByClassName('overlay')[0];
 /****************/
+
+newGame.addEventListener('click', function() {
+  buttons.forEach(btn => {
+    btn.style.color = 'transparent';
+    btn.style.borderBottom = '2px solid transparent';
+    setTimeout(() => {
+      btn.style.display = 'none';
+      btn.style.color = '';
+      btn.style.borderBottom = '';
+
+      overlay.style.backgroundColor = '#fff';
+
+      setTimeout(() => {
+        overlay.style.opacity = '0';
+
+        setTimeout(() => {
+          overlay.style.display = 'none';
+          overlay.style.backgroundColor = '#fff7';
+        }, 400);
+      }, 800);
+    }, 300);
+  });
+});

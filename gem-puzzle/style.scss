@@ -93,8 +93,10 @@ body {
   align-items: center;
   justify-content: center;
 
-  background-color: #0007;
+  background-color: #fff7;
   backdrop-filter: blur(1.5px);
+
+  transition: background-color .5s cubic-bezier(1,.03,.83,.67), opacity .3s;
 
   &__nav {
     height: 100%;
