@@ -129,12 +129,15 @@ function generateDom(dim) {
   stepAmount.textContent = '0';
   steps = stepAmount;
   stepsSpan.appendChild(stepAmount);
+  const buttonContainer = document.createElement('div');
+  buttonContainer.classList.add('header__container');
   const button = document.createElement('button');
   button.classList.add('header__button');
   button.textContent = 'Pause game';
+  buttonContainer.appendChild(button);
   header.appendChild(time);
   header.appendChild(stepsSpan);
-  header.appendChild(button);
+  header.appendChild(buttonContainer);
   main.appendChild(header);
 
   const field = document.createElement('div');
@@ -195,8 +198,10 @@ document.body.appendChild(generateDom(dim));
 const field = document.getElementsByClassName('field')[0];
 const newGame = document.getElementsByClassName('overlay__button')[0];
 const overlay = document.getElementsByClassName('overlay')[0];
+const pause = document.getElementsByClassName('header__button')[0];
 /****************/
 
+/* EVENT LISTENERS */
 newGame.addEventListener('click', function() {
   buttons.forEach(btn => {
     btn.style.color = 'transparent';
@@ -224,3 +229,16 @@ newGame.addEventListener('click', function() {
       });
   });
 });
+
+pause.addEventListener('click', function() {
+  overlay.style.display = '';
+  pause.textContent = 'Resume';
+  delay(10)
+    .then(() => {
+      overlay.style.opacity = '';
+      buttons.forEach(btn => {
+        btn.style.display = '';
+      });
+    });
+});
+/*******************/
