@@ -1,3 +1,5 @@
+/* COLORS */
+/**********/
 *,
 *::before,
 *::after {
@@ -202,18 +204,19 @@ body {
   position: relative;
   top: 0;
   font-size: 2.5rem;
-  color: mistyrose;
+  color: #ffe4e1;
   cursor: pointer;
   border-bottom: 2px solid transparent;
   padding-bottom: .2rem;
-  -webkit-transition: border-bottom .3s, top .2s, -webkit-transform .2s;
-  transition: border-bottom .3s, top .2s, -webkit-transform .2s;
-  transition: border-bottom .3s, top .2s, transform .2s;
-  transition: border-bottom .3s, top .2s, transform .2s, -webkit-transform .2s;
+  -webkit-transition: border-bottom .3s, top .2s, color .3s, -webkit-transform .2s;
+  transition: border-bottom .3s, top .2s, color .3s, -webkit-transform .2s;
+  transition: border-bottom .3s, top .2s, transform .2s, color .3s;
+  transition: border-bottom .3s, top .2s, transform .2s, color .3s, -webkit-transform .2s;
 }
 
 .overlay__button:hover {
-  border-bottom: 2px solid mistyrose;
+  color: white;
+  border-bottom: 2px solid white;
 }
 
 .overlay__button:active {

@@ -119,15 +119,16 @@ body {
     top: 0;
 
     font-size: 2.5rem;
-    color: mistyrose;
+    color: $rose;
 
     cursor: pointer;
     border-bottom: 2px solid transparent;
     padding-bottom: .2rem;
-    transition: border-bottom .3s, top .2s, transform .2s;
+    transition: border-bottom .3s, top .2s, transform .2s, color .3s;
 
     &:hover {
-      border-bottom: 2px solid mistyrose;
+      color: $light-rose;
+      border-bottom: 2px solid $light-rose;
     }
 
     &:active {
