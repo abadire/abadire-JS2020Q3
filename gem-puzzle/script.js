@@ -1,7 +1,8 @@
 /* GLOBALS */
-let dim = 4; // Default dimensions
+let dim = 3; // Default dimensions
 const grid = [];
 let idxBlank = 0;
+let blank;
 let steps;
 let rows = [];
 const buttons = [];
@@ -16,6 +17,12 @@ function swap(node1, node2) {
     node1.replaceWith(node2);
     parent.insertBefore(node1, afterNode2);
   }
+}
+
+function delay(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 }
 
 function moveChip() {
@@ -50,9 +57,40 @@ function moveChip() {
     swap(this, grid[idxBlank]);
     setTimeout(() => this.style.transition = '', 100);
     [grid[idx], grid[idxBlank]] = [grid[idxBlank], grid[idx]];
-    idxBlank = grid.findIndex(el => el.classList.contains('field__chip--blank'));
+    idxBlank = grid.indexOf(blank);
     this.pointerEvents = '';
   }, 300);
+}
+
+function shuffle(array) {
+  array.sort(() => Math.random() - 0.5);
+}
+
+function isSolvable(field) {
+  if (dim % 2 === 1) {
+    let inversions = 0;
+    field.filter(el => el !== blank).forEach((el, idx, arr) => {
+      for (let i = idx + 1; i < arr.length; ++i) {
+        if (el.textContent > arr[i].textContent) inversions++;
+      }
+    });
+    if (inversions % 2 === 0) return true;
+  }
+}
+
+function relayoutField(grid) {
+  while (field.lastElementChild !== overlay) {
+    field.removeChild(field.lastElementChild);
+  }
+  grid.forEach(el => field.appendChild(el));
+}
+
+function generateField() {
+  do {
+    shuffle(grid);
+  } while (!isSolvable(grid));
+  idxBlank = grid.indexOf(blank);
+  relayoutField(grid);
 }
 /*************/
 
@@ -94,19 +132,6 @@ function generateDom(dim) {
   field.style.gridTemplateColumns = `repeat(${dim}, 1fr)`;
   field.style.gridTemplateRows = `repeat(${dim}, 1fr)`;
 
-  for (let i = 0; i < dim * dim; ++i) {
-    const chip = document.createElement('div');
-    chip.classList.add('field__chip');
-    chip.textContent = i + 1;
-    chip.addEventListener('click', moveChip);
-    grid.push(chip);
-    field.appendChild(chip);
-  }
-
-  field.lastElementChild.classList.add('field__chip--blank');
-  field.lastElementChild.textContent = '';
-  main.appendChild(field);
-
   const overlay = document.createElement('div');
   overlay.classList.add('overlay');
   const nav = document.createElement('nav');
@@ -132,6 +157,20 @@ function generateDom(dim) {
   nav.appendChild(navList);
   field.appendChild(overlay);
 
+  for (let i = 0; i < dim * dim; ++i) {
+    const chip = document.createElement('div');
+    chip.classList.add('field__chip');
+    chip.textContent = i + 1;
+    chip.addEventListener('click', moveChip);
+    grid.push(chip);
+    field.appendChild(chip);
+  }
+
+  field.lastElementChild.classList.add('field__chip--blank');
+  field.lastElementChild.textContent = '';
+  blank = field.lastElementChild;
+  main.appendChild(field);
+
   idxBlank = dim * dim - 1;
   for (let i = 0; i < dim; ++i) {
     for (let j = 0; j < dim; ++j) rows.push(i);
@@ -143,7 +182,7 @@ document.body.appendChild(generateDom(dim));
 /******************/
 
 /* DOM ELEMENTS */
-// const field = document.getElementsByClassName('field')[0];
+const field = document.getElementsByClassName('field')[0];
 const newGame = document.getElementsByClassName('overlay__button')[0];
 const overlay = document.getElementsByClassName('overlay')[0];
 /****************/
@@ -152,21 +191,25 @@ newGame.addEventListener('click', function() {
   buttons.forEach(btn => {
     btn.style.color = 'transparent';
     btn.style.borderBottom = '2px solid transparent';
-    setTimeout(() => {
-      btn.style.display = 'none';
-      btn.style.color = '';
-      btn.style.borderBottom = '';
+    delay(300)
+      .then(() => {
+        btn.style.display = 'none';
+        btn.style.color = '';
+        btn.style.borderBottom = '';
 
-      overlay.style.backgroundColor = '#fff';
+        overlay.style.backgroundColor = '#fff';
 
-      setTimeout(() => {
+        return delay(800);
+      })
+      .then(() => {
+        generateField();
         overlay.style.opacity = '0';
 
-        setTimeout(() => {
-          overlay.style.display = 'none';
-          overlay.style.backgroundColor = '#fff7';
-        }, 400);
-      }, 800);
-    }, 300);
+        return delay(400);
+      })
+      .then(() => {
+        overlay.style.display = 'none';
+        overlay.style.backgroundColor = '#fff7';
+      });
   });
 });
