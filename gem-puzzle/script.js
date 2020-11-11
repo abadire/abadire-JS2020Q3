@@ -1,5 +1,5 @@
 /* GLOBALS */
-let dim = 3; // Default dimensions
+let dim = 2; // Default dimensions
 const grid = [];
 let idxBlank = 0;
 let blank;
@@ -57,40 +57,50 @@ function moveChip() {
     swap(this, grid[idxBlank]);
     setTimeout(() => this.style.transition = '', 100);
     [grid[idx], grid[idxBlank]] = [grid[idxBlank], grid[idx]];
-    idxBlank = grid.indexOf(blank);
+    idxBlank = updateIdxBlank(grid);
     this.pointerEvents = '';
   }, 300);
 }
 
 function shuffle(array) {
   array.sort(() => Math.random() - 0.5);
+  updateIdxBlank(array);
+}
+
+function updateIdxBlank(arr) {
+  return arr.indexOf(blank);
 }
 
 function isSolvable(field) {
+  let inversions = 0;
+  field.filter(el => el !== blank).forEach((el, idx, arr) => {
+    for (let i = idx + 1; i < arr.length; ++i) {
+      if (el.textContent > arr[i].textContent) inversions++;
+    }
+  });
+
   if (dim % 2 === 1) {
-    let inversions = 0;
-    field.filter(el => el !== blank).forEach((el, idx, arr) => {
-      for (let i = idx + 1; i < arr.length; ++i) {
-        if (el.textContent > arr[i].textContent) inversions++;
-      }
-    });
     if (inversions % 2 === 0) return true;
+  } else {
+    if (rows[idxBlank] % 2 === 0 && inversions % 2 === 1 ||
+        rows[idxBlank] % 2 === 1 && inversions % 2 === 0)
+      return true;
   }
+  return false;
 }
 
-function relayoutField(grid) {
+function relayoutField(field, grid) {
   while (field.lastElementChild !== overlay) {
     field.removeChild(field.lastElementChild);
   }
   grid.forEach(el => field.appendChild(el));
 }
 
-function generateField() {
+function regenerateGrid(grid) {
   do {
     shuffle(grid);
+    idxBlank = updateIdxBlank(grid);
   } while (!isSolvable(grid));
-  idxBlank = grid.indexOf(blank);
-  relayoutField(grid);
 }
 /*************/
 
@@ -202,7 +212,8 @@ newGame.addEventListener('click', function() {
         return delay(800);
       })
       .then(() => {
-        generateField();
+        regenerateGrid(grid);
+        relayoutField(field, grid);
         overlay.style.opacity = '0';
 
         return delay(400);
