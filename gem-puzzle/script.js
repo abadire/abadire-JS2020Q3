@@ -4,6 +4,7 @@ const grid = [];
 let idxBlank = 0;
 let blank;
 let steps;
+let updateIntervalId;
 let rows = [];
 let isPaused = true;
 const buttons = [];
@@ -118,6 +119,20 @@ function showOverlay() {
   delay(1)
     .then(() => overlay.style.opacity = '');
 }
+
+function resetTime(minutes, seconds) {
+  minutes.textContent = '00';
+  seconds.textContent = '00';
+}
+
+function updateTime(minutes, seconds) {
+  if (seconds.textContent === '59') {
+    seconds.textContent = '00';
+    minutes.textContent = (++minutes.textContent).toString().padStart(2, '0');
+  } else {
+    seconds.textContent = (++seconds.textContent).toString().padStart(2, '0');
+  }
+}
 /*************/
 
 /* DOM GENERATION */
@@ -132,11 +147,20 @@ function generateDom(dim) {
   const time = document.createElement('span');
   time.classList.add('header__time');
   time.textContent = 'Time: ';
-  const clock = document.createElement('span');
-  clock.classList.add('header__clock');
-  clock.setAttribute('data-clock', '');
-  clock.textContent = '--:--';
-  time.appendChild(clock);
+  const clockDisplay = document.createElement('span');
+  clockDisplay.classList.add('header__clock');
+  const minDisplay = document.createElement('span');
+  minDisplay.setAttribute('data-min', '');
+  minDisplay.textContent = '--';
+  const colon = document.createElement('span');
+  colon.textContent = ':';
+  const secDisplay = document.createElement('span');
+  secDisplay.setAttribute('data-sec', '');
+  secDisplay.textContent = '--';
+  clockDisplay.appendChild(minDisplay);
+  clockDisplay.appendChild(colon);
+  clockDisplay.appendChild(secDisplay);
+  time.appendChild(clockDisplay);
   const stepsSpan = document.createElement('span');
   stepsSpan.classList.add('header__steps');
   stepsSpan.textContent = 'Steps: ';
@@ -216,49 +240,64 @@ const field = document.getElementsByClassName('field')[0];
 const newGame = document.getElementsByClassName('overlay__button')[0];
 const overlay = document.getElementsByClassName('overlay')[0];
 const pause = document.getElementsByClassName('header__button')[0];
+const minutes = document.querySelector('[data-min]');
+const seconds = document.querySelector('[data-sec]');
 /****************/
 
 /* EVENT LISTENERS */
 newGame.addEventListener('click', function() {
+  const buttonFade = 300;
+  const overlayToWhite = 800;
+  const overlayFade = 400;
+
   buttons.forEach(btn => {
     btn.style.color = 'transparent';
     btn.style.borderBottom = '2px solid transparent';
-    delay(300)
+    delay(buttonFade)
       .then(() => {
         btn.style.display = 'none';
         btn.style.color = '';
         btn.style.borderBottom = '';
-      });
+
+        return delay(overlayToWhite + overlayFade);
+      })
+      .then(() => btn.style.display = '');
   });
-  delay(300)
+
+  delay(buttonFade)
     .then(() => {
       overlay.style.backgroundColor = '#fff';
 
-      return delay(800);
+      return delay(overlayToWhite);
     })
     .then(() => {
       overlay.style.opacity = '0';
       regenerateGrid(grid);
       relayoutField(field, grid);
-      return delay(400);
+      return delay(overlayFade);
     })
     .then(() => {
       overlay.style.display = 'none';
       overlay.style.backgroundColor = '';
+
+      updateIntervalId = setInterval(updateTime, 1000, minutes, seconds);
     });
   pause.textContent = 'Pause';
   pause.style.pointerEvents = '';
   isPaused = false;
+  resetTime(minutes, seconds);
 });
 
 pause.addEventListener('click', function() {
   if (isPaused) {
     pause.textContent = 'Pause';
     hideOverlay();
+    updateIntervalId = setInterval(updateTime, 1000, minutes, seconds);
     isPaused = false;
   } else {
     pause.textContent = 'Resume';
     showOverlay();
+    clearInterval(updateIntervalId);
     isPaused = true;
   }
 });
