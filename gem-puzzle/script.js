@@ -1,139 +1,14 @@
 /* GLOBALS */
-let dim = 2; // Default dimensions
-const grid = [];
+let dim = 3; // Default dimensions
+const grid = []; // An array of chip nodes
 let idxBlank = 0;
-let blank;
+let blank; // Blank chip
 let steps;
 let updateIntervalId;
-let rows = [];
+let rows = []; // Helper array to check the row of a chip
 let isPaused = true;
 const buttons = [];
 /***********/
-
-/* FUNCTIONS */
-function swap(node1, node2) {
-  const afterNode2 = node2.nextElementSibling;
-  const parent = node2.parentNode;
-  if (node1 === afterNode2) parent.insertBefore(node1, node2);
-  else {
-    node1.replaceWith(node2);
-    parent.insertBefore(node1, afterNode2);
-  }
-}
-
-function delay(ms) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-}
-
-function moveChip() {
-  const idx = grid.indexOf(this);
-  let distance = idx - idxBlank;
-  switch (distance) {
-    case -1: {
-      if (rows[idx] !== rows[idxBlank]) return; // if rows don't match
-      this.style.transform = 'translateX(calc(100% + .5rem))';
-      break;
-    }
-    case 1: {
-      if (rows[idx] !== rows[idxBlank]) return;
-      this.style.transform = 'translateX(calc(-100% - .5rem))';
-      break;
-    }
-    case -dim: {
-      this.style.transform = 'translateY(calc(100% + .5rem))';
-      break;
-    }
-    case dim: {
-      this.style.transform = 'translateY(calc(-100% - .5rem))';
-      break;
-    }
-    default: return;
-  }
-  steps.textContent = ++steps.textContent;
-  this.pointerEvents = 'none';
-  setTimeout(() => {
-    this.style.transition = 'transform 0s';
-    this.style.transform = '';
-    swap(this, grid[idxBlank]);
-    setTimeout(() => this.style.transition = '', 100);
-    [grid[idx], grid[idxBlank]] = [grid[idxBlank], grid[idx]];
-    idxBlank = updateIdxBlank(grid);
-    this.pointerEvents = '';
-  }, 300);
-}
-
-function shuffle(array) {
-  array.sort(() => Math.random() - 0.5);
-  updateIdxBlank(array);
-}
-
-function updateIdxBlank(arr) {
-  return arr.indexOf(blank);
-}
-
-function isSolvable(field) {
-  let inversions = 0;
-  field.filter(el => el !== blank).forEach((el, idx, arr) => {
-    for (let i = idx + 1; i < arr.length; ++i) {
-      if (el.textContent > arr[i].textContent) inversions++;
-    }
-  });
-
-  if (dim % 2 === 1) {
-    if (inversions % 2 === 0) return true;
-  } else {
-    if (rows[idxBlank] % 2 === 0 && inversions % 2 === 1 ||
-        rows[idxBlank] % 2 === 1 && inversions % 2 === 0)
-      return true;
-  }
-  return false;
-}
-
-function relayoutField(field, grid) {
-  while (field.lastElementChild !== overlay) {
-    field.removeChild(field.lastElementChild);
-  }
-  grid.forEach(el => field.appendChild(el));
-}
-
-function regenerateGrid(grid) {
-  do {
-    shuffle(grid);
-    idxBlank = updateIdxBlank(grid);
-  } while (!isSolvable(grid));
-}
-
-function hideOverlay() {
-  overlay.style.opacity = '0';
-
-  delay(300)
-    .then(() => {
-      overlay.style.display = 'none';
-    });
-}
-
-function showOverlay() {
-  overlay.style.display = '';
-  delay(1)
-    .then(() => overlay.style.opacity = '');
-}
-
-function resetTime(minutes, seconds) {
-  minutes.textContent = '00';
-  seconds.textContent = '00';
-}
-
-function updateTime(minutes, seconds) {
-  if (seconds.textContent === '59') {
-    seconds.textContent = '00';
-    minutes.textContent = (++minutes.textContent).toString().padStart(2, '0');
-  } else {
-    seconds.textContent = (++seconds.textContent).toString().padStart(2, '0');
-  }
-}
-/*************/
 
 /* DOM GENERATION */
 function generateDom(dim) {
@@ -242,6 +117,7 @@ const overlay = document.getElementsByClassName('overlay')[0];
 const pause = document.getElementsByClassName('header__button')[0];
 const minutes = document.querySelector('[data-min]');
 const seconds = document.querySelector('[data-sec]');
+const navigation = document.getElementsByClassName('overlay__nav')[0];
 /****************/
 
 /* EVENT LISTENERS */
@@ -296,9 +172,158 @@ pause.addEventListener('click', function() {
     isPaused = false;
   } else {
     pause.textContent = 'Resume';
-    showOverlay();
+    showMenu();
     clearInterval(updateIntervalId);
     isPaused = true;
   }
 });
 /*******************/
+
+/* FUNCTIONS */
+function swap(node1, node2) {
+  const afterNode2 = node2.nextElementSibling;
+  const parent = node2.parentNode;
+  if (node1 === afterNode2) parent.insertBefore(node1, node2);
+  else {
+    node1.replaceWith(node2);
+    parent.insertBefore(node1, afterNode2);
+  }
+}
+
+function delay(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+function moveChip() {
+  const idx = grid.indexOf(this);
+  let distance = idx - idxBlank;
+  switch (distance) {
+    case -1: {
+      if (rows[idx] !== rows[idxBlank]) return; // if rows don't match
+      this.style.transform = 'translateX(calc(100% + .5rem))';
+      break;
+    }
+    case 1: {
+      if (rows[idx] !== rows[idxBlank]) return;
+      this.style.transform = 'translateX(calc(-100% - .5rem))';
+      break;
+    }
+    case -dim: {
+      this.style.transform = 'translateY(calc(100% + .5rem))';
+      break;
+    }
+    case dim: {
+      this.style.transform = 'translateY(calc(-100% - .5rem))';
+      break;
+    }
+    default: return;
+  }
+  steps.textContent = ++steps.textContent;
+  this.pointerEvents = 'none';
+  setTimeout(() => {
+    this.style.transition = 'transform 0s';
+    this.style.transform = '';
+    swap(this, grid[idxBlank]);
+    setTimeout(() => this.style.transition = '', 100);
+    [grid[idx], grid[idxBlank]] = [grid[idxBlank], grid[idx]];
+    idxBlank = updateIdxBlank(grid);
+    this.pointerEvents = '';
+  }, 300);
+
+  if (isWin(grid)) return true;
+}
+
+function shuffle(array) {
+  array.sort(() => Math.random() - 0.5);
+  updateIdxBlank(array);
+}
+
+function clearChildren(parent, until = null) {
+  while (parent.lastElementChild !== until) {
+    parent.removeChild(parent.lastElementChild);
+  }
+}
+
+function updateIdxBlank(arr) {
+  return arr.indexOf(blank);
+}
+
+function isSolvable(field) {
+  let inversions = 0;
+  field.filter(el => el !== blank).forEach((el, idx, arr) => {
+    for (let i = idx + 1; i < arr.length; ++i) {
+      if (el.textContent > arr[i].textContent) inversions++;
+    }
+  });
+
+  if (dim % 2 === 1) {
+    if (inversions % 2 === 0) return true;
+  } else {
+    if (rows[idxBlank] % 2 === 0 && inversions % 2 === 1 ||
+        rows[idxBlank] % 2 === 1 && inversions % 2 === 0)
+      return true;
+  }
+  return false;
+}
+
+function relayoutField(field, grid) {
+  clearChildren(field, overlay);
+  grid.forEach(el => field.appendChild(el));
+}
+
+function regenerateGrid(grid) {
+  do {
+    shuffle(grid);
+    idxBlank = updateIdxBlank(grid);
+  } while (!isSolvable(grid));
+}
+
+function hideOverlay() {
+  overlay.style.opacity = '0';
+
+  delay(300)
+    .then(() => {
+      overlay.style.display = 'none';
+    });
+}
+
+function showOverlay() {
+  overlay.style.display = '';
+  delay(1)
+    .then(() => overlay.style.opacity = '');
+}
+
+function showMenu() {
+  if (overlay.firstElementChild !== navigation) {
+    clearChildren(overlay);
+    overlay.appendChild(navigation);
+  }
+  showOverlay();
+}
+
+function resetTime(minutes, seconds) {
+  minutes.textContent = '00';
+  seconds.textContent = '00';
+}
+
+function updateTime(minutes, seconds) {
+  if (seconds.textContent === '59') {
+    seconds.textContent = '00';
+    minutes.textContent = (++minutes.textContent).toString().padStart(2, '0');
+  } else {
+    seconds.textContent = (++seconds.textContent).toString().padStart(2, '0');
+  }
+}
+
+function isWin(grid) {
+  for (let i = 1; i < grid.length - 1; ++i) {
+    if (grid[i] === blank ||
+        grid[i - 1].textContent > grid[i].textContent) {
+      return false;
+    }
+  }
+  return true;
+}
+/*************/
