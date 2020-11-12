@@ -64,8 +64,10 @@ function generateDom(dim) {
 
   const overlay = document.createElement('div');
   overlay.classList.add('overlay');
+  overlay.style.opacity = '1';
   const nav = document.createElement('nav');
   nav.classList.add('overlay__nav');
+  nav.style.opacity = '1';
   overlay.appendChild(nav);
   const navList = document.createElement('ul');
   navList.classList.add('overlay__items');
@@ -148,7 +150,7 @@ newGame.addEventListener('click', function() {
       return delay(overlayToWhite);
     })
     .then(() => {
-      overlay.style.opacity = '0';
+      overlay.style.opacity = '';
       regenerateGrid(grid);
       relayoutField(field, grid);
       return delay(overlayFade);
@@ -163,6 +165,7 @@ newGame.addEventListener('click', function() {
   pause.style.pointerEvents = '';
   isPaused = false;
   resetTime(minutes, seconds);
+  steps.textContent = 0;
 });
 
 pause.addEventListener('click', function() {
@@ -244,6 +247,7 @@ function clearChildren(parent, until = null) {
   while (parent.lastElementChild !== until) {
     parent.removeChild(parent.lastElementChild);
   }
+  navigation.style.opacity = '';
 }
 
 function updateIdxBlank(arr) {
@@ -281,7 +285,7 @@ function regenerateGrid(grid) {
 }
 
 function hideOverlay() {
-  overlay.style.opacity = '0';
+  overlay.style.opacity = '';
 
   delay(300)
     .then(() => {
@@ -291,8 +295,8 @@ function hideOverlay() {
 
 function showOverlay() {
   overlay.style.display = '';
-  delay(1)
-    .then(() => overlay.style.opacity = '');
+  delay(100)
+    .then(() => overlay.style.opacity = '1');
 }
 
 function showMenu() {
@@ -300,6 +304,7 @@ function showMenu() {
     clearChildren(overlay);
     overlay.appendChild(navigation);
   }
+  delay(100).then(() => navigation.style.opacity = '1');
   showOverlay();
 }
 
@@ -347,7 +352,12 @@ function showWin(minutes, seconds, steps) {
     btn.textContent = 'To main menu';
     win.appendChild(btn);
     cachedWin = win;
+    btn.addEventListener('click', () => {
+      cachedWin.style.opacity = '0';
+      delay(400).then(showMenu);
+    });
   }
+  cachedWin.style.opacity = '';
   overlay.appendChild(cachedWin);
   isPaused = true;
   pause.style.pointerEvents = 'none';
