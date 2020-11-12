@@ -1,5 +1,5 @@
 /* GLOBALS */
-let dim = 3; // Default dimensions
+let dim = 2; // Default dimensions
 const grid = []; // An array of chip nodes
 let idxBlank = 0;
 let blank; // Blank chip
@@ -8,6 +8,7 @@ let updateIntervalId;
 let rows = []; // Helper array to check the row of a chip
 let isPaused = true;
 const buttons = [];
+let cachedWin;
 /***********/
 
 /* DOM GENERATION */
@@ -230,9 +231,8 @@ function moveChip() {
     [grid[idx], grid[idxBlank]] = [grid[idxBlank], grid[idx]];
     idxBlank = updateIdxBlank(grid);
     this.pointerEvents = '';
+    if (isWin(grid)) showWin(minutes.textContent, seconds.textContent, steps.textContent);
   }, 300);
-
-  if (isWin(grid)) return true;
 }
 
 function shuffle(array) {
@@ -318,12 +318,39 @@ function updateTime(minutes, seconds) {
 }
 
 function isWin(grid) {
-  for (let i = 1; i < grid.length - 1; ++i) {
-    if (grid[i] === blank ||
-        grid[i - 1].textContent > grid[i].textContent) {
+  if (idxBlank !== grid.length - 1) return false;
+  for (let i = 0; i < grid.length - 2; ++i) {
+    if (grid[i].textContent > grid[i + 1].textContent) {
       return false;
     }
   }
   return true;
+}
+
+function showWin(minutes, seconds, steps) {
+  clearInterval(updateIntervalId);
+  clearChildren(overlay);
+  if (!cachedWin) {
+    const win = document.createElement('div');
+    win.classList.add('overlay__win');
+    const winText = document.createElement('p');
+    winText.textContent = 'You win!';
+    win.appendChild(winText);
+    const winTime = document.createElement('p');
+    winTime.textContent = `Your time: ${minutes}:${seconds}`;
+    win.appendChild(winTime);
+    const winSteps = document.createElement('p');
+    winSteps.textContent = `Your steps: ${steps} step${steps === 1 ? '' : 's'}`;
+    win.appendChild(winSteps);
+    const btn = document.createElement('button');
+    btn.classList.add('overlay__button');
+    btn.textContent = 'To main menu';
+    win.appendChild(btn);
+    cachedWin = win;
+  }
+  overlay.appendChild(cachedWin);
+  isPaused = true;
+  pause.style.pointerEvents = 'none';
+  showOverlay();
 }
 /*************/
