@@ -105,25 +105,18 @@ function regenerateGrid(grid) {
 }
 
 function hideOverlay() {
-  buttons.forEach(btn => {
-    btn.style.color = 'transparent';
-    btn.style.borderBottom = '2px solid transparent';
-    delay(300)
-      .then(() => {
-        btn.style.display = 'none';
-        btn.style.color = '';
-        btn.style.borderBottom = '';
-      });
-  });
-  delay(300)
-    .then(() => {
-      overlay.style.opacity = '0';
+  overlay.style.opacity = '0';
 
-      return delay(300);
-    })
+  delay(300)
     .then(() => {
       overlay.style.display = 'none';
     });
+}
+
+function showOverlay() {
+  overlay.style.display = '';
+  delay(1)
+    .then(() => overlay.style.opacity = '');
 }
 /*************/
 
@@ -264,15 +257,8 @@ pause.addEventListener('click', function() {
     hideOverlay();
     isPaused = false;
   } else {
-    overlay.style.display = '';
     pause.textContent = 'Resume';
-    delay(10)
-      .then(() => {
-        overlay.style.opacity = '';
-        buttons.forEach(btn => {
-          btn.style.display = '';
-        });
-      });
+    showOverlay();
     isPaused = true;
   }
 });
