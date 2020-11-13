@@ -8,7 +8,7 @@ let updateIntervalId;
 let rows = []; // Helper array to check the row of a chip
 let isPaused = true;
 const buttons = [];
-let cachedWin;
+const cache = new Map();
 /***********/
 
 /* DOM GENERATION */
@@ -116,6 +116,7 @@ document.body.appendChild(generateDom(dim));
 /* DOM ELEMENTS */
 const field = document.getElementsByClassName('field')[0];
 const newGame = document.getElementsByClassName('overlay__button')[0];
+const rules = document.getElementsByClassName('overlay__button')[3];
 const overlay = document.getElementsByClassName('overlay')[0];
 const pause = document.getElementsByClassName('header__button')[0];
 const minutes = document.querySelector('[data-min]');
@@ -181,6 +182,8 @@ pause.addEventListener('click', function() {
     isPaused = true;
   }
 });
+
+rules.addEventListener('click', showRules);
 /*******************/
 
 /* FUNCTIONS */
@@ -335,7 +338,7 @@ function isWin(grid) {
 function showWin(minutes, seconds, steps) {
   clearInterval(updateIntervalId);
   clearChildren(overlay);
-  if (!cachedWin) {
+  if (!cache.has('win')) {
     const win = document.createElement('div');
     win.classList.add('overlay__win');
     const winText = document.createElement('p');
@@ -351,16 +354,48 @@ function showWin(minutes, seconds, steps) {
     btn.classList.add('overlay__button');
     btn.textContent = 'To main menu';
     win.appendChild(btn);
-    cachedWin = win;
     btn.addEventListener('click', () => {
-      cachedWin.style.opacity = '0';
+      win.style.opacity = '';
       delay(400).then(showMenu);
     });
+    cache.set('win', win);
   }
-  cachedWin.style.opacity = '';
-  overlay.appendChild(cachedWin);
+  cache.get('win').style.opacity = '1';
+  overlay.appendChild(cache.get('win'));
   isPaused = true;
   pause.style.pointerEvents = 'none';
   showOverlay();
+}
+
+function showRules() {
+  overlay.firstElementChild.style.opacity = '';
+  if (!cache.has('rules')) {
+    const rules = document.createElement('div');
+    rules.classList.add('overlay__win');
+    const title = document.createElement('h2');
+    title.classList.add('overlay__header');
+    title.textContent = 'Rules';
+    rules.appendChild(title);
+    const text = document.createElement('p');
+    text.textContent = `The object of the puzzle is to place the tiles in order by making sliding moves that use the empty space.
+    You can save your game and load it later. Or you can just use the pause button. Also you can choose game field size in Settings.`;
+    text.classList.add('overlay__text');
+    rules.appendChild(text);
+    const btn = document.createElement('button');
+    btn.classList.add('overlay__button');
+    btn.textContent = 'To main menu';
+    btn.addEventListener('click', () => {
+      rules.style.opacity = '';
+      delay(400).then(showMenu);
+    });
+    rules.appendChild(btn);
+    cache.set('rules', rules);
+  }
+  delay(400).then(() => {
+    clearChildren(overlay);
+    overlay.appendChild(cache.get('rules'));
+    return delay(100);
+  })
+    .then(() => cache.get('rules').style.opacity = '1');
 }
 /*************/
