@@ -174,6 +174,7 @@ pause.addEventListener('click', function() {
     pause.textContent = 'Pause';
     hideOverlay();
     updateIntervalId = setInterval(updateTime, 1000, minutes, seconds);
+    hideSubs();
     isPaused = false;
   } else {
     pause.textContent = 'Resume';
@@ -340,7 +341,7 @@ function showWin(minutes, seconds, steps) {
   clearChildren(overlay);
   if (!cache.has('win')) {
     const win = document.createElement('div');
-    win.classList.add('overlay__win');
+    win.classList.add('overlay__sub');
     const winText = document.createElement('p');
     winText.textContent = 'You win!';
     win.appendChild(winText);
@@ -371,7 +372,7 @@ function showRules() {
   overlay.firstElementChild.style.opacity = '';
   if (!cache.has('rules')) {
     const rules = document.createElement('div');
-    rules.classList.add('overlay__win');
+    rules.classList.add('overlay__sub');
     const title = document.createElement('h2');
     title.classList.add('overlay__header');
     title.textContent = 'Rules';
@@ -397,5 +398,11 @@ function showRules() {
     return delay(100);
   })
     .then(() => cache.get('rules').style.opacity = '1');
+}
+
+function hideSubs() {
+  cache.forEach(function(value) {
+    value.style.opacity = '';
+  });
 }
 /*************/
