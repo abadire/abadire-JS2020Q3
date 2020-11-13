@@ -2,8 +2,8 @@
 let dim = 4; // Default dimensions
 let nextDim = dim; // Next dimension setting
 const grid = []; // An array of chip nodes
-let idxBlank = 0;
 let blank; // Blank chip
+let idxBlank = 0; // Index of the blank chip
 let steps;
 let updateIntervalId;
 let rows = []; // Helper array to check the row of a chip
@@ -70,7 +70,7 @@ function generateDom(dim) {
   overlay.appendChild(nav);
   const navList = document.createElement('ul');
   navList.classList.add('overlay__items');
-  for (let i = 0; i < 5; ++i) {
+  for (let i = 0; i < 6; ++i) {
     const li = document.createElement('li');
     const button = document.createElement('button');
     li.classList.add('overlay__item');
@@ -81,10 +81,11 @@ function generateDom(dim) {
     buttons.push(button);
   }
   navList.children[0].firstElementChild.textContent = 'New game';
-  navList.children[1].firstElementChild.textContent = 'Saved games';
-  navList.children[2].firstElementChild.textContent = 'Best scores';
-  navList.children[3].firstElementChild.textContent = 'Rules';
-  navList.children[4].firstElementChild.textContent = 'Settings';
+  navList.children[1].firstElementChild.textContent = 'Save game';
+  navList.children[2].firstElementChild.textContent = 'Load game';
+  navList.children[3].firstElementChild.textContent = 'Best scores';
+  navList.children[4].firstElementChild.textContent = 'Rules';
+  navList.children[5].firstElementChild.textContent = 'Settings';
   nav.appendChild(navList);
   field.appendChild(overlay);
 
@@ -101,8 +102,9 @@ document.body.appendChild(generateDom(dim));
 /* DOM ELEMENTS */
 const field = document.getElementsByClassName('field')[0];
 const newGame = document.getElementsByClassName('overlay__button')[0];
-const rules = document.getElementsByClassName('overlay__button')[3];
-const settings = document.getElementsByClassName('overlay__button')[4];
+const save = document.getElementsByClassName('overlay__button')[1];
+const rules = document.getElementsByClassName('overlay__button')[4];
+const settings = document.getElementsByClassName('overlay__button')[5];
 const overlay = document.getElementsByClassName('overlay')[0];
 const pause = document.getElementsByClassName('header__button')[0];
 const minutes = document.querySelector('[data-min]');
@@ -176,6 +178,13 @@ pause.addEventListener('click', function() {
 
 rules.addEventListener('click', showRules);
 settings.addEventListener('click', showSettings);
+save.addEventListener('click', () => {
+  showPopup('The game is saved!');
+  // localStorage.setItem('steps', steps.textContent);
+  // localStorage.setItem('minutes', minutes.textContent);
+  // localStorage.setItem('seconds', seconds.textContent);
+  // localStorage.setItem('grid',)
+});
 /*******************/
 
 /* FUNCTIONS */
@@ -490,5 +499,24 @@ function resetGrid(grid, field, dim) {
   for (let i = 0; i < dim; ++i) {
     for (let j = 0; j < dim; ++j) rows.push(i);
   }
+}
+
+function showPopup(str) {
+  let popup = cache.get('popup');
+  if (!popup) {
+    popup = document.createElement('p');
+    popup.textContent = str;
+    popup.classList.add('overlay__text', 'overlay__text--center', 'overlay__text--popup');
+    overlay.appendChild(popup);
+    cache.set('popup', popup);
+  }
+  delay(100)
+    .then(() => {
+      popup.style.opacity = '1';
+      return delay(2000);
+    })
+    .then(() => {
+      popup.style.opacity = '';
+    });
 }
 /*************/

@@ -184,6 +184,14 @@ body {
 
       transition: opacity .3s;
     }
+
+    &--popup {
+      position: absolute;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
   }
 
   &__form {
