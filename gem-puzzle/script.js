@@ -117,6 +117,7 @@ document.body.appendChild(generateDom(dim));
 const field = document.getElementsByClassName('field')[0];
 const newGame = document.getElementsByClassName('overlay__button')[0];
 const rules = document.getElementsByClassName('overlay__button')[3];
+const settings = document.getElementsByClassName('overlay__button')[4];
 const overlay = document.getElementsByClassName('overlay')[0];
 const pause = document.getElementsByClassName('header__button')[0];
 const minutes = document.querySelector('[data-min]');
@@ -185,6 +186,7 @@ pause.addEventListener('click', function() {
 });
 
 rules.addEventListener('click', showRules);
+settings.addEventListener('click', showSettings);
 /*******************/
 
 /* FUNCTIONS */
@@ -392,6 +394,7 @@ function showRules() {
     rules.appendChild(btn);
     cache.set('rules', rules);
   }
+
   delay(400).then(() => {
     clearChildren(overlay);
     overlay.appendChild(cache.get('rules'));
@@ -404,5 +407,52 @@ function hideSubs() {
   cache.forEach(function(value) {
     value.style.opacity = '';
   });
+}
+
+function showSettings() {
+  overlay.firstElementChild.style.opacity = '';
+  if (!cache.has('settings')) {
+    const settings = document.createElement('div');
+    settings.classList.add('overlay__sub');
+    const title = document.createElement('h2');
+    title.classList.add('overlay__header');
+    title.textContent = 'Settings';
+    settings.appendChild(title);
+    const dropDown = document.createElement('form');
+    dropDown.classList.add('overlay__form');
+    settings.appendChild(dropDown);
+    const label = document.createElement('label');
+    label.classList.add('overlay__label');
+    label.textContent = 'Field size:';
+    label.setAttribute('for', 'sizes');
+    dropDown.appendChild(label);
+    const select = document.createElement('select');
+    select.classList.add('overlay__select');
+    select.setAttribute('name', 'sizes');
+    for (let i = 3; i < 9; ++i) {
+      const option = document.createElement('option');
+      option.textContent = i + 'x' + i;
+      option.setAttribute('value', i + 'x' + i);
+      option.classList.add('overlay__option');
+      select.appendChild(option);
+    }
+    dropDown.appendChild(select);
+    const btn = document.createElement('button');
+    btn.classList.add('overlay__button');
+    btn.textContent = 'To main menu';
+    btn.addEventListener('click', () => {
+      settings.style.opacity = '';
+      delay(400).then(showMenu);
+    });
+    settings.appendChild(btn);
+    cache.set('settings', settings);
+  }
+
+  delay(400).then(() => {
+    clearChildren(overlay);
+    overlay.appendChild(cache.get('settings'));
+    return delay(100);
+  })
+    .then(() => cache.get('settings').style.opacity = '1');
 }
 /*************/

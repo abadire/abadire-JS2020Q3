@@ -170,12 +170,32 @@ body {
   &__header {
     font-size: 3rem;
     font-weight: 200;
-    margin-bottom: 2rem;
   }
 
   &__text {
     font-size: 1.5rem;
     text-align: justify;
-    margin-bottom: 2rem;
+    margin: 2rem 0;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__label {
+    margin-bottom: 1rem;
+  }
+
+  &__select {
+    color: white;
+    background-color: $rose;
+  }
+
+  &__option {
+    &:checked {
+      background-color: $light-rose;
+    }
   }
 }
