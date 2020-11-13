@@ -1,5 +1,6 @@
 /* GLOBALS */
-let dim = 2; // Default dimensions
+let dim = 4; // Default dimensions
+let nextDim = dim; // Next dimension setting
 const grid = []; // An array of chip nodes
 let idxBlank = 0;
 let blank; // Blank chip
@@ -59,8 +60,6 @@ function generateDom(dim) {
 
   const field = document.createElement('div');
   field.classList.add('field');
-  field.style.gridTemplateColumns = `repeat(${dim}, 1fr)`;
-  field.style.gridTemplateRows = `repeat(${dim}, 1fr)`;
 
   const overlay = document.createElement('div');
   overlay.classList.add('overlay');
@@ -89,24 +88,10 @@ function generateDom(dim) {
   nav.appendChild(navList);
   field.appendChild(overlay);
 
-  for (let i = 0; i < dim * dim; ++i) {
-    const chip = document.createElement('div');
-    chip.classList.add('field__chip');
-    chip.textContent = i + 1;
-    chip.addEventListener('click', moveChip);
-    grid.push(chip);
-    field.appendChild(chip);
-  }
+  resetGrid(grid, field, dim);
 
-  field.lastElementChild.classList.add('field__chip--blank');
-  field.lastElementChild.textContent = '';
-  blank = field.lastElementChild;
   main.appendChild(field);
 
-  idxBlank = dim * dim - 1;
-  for (let i = 0; i < dim; ++i) {
-    for (let j = 0; j < dim; ++j) rows.push(i);
-  }
   return main;
 }
 
@@ -153,6 +138,10 @@ newGame.addEventListener('click', function() {
     })
     .then(() => {
       overlay.style.opacity = '';
+      if (nextDim * nextDim !== grid.length) {
+        dim = nextDim;
+        resetGrid(grid, field, dim);
+      }
       regenerateGrid(grid);
       relayoutField(field, grid);
       return delay(overlayFade);
@@ -429,14 +418,36 @@ function showSettings() {
     const select = document.createElement('select');
     select.classList.add('overlay__select');
     select.setAttribute('name', 'sizes');
+
+    const text1 = document.createElement('p');
+    text1.textContent = 'Changes saved!';
+    text1.classList.add('overlay__text', 'overlay__text--center');
+    const text2 = document.createElement('p');
+    text2.textContent = 'Start a new game to apply settings.';
+    text2.classList.add('overlay__text', 'overlay__text--center');
+
     for (let i = 3; i < 9; ++i) {
       const option = document.createElement('option');
       option.textContent = i + 'x' + i;
-      option.setAttribute('value', i + 'x' + i);
+      option.setAttribute('value', i);
+      if (i === 4) option.setAttribute('selected', '');
       option.classList.add('overlay__option');
       select.appendChild(option);
     }
     dropDown.appendChild(select);
+    dropDown.addEventListener('change', evt => {
+      nextDim = +evt.target.selectedOptions[0].getAttribute('value');
+      text1.style.opacity = '1';
+      text2.style.opacity = '1';
+
+      setTimeout(() => {
+        text1.style.opacity = '';
+        text2.style.opacity = '';
+      }, 2000);
+    });
+
+    settings.appendChild(text1);
+    settings.appendChild(text2);
     const btn = document.createElement('button');
     btn.classList.add('overlay__button');
     btn.textContent = 'To main menu';
@@ -454,5 +465,30 @@ function showSettings() {
     return delay(100);
   })
     .then(() => cache.get('settings').style.opacity = '1');
+}
+
+function resetGrid(grid, field, dim) {
+  grid.length = 0;
+  for (let i = 0; i < dim * dim; ++i) {
+    const chip = document.createElement('div');
+    chip.classList.add('field__chip');
+    chip.textContent = i + 1;
+    chip.addEventListener('click', moveChip);
+    grid.push(chip);
+    field.appendChild(chip);
+  }
+  field.lastElementChild.classList.add('field__chip--blank');
+  field.lastElementChild.textContent = '';
+  field.style.gridTemplateColumns = `repeat(${dim}, 1fr)`;
+  field.style.gridTemplateRows = `repeat(${dim}, 1fr)`;
+
+  // Globals edits
+  blank = field.lastElementChild;
+  idxBlank = dim * dim - 1;
+
+  rows.length = 0;
+  for (let i = 0; i < dim; ++i) {
+    for (let j = 0; j < dim; ++j) rows.push(i);
+  }
 }
 /*************/
