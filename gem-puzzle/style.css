@@ -317,3 +317,20 @@ body {
 .overlay__option:checked {
   background-color: #da1600;
 }
+
+.overlay__table {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1.6fr 1fr .75fr .8fr;
+      grid-template-columns: 1.6fr 1fr .75fr .8fr;
+  gap: 1rem;
+}
+
+.overlay__head {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.overlay__cell {
+  font-size: 1.5rem;
+}

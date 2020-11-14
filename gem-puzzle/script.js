@@ -10,6 +10,20 @@ let rows = []; // Helper array to check the row of a chip
 let isPaused = true;
 const buttons = [];
 const cache = new Map();
+const months = {
+  0: 'Jan',
+  1: 'Feb',
+  2: 'Mar',
+  3: 'Apr',
+  4: 'May',
+  5: 'Jun',
+  6: 'Jul',
+  7: 'Aug',
+  8: 'Sep',
+  9: 'Oct',
+  10: 'Nov',
+  11: 'Dec',
+};
 /***********/
 
 /* DOM GENERATION */
@@ -104,6 +118,7 @@ const field = document.getElementsByClassName('field')[0];
 const newGame = document.getElementsByClassName('overlay__button')[0];
 const save = document.getElementsByClassName('overlay__button')[1];
 const load = document.getElementsByClassName('overlay__button')[2];
+const scores = document.getElementsByClassName('overlay__button')[3];
 const rules = document.getElementsByClassName('overlay__button')[4];
 const settings = document.getElementsByClassName('overlay__button')[5];
 const overlay = document.getElementsByClassName('overlay')[0];
@@ -178,7 +193,9 @@ pause.addEventListener('click', function() {
 });
 
 rules.addEventListener('click', showRules);
+
 settings.addEventListener('click', showSettings);
+
 save.addEventListener('click', () => {
   if (isWin(grid)) return;
   showPopup('The game is saved!');
@@ -217,6 +234,8 @@ load.addEventListener('click', () => {
       });
   }
 });
+
+scores.addEventListener('click', showScores);
 /*******************/
 
 /* FUNCTIONS */
@@ -413,6 +432,24 @@ function showWin(minutes, seconds, steps) {
   winSteps.textContent = `Your steps: ${steps} step${steps === 1 ? '' : 's'}`;
   cache.get('win').style.opacity = '1';
   overlay.appendChild(cache.get('win'));
+
+  const winScore = {
+    date: Date.now(),
+    steps,
+    minutes,
+    seconds,
+    dim
+  };
+  if (!localStorage.getItem('scores')) {
+    let scores = [winScore];
+    localStorage.setItem('scores', JSON.stringify(scores));
+  } else {
+    let scores = JSON.parse(localStorage.getItem('scores'));
+    scores.unshift(winScore);
+    if (scores.length > 10) scores.length = 10;
+    localStorage.setItem('scores', JSON.stringify(scores));
+  }
+
   isPaused = true;
   pause.style.pointerEvents = 'none';
   showOverlay();
@@ -573,5 +610,77 @@ function showPopup(str) {
     .then(() => {
       overlay.removeChild(overlay.lastElementChild);
     });
+}
+
+function showScores() {
+  overlay.firstElementChild.style.opacity = '';
+  if (!cache.has('scores')) {
+    const scores = document.createElement('div');
+    scores.classList.add('overlay__sub');
+    const title = document.createElement('h2');
+    title.classList.add('overlay__header');
+    title.textContent = 'Best scores';
+    scores.appendChild(title);
+    const table = document.createElement('div');
+    table.classList.add('overlay__table');
+    for (let i = 0; i < 4; ++i) {
+      const head = document.createElement('p');
+      head.classList.add('overlay__head');
+      table.append(head);
+    }
+    table.children[0].textContent = 'Date';
+    table.children[1].textContent = 'Moves';
+    table.children[2].textContent = 'Size';
+    table.children[3].textContent = 'Time';
+
+    const scoreEntries = JSON.parse(localStorage.getItem('scores'), function(key, value) {
+      if ('date' !== key) return value;
+      return new Date(value);
+    });
+
+    scoreEntries.forEach(el => {
+      const date = document.createElement('p');
+      date.classList.add('overlay__cell');
+      date.textContent = el.date.getDate() + ' ' + months[el.date.getMonth()] + ' ' + el.date.getFullYear();
+
+      const steps = document.createElement('p');
+      steps.classList.add('overlay__cell');
+      steps.textContent = el.steps;
+
+      const size = document.createElement('p');
+      size.classList.add('overlay__cell');
+      size.textContent = el.dim + 'x' + el.dim;
+
+      const time = document.createElement('p');
+      time.classList.add('overlay__cell');
+      time.textContent = el.minutes + ':' + el.seconds;
+
+      table.appendChild(date);
+      table.appendChild(steps);
+      table.appendChild(size);
+      table.appendChild(time);
+    });
+
+    const rowsCount = scoreEntries.length + 1; // +1 for header row
+    table.style.gridTemplateRows = `repeat(${rowsCount}, auto)`;
+    scores.appendChild(table);
+
+    const btn = document.createElement('button');
+    btn.classList.add('overlay__button');
+    btn.textContent = 'To main menu';
+    btn.addEventListener('click', () => {
+      scores.style.opacity = '';
+      delay(400).then(showMenu);
+    });
+    scores.appendChild(btn);
+    cache.set('scores', scores);
+  }
+
+  delay(400).then(() => {
+    clearChildren(overlay);
+    overlay.appendChild(cache.get('scores'));
+    return delay(100);
+  })
+    .then(() => cache.get('scores').style.opacity = '1');
 }
 /*************/

@@ -215,4 +215,19 @@ body {
       background-color: $light-rose;
     }
   }
+
+  &__table {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr .75fr .8fr;
+    gap: 1rem;
+  }
+
+  &__head {
+    font-weight: 600;
+    font-size: 1.5rem;
+  }
+
+  &__cell {
+    font-size: 1.5rem;
+  }
 }
