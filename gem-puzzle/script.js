@@ -107,6 +107,11 @@ function generateDom(dim) {
 
   main.appendChild(field);
 
+  const audio = document.createElement('audio');
+  audio.setAttribute('data-sound', '');
+  audio.src = 'assets/sounds/sound.wav';
+  main.appendChild(audio);
+
   return main;
 }
 
@@ -126,6 +131,7 @@ const pause = document.getElementsByClassName('header__button')[0];
 const minutes = document.querySelector('[data-min]');
 const seconds = document.querySelector('[data-sec]');
 const navigation = document.getElementsByClassName('overlay__nav')[0];
+const sound = document.querySelector('[data-sound]');
 /****************/
 
 /* EVENT LISTENERS */
@@ -293,6 +299,8 @@ function moveChip() {
   steps.textContent = ++steps.textContent;
   this.pointerEvents = 'none';
   setTimeout(() => {
+    sound.currentTime = 0;
+    sound.play();
     this.style.transition = 'transform 0s';
     this.style.transform = '';
     swap(this, grid[idxBlank]);
