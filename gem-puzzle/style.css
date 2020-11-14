@@ -321,9 +321,11 @@ body {
 .overlay__table {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1.6fr 1fr .75fr .8fr;
-      grid-template-columns: 1.6fr 1fr .75fr .8fr;
-  gap: 1rem;
+  -ms-grid-columns: .5fr 2fr 1fr .75fr .8fr;
+      grid-template-columns: .5fr 2fr 1fr .75fr .8fr;
+  -webkit-column-gap: 1rem;
+          column-gap: 1rem;
+  row-gap: .5rem;
 }
 
 .overlay__head {

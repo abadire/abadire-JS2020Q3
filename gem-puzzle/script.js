@@ -444,9 +444,12 @@ function showWin(minutes, seconds, steps) {
     let scores = [winScore];
     localStorage.setItem('scores', JSON.stringify(scores));
   } else {
-    let scores = JSON.parse(localStorage.getItem('scores'));
-    scores.unshift(winScore);
-    if (scores.length > 10) scores.length = 10;
+    let scores = JSON.parse(localStorage.getItem('scores')).sort(scoreComparator);
+    if (scores.length < 10) scores.push(winScore);
+    else if (scoreComparator(winScore, scores[scores.length - 1]) < 0) {
+      scores.length = 9; // Make space for an entry
+      scores.push(winScore);
+    }
     localStorage.setItem('scores', JSON.stringify(scores));
   }
 
@@ -614,31 +617,37 @@ function showPopup(str) {
 
 function showScores() {
   overlay.firstElementChild.style.opacity = '';
-  if (!cache.has('scores')) {
-    const scores = document.createElement('div');
-    scores.classList.add('overlay__sub');
-    const title = document.createElement('h2');
-    title.classList.add('overlay__header');
-    title.textContent = 'Best scores';
-    scores.appendChild(title);
-    const table = document.createElement('div');
-    table.classList.add('overlay__table');
-    for (let i = 0; i < 4; ++i) {
-      const head = document.createElement('p');
-      head.classList.add('overlay__head');
-      table.append(head);
-    }
-    table.children[0].textContent = 'Date';
-    table.children[1].textContent = 'Moves';
-    table.children[2].textContent = 'Size';
-    table.children[3].textContent = 'Time';
+  const scores = document.createElement('div');
+  scores.classList.add('overlay__sub');
+  const title = document.createElement('h2');
+  title.classList.add('overlay__header');
+  title.textContent = 'Best scores';
+  scores.appendChild(title);
+  const table = document.createElement('div');
+  table.classList.add('overlay__table');
+  for (let i = 0; i < 5; ++i) {
+    const head = document.createElement('p');
+    head.classList.add('overlay__head');
+    table.append(head);
+  }
+  table.children[0].textContent = '№';
+  table.children[1].textContent = 'Date';
+  table.children[2].textContent = 'Moves';
+  table.children[3].textContent = 'Size';
+  table.children[4].textContent = 'Time';
 
-    const scoreEntries = JSON.parse(localStorage.getItem('scores'), function(key, value) {
-      if ('date' !== key) return value;
-      return new Date(value);
-    });
+  const scoreEntries = JSON.parse(localStorage.getItem('scores'), function(key, value) {
+    if ('date' !== key) return value;
+    return new Date(value);
+  });
 
-    scoreEntries.forEach(el => {
+  // There may be no entries if no games has been won
+  scoreEntries?.sort(scoreComparator)
+    .forEach((el, idx) => {
+      const number = document.createElement('p');
+      number.classList.add('overlay__cell');
+      number.textContent = idx + 1;
+
       const date = document.createElement('p');
       date.classList.add('overlay__cell');
       date.textContent = el.date.getDate() + ' ' + months[el.date.getMonth()] + ' ' + el.date.getFullYear();
@@ -655,26 +664,26 @@ function showScores() {
       time.classList.add('overlay__cell');
       time.textContent = el.minutes + ':' + el.seconds;
 
+      table.appendChild(number);
       table.appendChild(date);
       table.appendChild(steps);
       table.appendChild(size);
       table.appendChild(time);
     });
 
-    const rowsCount = scoreEntries.length + 1; // +1 for header row
-    table.style.gridTemplateRows = `repeat(${rowsCount}, auto)`;
-    scores.appendChild(table);
+  const rowsCount = scoreEntries?.length + 1 || 1; // +1 for header row OR 1 if there is no entries
+  table.style.gridTemplateRows = `repeat(${rowsCount}, auto)`;
+  scores.appendChild(table);
 
-    const btn = document.createElement('button');
-    btn.classList.add('overlay__button');
-    btn.textContent = 'To main menu';
-    btn.addEventListener('click', () => {
-      scores.style.opacity = '';
-      delay(400).then(showMenu);
-    });
-    scores.appendChild(btn);
-    cache.set('scores', scores);
-  }
+  const btn = document.createElement('button');
+  btn.classList.add('overlay__button');
+  btn.textContent = 'To main menu';
+  btn.addEventListener('click', () => {
+    scores.style.opacity = '';
+    delay(400).then(showMenu);
+  });
+  scores.appendChild(btn);
+  cache.set('scores', scores);
 
   delay(400).then(() => {
     clearChildren(overlay);
@@ -682,5 +691,12 @@ function showScores() {
     return delay(100);
   })
     .then(() => cache.get('scores').style.opacity = '1');
+}
+
+function scoreComparator(a, b) {
+  const left = (a.minutes * 60 + a.seconds + a.steps) / a.dim;
+  const right = (b.minutes * 60 + b.seconds + b.steps) / b.dim;
+
+  return left - right;
 }
 /*************/
