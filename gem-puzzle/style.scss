@@ -17,7 +17,6 @@ body {
 
 .header {
   display: flex;
-  background-color: teal;
   justify-content: space-around;
   margin-bottom: 1rem;
   font-size: 2rem;
@@ -57,7 +56,6 @@ body {
 
   border-radius: 5px;
   box-shadow: 0 .5rem 1rem #0006;
-  overflow: hidden;
   
   &__chip {
     background-color: thistle;
@@ -80,7 +78,6 @@ body {
     }
     
     &--blank {
-      z-index: -1;
       background-color: transparent;
       cursor: auto;
       

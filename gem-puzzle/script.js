@@ -249,8 +249,8 @@ function makeChip(num) {
   const chip = document.createElement('div');
   chip.classList.add('field__chip');
   if ('' === num) chip.classList.add('field__chip--blank');
+  else chip.addEventListener('mousedown', dragChip);
   chip.textContent = num;
-  chip.addEventListener('click', moveChip);
   grid.push(chip);
   field.appendChild(chip);
   return chip;
@@ -270,6 +270,89 @@ function delay(ms) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
+}
+
+function dragChip(event) {
+  const shiftX = event.clientX - this.getBoundingClientRect().left;
+  const shiftY = event.clientY - this.getBoundingClientRect().top;
+  const x = event.pageX;
+  const y = event.pageY;
+  let isSwappable = true;
+
+  this.style.width = this.offsetWidth + 'px';
+  this.style.height = this.offsetHeight + 'px';
+
+  const blankClone = blank.cloneNode(true);
+  this.parentElement.insertBefore(blankClone, this);
+
+  this.style.position = 'absolute';
+  this.style.zIndex = 1000;
+
+  // move it out of any current parents directly into body
+  // to make it positioned relative to the body
+  document.body.append(this);
+
+  // centers the ball at (pageX, pageY) coordinates
+  const moveAt = (pageX, pageY) => {
+    if (pageX > shiftX && pageX < window.innerWidth - this.offsetWidth + shiftX) this.style.left = pageX - shiftX + 'px';
+    else if (pageX <= shiftX) this.style.left = '0';
+    else this.style.left = window.innerWidth - this.offsetWidth + 'px';
+
+    if (pageY > shiftY && pageY < window.innerHeight - this.offsetHeight + shiftY) this.style.top = pageY - shiftY + 'px';
+    else if (pageY <= shiftY) this.style.top = '0';
+    else this.style.top = window.innerHeight - this.offsetHeight + 'px';
+
+    if ((Math.abs(x - pageX) > 10 || Math.abs(y - pageY) > 10) && isSwappable) isSwappable = false;
+  };
+
+  // move our absolutely positioned ball under the pointer
+  moveAt(event.pageX, event.pageY);
+
+  const dropPoint = {
+    target: null,
+    x: null,
+    y: null,
+  };
+
+  const onMouseMove = event => {
+    moveAt(event.pageX, event.pageY);
+
+    const halfWidth = this.offsetWidth / 2;
+    const halfHeight = this.offsetHeight / 2;
+    this.style.display = 'none';
+    let elemBelow = document.elementFromPoint(event.clientX - shiftX + halfWidth, event.clientY - shiftY + halfHeight);
+    console.log(elemBelow);
+    this.style.display = '';
+
+    if (blank === elemBelow) [dropPoint.target, dropPoint.x, dropPoint.y] = [elemBelow, event.clientX - shiftX + halfWidth, event.clientY - shiftY + halfHeight];
+  };
+
+  // (2) move the ball on mousemove
+  document.addEventListener('mousemove', onMouseMove);
+
+  // (3) drop the ball, remove unneeded handlers
+  window.onmouseup = event => {
+    document.removeEventListener('mousemove', onMouseMove);
+    this.style.position = '';
+    this.style.width = '';
+    this.style.height = '';
+    this.style.zIndex = '';
+    this.style.left = '';
+    this.style.top = '';
+    document.body.removeChild(this);
+    blankClone.parentElement.insertBefore(this, blankClone);
+    blankClone.parentElement.removeChild(blankClone);
+    window.onmouseup = null;
+
+    if (Math.abs(x - event.pageX) < 10 && Math.abs(y - event.pageY) < 10 && isSwappable) delay(100).then(() => moveChip.bind(this)());
+    else if (dropPoint.target &&
+             dropPoint.x > dropPoint.target.getBoundingClientRect().left + dropPoint.target.offsetWidth * .2 &&
+             dropPoint.x < dropPoint.target.getBoundingClientRect().right - dropPoint.target.offsetWidth * .2 &&
+             dropPoint.y > dropPoint.target.getBoundingClientRect().top + dropPoint.target.offsetHeight * .2 &&
+             dropPoint.y < dropPoint.target.getBoundingClientRect().bottom - dropPoint.target.offsetWidth * .2) {
+      swapChip.bind(this)();
+    }
+  };
 }
 
 function moveChip() {
@@ -310,6 +393,17 @@ function moveChip() {
     this.pointerEvents = '';
     if (isWin(grid)) showWin(minutes.textContent, seconds.textContent, steps.textContent);
   }, 300);
+}
+
+function swapChip() {
+  steps.textContent = ++steps.textContent;
+  const idx = grid.indexOf(this);
+  sound.currentTime = 0;
+  sound.play();
+  swap(this, grid[idxBlank]);
+  [grid[idx], grid[idxBlank]] = [grid[idxBlank], grid[idx]];
+  idxBlank = updateIdxBlank(grid);
+  if (isWin(grid)) showWin(minutes.textContent, seconds.textContent, steps.textContent);
 }
 
 function shuffle(array) {
@@ -580,12 +674,13 @@ function resetGrid(grid, field, dim) {
     const chip = document.createElement('div');
     chip.classList.add('field__chip');
     chip.textContent = i + 1;
-    chip.addEventListener('click', moveChip);
+    chip.addEventListener('mousedown', dragChip);
     grid.push(chip);
     field.appendChild(chip);
   }
   field.lastElementChild.classList.add('field__chip--blank');
   field.lastElementChild.textContent = '';
+  field.lastElementChild.removeEventListener('mousedown', dragChip);
   field.style.gridTemplateColumns = `repeat(${dim}, 1fr)`;
   field.style.gridTemplateRows = `repeat(${dim}, 1fr)`;
 

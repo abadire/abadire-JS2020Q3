@@ -44,6 +44,12 @@ html {
   font-size: 62.5%;
 }
 
+@media (max-width: 500px) {
+  html {
+    font-size: 50%;
+  }
+}
+
 html {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   -webkit-user-select: none;
@@ -73,7 +79,6 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background-color: teal;
   -ms-flex-pack: distribute;
       justify-content: space-around;
   margin-bottom: 1rem;
@@ -116,7 +121,6 @@ body {
   border-radius: 5px;
   -webkit-box-shadow: 0 .5rem 1rem #0006;
           box-shadow: 0 .5rem 1rem #0006;
-  overflow: hidden;
 }
 
 .field__chip {
@@ -149,7 +153,6 @@ body {
 }
 
 .field__chip--blank {
-  z-index: -1;
   background-color: transparent;
   cursor: auto;
 }
