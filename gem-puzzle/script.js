@@ -1,7 +1,7 @@
 /* GLOBALS */
 let dim = 4; // Default dimensions
 let nextDim = dim; // Next dimension setting
-const grid = []; // An array of chip nodes
+let grid = []; // An array of chip nodes
 let blank; // Blank chip
 let idxBlank = 0; // Index of the blank chip
 let steps;
@@ -28,12 +28,12 @@ function generateDom(dim) {
   clockDisplay.classList.add('header__clock');
   const minDisplay = document.createElement('span');
   minDisplay.setAttribute('data-min', '');
-  minDisplay.textContent = '--';
+  minDisplay.textContent = '00';
   const colon = document.createElement('span');
   colon.textContent = ':';
   const secDisplay = document.createElement('span');
   secDisplay.setAttribute('data-sec', '');
-  secDisplay.textContent = '--';
+  secDisplay.textContent = '00';
   clockDisplay.appendChild(minDisplay);
   clockDisplay.appendChild(colon);
   clockDisplay.appendChild(secDisplay);
@@ -103,6 +103,7 @@ document.body.appendChild(generateDom(dim));
 const field = document.getElementsByClassName('field')[0];
 const newGame = document.getElementsByClassName('overlay__button')[0];
 const save = document.getElementsByClassName('overlay__button')[1];
+const load = document.getElementsByClassName('overlay__button')[2];
 const rules = document.getElementsByClassName('overlay__button')[4];
 const settings = document.getElementsByClassName('overlay__button')[5];
 const overlay = document.getElementsByClassName('overlay')[0];
@@ -180,14 +181,55 @@ rules.addEventListener('click', showRules);
 settings.addEventListener('click', showSettings);
 save.addEventListener('click', () => {
   showPopup('The game is saved!');
-  // localStorage.setItem('steps', steps.textContent);
-  // localStorage.setItem('minutes', minutes.textContent);
-  // localStorage.setItem('seconds', seconds.textContent);
-  // localStorage.setItem('grid',)
+  const state = {
+    steps: steps.textContent,
+    min: minutes.textContent,
+    sec: seconds.textContent,
+    grid,
+    dim
+  };
+  localStorage.setItem('state', JSON.stringify(state, function(key, value) {
+    if ('grid' !== key) return value;
+    return grid.map(el => el.textContent);
+  }));
+});
+
+load.addEventListener('click', () => {
+  const state = JSON.parse(localStorage.getItem('state'));
+  if (state) {
+    showPopup('The game has been loaded!');
+    ({steps: steps.textContent, min: minutes.textContent, sec: seconds.textContent, dim} = state);
+    nextDim = dim;
+    pause.textContent = 'Resume';
+    pause.style.pointerEvents = '';
+    overlay.style.backgroundColor = '#fff';
+    delay(600)
+      .then(() => {
+        clearChildren(field, overlay);
+        grid.length = 0;
+        grid = state.grid.map(makeChip);
+        field.style.gridTemplateColumns = `repeat(${dim}, 1fr)`;
+        field.style.gridTemplateRows = `repeat(${dim}, 1fr)`;
+        blank = grid.find(el => '' === el.textContent);
+        idxBlank = grid.indexOf(blank);
+        overlay.style.backgroundColor = '';
+      });
+  }
 });
 /*******************/
 
 /* FUNCTIONS */
+function makeChip(num) {
+  const chip = document.createElement('div');
+  chip.classList.add('field__chip');
+  if ('' === num) chip.classList.add('field__chip--blank');
+  chip.textContent = num;
+  chip.addEventListener('click', moveChip);
+  grid.push(chip);
+  field.appendChild(chip);
+  return chip;
+}
+
 function swap(node1, node2) {
   const afterNode2 = node2.nextElementSibling;
   const parent = node2.parentNode;
@@ -244,14 +286,12 @@ function moveChip() {
 
 function shuffle(array) {
   array.sort(() => Math.random() - 0.5);
-  updateIdxBlank(array);
 }
 
 function clearChildren(parent, until = null) {
   while (parent.lastElementChild !== until) {
     parent.removeChild(parent.lastElementChild);
   }
-  navigation.style.opacity = '';
 }
 
 function updateIdxBlank(arr) {
@@ -308,8 +348,10 @@ function showMenu() {
     clearChildren(overlay);
     overlay.appendChild(navigation);
   }
-  delay(100).then(() => navigation.style.opacity = '1');
-  showOverlay();
+  delay(100).then(() => {
+    navigation.style.opacity = '1';
+    showOverlay();
+  });
 }
 
 function resetTime(minutes, seconds) {
@@ -339,17 +381,22 @@ function isWin(grid) {
 function showWin(minutes, seconds, steps) {
   clearInterval(updateIntervalId);
   clearChildren(overlay);
-  if (!cache.has('win')) {
+  navigation.style.opacity = '';
+  let winTime, winSteps;
+  if (cache.has('win')) {
+    winTime = cache.get('win').querySelector('[data-time]');
+    winSteps = cache.get('win').querySelector('[data-steps]');
+  } else {
     const win = document.createElement('div');
     win.classList.add('overlay__sub');
     const winText = document.createElement('p');
     winText.textContent = 'You win!';
     win.appendChild(winText);
-    const winTime = document.createElement('p');
-    winTime.textContent = `Your time: ${minutes}:${seconds}`;
+    winTime = document.createElement('p');
+    winTime.setAttribute('data-time', '');
     win.appendChild(winTime);
-    const winSteps = document.createElement('p');
-    winSteps.textContent = `Your steps: ${steps} step${steps === 1 ? '' : 's'}`;
+    winSteps = document.createElement('p');
+    winSteps.setAttribute('data-steps', '');
     win.appendChild(winSteps);
     const btn = document.createElement('button');
     btn.classList.add('overlay__button');
@@ -361,6 +408,8 @@ function showWin(minutes, seconds, steps) {
     });
     cache.set('win', win);
   }
+  winTime.textContent = `Your time: ${minutes}:${seconds}`;
+  winSteps.textContent = `Your steps: ${steps} step${steps === 1 ? '' : 's'}`;
   cache.get('win').style.opacity = '1';
   overlay.appendChild(cache.get('win'));
   isPaused = true;
@@ -435,7 +484,7 @@ function showSettings() {
     text2.textContent = 'Start a new game to apply settings.';
     text2.classList.add('overlay__text', 'overlay__text--center');
 
-    for (let i = 3; i < 9; ++i) {
+    for (let i = 2; i < 9; ++i) {
       const option = document.createElement('option');
       option.textContent = i + 'x' + i;
       option.setAttribute('value', i);
@@ -505,11 +554,11 @@ function showPopup(str) {
   let popup = cache.get('popup');
   if (!popup) {
     popup = document.createElement('p');
-    popup.textContent = str;
     popup.classList.add('overlay__text', 'overlay__text--center', 'overlay__text--popup');
-    overlay.appendChild(popup);
     cache.set('popup', popup);
   }
+  popup.textContent = str;
+  overlay.appendChild(popup);
   delay(100)
     .then(() => {
       popup.style.opacity = '1';
@@ -517,6 +566,11 @@ function showPopup(str) {
     })
     .then(() => {
       popup.style.opacity = '';
+
+      return delay(500);
+    })
+    .then(() => {
+      overlay.removeChild(overlay.lastElementChild);
     });
 }
 /*************/
