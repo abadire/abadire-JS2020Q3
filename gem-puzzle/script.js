@@ -180,6 +180,7 @@ pause.addEventListener('click', function() {
 rules.addEventListener('click', showRules);
 settings.addEventListener('click', showSettings);
 save.addEventListener('click', () => {
+  if (isWin(grid)) return;
   showPopup('The game is saved!');
   const state = {
     steps: steps.textContent,
@@ -371,7 +372,7 @@ function updateTime(minutes, seconds) {
 function isWin(grid) {
   if (idxBlank !== grid.length - 1) return false;
   for (let i = 0; i < grid.length - 2; ++i) {
-    if (grid[i].textContent > grid[i + 1].textContent) {
+    if (+grid[i].textContent > +grid[i + 1].textContent) {
       return false;
     }
   }
