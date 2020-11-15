@@ -26,7 +26,8 @@ const months = {
 };
 let isSoundOn = localStorage.getItem('isSoundOn') ? localStorage.getItem('isSoundOn') === 'true' : true;
 let isDisplayNumbers = localStorage.getItem('isDisplayNumbers') ? localStorage.getItem('isDisplayNumbers') === 'true' : true;
-import images from './assets/images.js';
+console.log(isDisplayNumbers);
+// import images from './assets/images.js';
 /***********/
 
 /* DOM GENERATION */
@@ -119,7 +120,10 @@ function generateDom(dim) {
 }
 
 document.body.appendChild(generateDom(dim));
-alignImages(grid);
+if (!isDisplayNumbers) {
+  toggleImages(grid);
+  alignImages(grid);
+}
 /******************/
 
 /* DOM ELEMENTS */
@@ -172,6 +176,7 @@ newGame.addEventListener('click', function() {
       }
       regenerateGrid(grid);
       relayoutField(field, grid);
+      toggleImages(grid);
       alignImages(grid);
       return delay(overlayFade);
     })
@@ -242,6 +247,8 @@ load.addEventListener('click', () => {
         field.style.gridTemplateRows = `repeat(${dim}, 1fr)`;
         blank = grid.find(el => '' === el.textContent);
         idxBlank = grid.indexOf(blank);
+        toggleImages(grid);
+        alignImages(grid);
         overlay.style.backgroundColor = '';
       });
   }
@@ -667,6 +674,7 @@ function showSettings() {
     radioButtonOn.setAttribute('name', 'sound');
     radioButtonOn.id = 'soundOn';
     const labelOn = document.createElement('label');
+    labelOn.classList.add('overlay__labelText');
     labelOn.setAttribute('for', 'soundOn');
     labelOn.textContent = 'on: ';
     onOption.appendChild(labelOn);
@@ -678,6 +686,7 @@ function showSettings() {
     radioButtonOff.setAttribute('name', 'sound');
     radioButtonOff.id = 'soundOff';
     const labelOff = document.createElement('label');
+    labelOff.classList.add('overlay__labelText');
     labelOff.setAttribute('for', 'soundOff');
     labelOff.textContent = 'off: ';
     offOption.appendChild(labelOff);
@@ -710,7 +719,7 @@ function showSettings() {
 
     const displayHeading = document.createElement('p');
     displayHeading.classList.add('overlay__label');
-    displayHeading.textContent = 'Sound:';
+    displayHeading.textContent = 'Display:';
 
     const displayNumbers = document.createElement('div');
     const radioNumbers = document.createElement('input');
@@ -718,6 +727,7 @@ function showSettings() {
     radioNumbers.setAttribute('name', 'display');
     radioNumbers.id = 'displayNumbers';
     const labelNumbers = document.createElement('label');
+    labelNumbers.classList.add('overlay__labelText');
     labelNumbers.setAttribute('for', 'displayNumbers');
     labelNumbers.textContent = 'numbers: ';
     displayNumbers.appendChild(labelNumbers);
@@ -729,6 +739,7 @@ function showSettings() {
     radioImages.setAttribute('name', 'display');
     radioImages.id = 'displayImages';
     const labelImages = document.createElement('label');
+    labelImages.classList.add('overlay__labelText');
     labelImages.setAttribute('for', 'displayImages');
     labelImages.textContent = 'images: ';
     displayImages.appendChild(labelImages);
@@ -788,14 +799,12 @@ function resetGrid(grid, field, dim) {
     chip.classList.add('field__chip');
     chip.textContent = i + 1;
     chip.addEventListener('mousedown', dragChip);
-    chip.style.backgroundImage = `url("assets/images/${imgNumber}.jpg")`;
     grid.push(chip);
     field.appendChild(chip);
   }
   field.lastElementChild.classList.add('field__chip--blank');
   field.lastElementChild.textContent = '';
   field.lastElementChild.removeEventListener('mousedown', dragChip);
-  field.lastElementChild.style.backgroundImage = '';
   field.style.gridTemplateColumns = `repeat(${dim}, 1fr)`;
   field.style.gridTemplateRows = `repeat(${dim}, 1fr)`;
 
@@ -918,15 +927,33 @@ function scoreComparator(a, b) {
   return left - right;
 }
 
+function toggleImages(grid, index) {
+  const imgNumber = index || Math.floor(Math.random() * 150 + 1);
+  if (isDisplayNumbers) {
+    grid.forEach(el => {
+      el.style.backgroundImage = '';
+      el.style.color = '';
+    });
+  } else {
+    grid.forEach(el => {
+      if (el.textContent === '') return;
+      el.style.backgroundImage = `url("assets/images/${imgNumber}.jpg")`;
+      el.style.color = 'transparent';
+    });
+  }
+}
+
 function alignImages(grid) {
-  let row = 0;
-  grid.forEach((el, idx) => {
+  grid.forEach(el => {
+    if (el.textContent === '') return;
+
     const fieldWidth = el.parentElement.offsetWidth;
     const fieldHeight = el.parentElement.offsetHeight;
     el.style.backgroundSize = fieldWidth + 'px ' + fieldHeight + 'px';
 
-    if (0 === idx % dim && idx !== 0) row++;
-    let posStr = 'left -' + idx % dim * fieldWidth / dim + 'px top -' + row * fieldHeight / dim + 'px';
+    const idx = el.textContent - 1;
+
+    let posStr = 'left -' + idx % dim * fieldWidth / dim + 'px top -' + rows[idx] * fieldHeight / dim + 'px';
     el.style.backgroundPosition = posStr;
   });
 }
