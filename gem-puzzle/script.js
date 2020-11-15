@@ -24,6 +24,7 @@ const months = {
   10: 'Nov',
   11: 'Dec',
 };
+let isSoundOn = localStorage.getItem('isSoundOn') ? localStorage.getItem('isSoundOn') === 'true' : true;
 /***********/
 
 /* DOM GENERATION */
@@ -382,8 +383,10 @@ function moveChip() {
   steps.textContent = ++steps.textContent;
   this.pointerEvents = 'none';
   setTimeout(() => {
-    sound.currentTime = 0;
-    sound.play();
+    if (isSoundOn) {
+      sound.currentTime = 0;
+      sound.play();
+    }
     this.style.transition = 'transform 0s';
     this.style.transform = '';
     swap(this, grid[idxBlank]);
@@ -611,14 +614,14 @@ function showSettings() {
     const dropDown = document.createElement('form');
     dropDown.classList.add('overlay__form');
     settings.appendChild(dropDown);
-    const label = document.createElement('label');
-    label.classList.add('overlay__label');
-    label.textContent = 'Field size:';
-    label.setAttribute('for', 'sizes');
-    dropDown.appendChild(label);
+    const labelSelect = document.createElement('label');
+    labelSelect.classList.add('overlay__label');
+    labelSelect.textContent = 'Field size:';
+    labelSelect.setAttribute('for', 'sizes');
+    dropDown.appendChild(labelSelect);
     const select = document.createElement('select');
     select.classList.add('overlay__select');
-    select.setAttribute('name', 'sizes');
+    select.setAttribute('id', 'sizes');
 
     const text1 = document.createElement('p');
     text1.textContent = 'Changes saved!';
@@ -646,6 +649,57 @@ function showSettings() {
         text2.style.opacity = '';
       }, 2000);
     });
+
+    const soundHeading = document.createElement('p');
+    soundHeading.classList.add('overlay__label');
+    soundHeading.textContent = 'Sound:';
+
+    const onOption = document.createElement('div');
+    const radioButtonOn = document.createElement('input');
+    radioButtonOn.setAttribute('type', 'radio');
+    radioButtonOn.setAttribute('name', 'sound');
+    radioButtonOn.id = 'soundOn';
+    const labelOn = document.createElement('label');
+    labelOn.setAttribute('for', 'soundOn');
+    labelOn.textContent = 'on: ';
+    onOption.appendChild(labelOn);
+    onOption.appendChild(radioButtonOn);
+
+    const offOption = document.createElement('div');
+    const radioButtonOff = document.createElement('input');
+    radioButtonOff.setAttribute('type', 'radio');
+    radioButtonOff.setAttribute('name', 'sound');
+    radioButtonOff.id = 'soundOff';
+    const labelOff = document.createElement('label');
+    labelOff.setAttribute('for', 'soundOff');
+    labelOff.textContent = 'off: ';
+    offOption.appendChild(labelOff);
+    offOption.appendChild(radioButtonOff);
+
+    if (!localStorage.getItem('isSoundOn') || 'true' === localStorage.getItem('isSoundOn')) radioButtonOn.setAttribute('checked', '');
+    else radioButtonOff.setAttribute('checked', '');
+
+    radioButtonOn.onchange = () => {
+      if (!isSoundOn) {
+        isSoundOn = true;
+        radioButtonOn.setAttribute('checked', '');
+        radioButtonOff.removeAttribute('checked');
+        localStorage.setItem('isSoundOn', 'true');
+      }
+    };
+
+    radioButtonOff.onchange = () => {
+      if (isSoundOn) {
+        isSoundOn = false;
+        radioButtonOn.removeAttribute('checked');
+        radioButtonOff.setAttribute('checked', '');
+        localStorage.setItem('isSoundOn', 'false');
+      }
+    };
+
+    settings.appendChild(soundHeading);
+    settings.appendChild(onOption);
+    settings.appendChild(offOption);
 
     settings.appendChild(text1);
     settings.appendChild(text2);
