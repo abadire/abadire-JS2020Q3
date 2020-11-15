@@ -25,6 +25,7 @@ const months = {
   11: 'Dec',
 };
 let isSoundOn = localStorage.getItem('isSoundOn') ? localStorage.getItem('isSoundOn') === 'true' : true;
+import images from './assets/images.js';
 /***********/
 
 /* DOM GENERATION */
@@ -857,3 +858,5 @@ function scoreComparator(a, b) {
   return left - right;
 }
 /*************/
+
+console.log(images[0]);
