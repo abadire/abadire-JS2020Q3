@@ -64,11 +64,13 @@ body {
     border-radius: 5px;
     cursor: pointer;
     position: relative;
+    overflow: hidden;
     
     font-size: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-repeat: no-repeat;
     
     transform: translate(0, 0);
     transition: transform $chip-transition;

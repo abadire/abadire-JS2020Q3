@@ -118,6 +118,7 @@ function generateDom(dim) {
 }
 
 document.body.appendChild(generateDom(dim));
+alignImages(grid);
 /******************/
 
 /* DOM ELEMENTS */
@@ -170,6 +171,7 @@ newGame.addEventListener('click', function() {
       }
       regenerateGrid(grid);
       relayoutField(field, grid);
+      alignImages(grid);
       return delay(overlayFade);
     })
     .then(() => {
@@ -234,6 +236,7 @@ load.addEventListener('click', () => {
         clearChildren(field, overlay);
         grid.length = 0;
         grid = state.grid.map(makeChip);
+        alignImages(grid);
         field.style.gridTemplateColumns = `repeat(${dim}, 1fr)`;
         field.style.gridTemplateRows = `repeat(${dim}, 1fr)`;
         blank = grid.find(el => '' === el.textContent);
@@ -402,8 +405,10 @@ function moveChip() {
 function swapChip() {
   steps.textContent = ++steps.textContent;
   const idx = grid.indexOf(this);
-  sound.currentTime = 0;
-  sound.play();
+  if (isSoundOn) {
+    sound.currentTime = 0;
+    sound.play();
+  }
   swap(this, grid[idxBlank]);
   [grid[idx], grid[idxBlank]] = [grid[idxBlank], grid[idx]];
   idxBlank = updateIdxBlank(grid);
@@ -725,17 +730,20 @@ function showSettings() {
 
 function resetGrid(grid, field, dim) {
   grid.length = 0;
+  const imgNumber = Math.floor(Math.random() * 150 + 1);
   for (let i = 0; i < dim * dim; ++i) {
     const chip = document.createElement('div');
     chip.classList.add('field__chip');
     chip.textContent = i + 1;
     chip.addEventListener('mousedown', dragChip);
+    chip.style.backgroundImage = `url("assets/images/${imgNumber}.jpg")`;
     grid.push(chip);
     field.appendChild(chip);
   }
   field.lastElementChild.classList.add('field__chip--blank');
   field.lastElementChild.textContent = '';
   field.lastElementChild.removeEventListener('mousedown', dragChip);
+  field.lastElementChild.style.backgroundImage = '';
   field.style.gridTemplateColumns = `repeat(${dim}, 1fr)`;
   field.style.gridTemplateRows = `repeat(${dim}, 1fr)`;
 
@@ -857,6 +865,17 @@ function scoreComparator(a, b) {
 
   return left - right;
 }
-/*************/
 
-console.log(images[0]);
+function alignImages(grid) {
+  let row = 0;
+  grid.forEach((el, idx) => {
+    const fieldWidth = el.parentElement.offsetWidth;
+    const fieldHeight = el.parentElement.offsetHeight;
+    el.style.backgroundSize = fieldWidth + 'px ' + fieldHeight + 'px';
+
+    if (0 === idx % dim && idx !== 0) row++;
+    let posStr = 'left -' + idx % dim * fieldWidth / dim + 'px top -' + row * fieldHeight / dim + 'px';
+    el.style.backgroundPosition = posStr;
+  });
+}
+/*************/
