@@ -25,6 +25,7 @@ const months = {
   11: 'Dec',
 };
 let isSoundOn = localStorage.getItem('isSoundOn') ? localStorage.getItem('isSoundOn') === 'true' : true;
+let isDisplayNumbers = localStorage.getItem('isDisplayNumbers') ? localStorage.getItem('isDisplayNumbers') === 'true' : true;
 import images from './assets/images.js';
 /***********/
 
@@ -706,6 +707,57 @@ function showSettings() {
     settings.appendChild(soundHeading);
     settings.appendChild(onOption);
     settings.appendChild(offOption);
+
+    const displayHeading = document.createElement('p');
+    displayHeading.classList.add('overlay__label');
+    displayHeading.textContent = 'Sound:';
+
+    const displayNumbers = document.createElement('div');
+    const radioNumbers = document.createElement('input');
+    radioNumbers.setAttribute('type', 'radio');
+    radioNumbers.setAttribute('name', 'display');
+    radioNumbers.id = 'displayNumbers';
+    const labelNumbers = document.createElement('label');
+    labelNumbers.setAttribute('for', 'displayNumbers');
+    labelNumbers.textContent = 'numbers: ';
+    displayNumbers.appendChild(labelNumbers);
+    displayNumbers.appendChild(radioNumbers);
+
+    const displayImages = document.createElement('div');
+    const radioImages = document.createElement('input');
+    radioImages.setAttribute('type', 'radio');
+    radioImages.setAttribute('name', 'display');
+    radioImages.id = 'displayImages';
+    const labelImages = document.createElement('label');
+    labelImages.setAttribute('for', 'displayImages');
+    labelImages.textContent = 'images: ';
+    displayImages.appendChild(labelImages);
+    displayImages.appendChild(radioImages);
+
+    if (!localStorage.getItem('isDisplayNumbers') || 'true' === localStorage.getItem('isDisplayNumbers')) radioNumbers.setAttribute('checked', '');
+    else radioImages.setAttribute('checked', '');
+
+    radioNumbers.onchange = () => {
+      if (!isDisplayNumbers) {
+        isDisplayNumbers = true;
+        radioNumbers.setAttribute('checked', '');
+        radioImages.removeAttribute('checked');
+        localStorage.setItem('isDisplayNumbers', 'true');
+      }
+    };
+
+    radioImages.onchange = () => {
+      if (isDisplayNumbers) {
+        isDisplayNumbers = false;
+        radioNumbers.removeAttribute('checked');
+        radioImages.setAttribute('checked', '');
+        localStorage.setItem('isDisplayNumbers', 'false');
+      }
+    };
+
+    settings.appendChild(displayHeading);
+    settings.appendChild(displayNumbers);
+    settings.appendChild(displayImages);
 
     settings.appendChild(text1);
     settings.appendChild(text2);
