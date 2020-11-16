@@ -26,7 +26,6 @@ const months = {
 };
 let isSoundOn = localStorage.getItem('isSoundOn') ? localStorage.getItem('isSoundOn') === 'true' : true;
 let isDisplayNumbers = localStorage.getItem('isDisplayNumbers') ? localStorage.getItem('isDisplayNumbers') === 'true' : true;
-// import images from './assets/images.js';
 /** ******** */
 
 /* DOM OBJECTS PREDIFINITION */
