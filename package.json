@@ -1,0 +1,28 @@
+{
+  "name": "abadire-js2020q3",
+  "version": "1.0.0",
+  "description": "gem puzzle package",
+  "main": "gem-puzzle/script.js",
+  "dependencies": {
+    "eslint-config-strongloop": "^2.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.13.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1"
+  },
+  "scripts": {
+    "lint": "eslint --fix --ext .js,.jsx .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rolling-scopes-school/abadire-JS2020Q3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rolling-scopes-school/abadire-JS2020Q3/issues"
+  },
+  "homepage": "https://github.com/rolling-scopes-school/abadire-JS2020Q3#readme"
+}
