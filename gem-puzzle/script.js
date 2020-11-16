@@ -26,7 +26,6 @@ const months = {
 };
 let isSoundOn = localStorage.getItem('isSoundOn') ? localStorage.getItem('isSoundOn') === 'true' : true;
 let isDisplayNumbers = localStorage.getItem('isDisplayNumbers') ? localStorage.getItem('isDisplayNumbers') === 'true' : true;
-console.log(isDisplayNumbers);
 // import images from './assets/images.js';
 /***********/
 
@@ -120,11 +119,6 @@ function generateDom(dim) {
 }
 
 document.body.appendChild(generateDom(dim));
-if (!isDisplayNumbers) {
-  toggleImages(grid);
-  alignImages(grid);
-}
-/******************/
 
 /* DOM ELEMENTS */
 const field = document.getElementsByClassName('field')[0];
@@ -140,7 +134,11 @@ const minutes = document.querySelector('[data-min]');
 const seconds = document.querySelector('[data-sec]');
 const navigation = document.getElementsByClassName('overlay__nav')[0];
 const sound = document.querySelector('[data-sound]');
-/****************/
+/**************** DOM ELEMENTS*/
+
+toggleImages(grid);
+alignImages(grid);
+/****************** DOM GENERATION*/
 
 /* EVENT LISTENERS */
 newGame.addEventListener('click', function() {
@@ -176,8 +174,6 @@ newGame.addEventListener('click', function() {
       }
       regenerateGrid(grid);
       relayoutField(field, grid);
-      toggleImages(grid);
-      alignImages(grid);
       return delay(overlayFade);
     })
     .then(() => {
@@ -220,7 +216,8 @@ save.addEventListener('click', () => {
     min: minutes.textContent,
     sec: seconds.textContent,
     grid,
-    dim
+    dim,
+    // imageIndex: grid.find(el => blank !== el).
   };
   localStorage.setItem('state', JSON.stringify(state, function(key, value) {
     if ('grid' !== key) return value;
@@ -754,6 +751,8 @@ function showSettings() {
         radioNumbers.setAttribute('checked', '');
         radioImages.removeAttribute('checked');
         localStorage.setItem('isDisplayNumbers', 'true');
+        toggleImages(grid);
+        alignImages(grid);
       }
     };
 
@@ -763,6 +762,8 @@ function showSettings() {
         radioNumbers.removeAttribute('checked');
         radioImages.setAttribute('checked', '');
         localStorage.setItem('isDisplayNumbers', 'false');
+        toggleImages(grid);
+        alignImages(grid);
       }
     };
 
@@ -793,7 +794,6 @@ function showSettings() {
 
 function resetGrid(grid, field, dim) {
   grid.length = 0;
-  const imgNumber = Math.floor(Math.random() * 150 + 1);
   for (let i = 0; i < dim * dim; ++i) {
     const chip = document.createElement('div');
     chip.classList.add('field__chip');
@@ -929,18 +929,23 @@ function scoreComparator(a, b) {
 
 function toggleImages(grid, index) {
   const imgNumber = index || Math.floor(Math.random() * 150 + 1);
-  if (isDisplayNumbers) {
-    grid.forEach(el => {
-      el.style.backgroundImage = '';
-      el.style.color = '';
+  overlay.style.backgroundColor = '#fff';
+  delay(600)
+    .then(() => {
+      if (isDisplayNumbers) {
+        grid.forEach(el => {
+          el.style.backgroundImage = '';
+          el.style.color = '';
+        });
+      } else {
+        grid.forEach(el => {
+          if (el.textContent === '') return;
+          el.style.backgroundImage = `url("assets/images/${imgNumber}.jpg")`;
+          el.style.color = 'transparent';
+        });
+      }
+      overlay.style.backgroundColor = '';
     });
-  } else {
-    grid.forEach(el => {
-      if (el.textContent === '') return;
-      el.style.backgroundImage = `url("assets/images/${imgNumber}.jpg")`;
-      el.style.color = 'transparent';
-    });
-  }
 }
 
 function alignImages(grid) {

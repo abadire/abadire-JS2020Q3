@@ -58,7 +58,7 @@ body {
   box-shadow: 0 .5rem 1rem #0006;
   
   &__chip {
-    background-color: thistle;
+    background-color: rgb(216, 191, 216);
     width: 100%;
     height: 100%;
     border-radius: 5px;
@@ -71,9 +71,10 @@ body {
     justify-content: center;
     align-items: center;
     background-repeat: no-repeat;
+    background-image: transparent;
     
     transform: translate(0, 0);
-    transition: transform $chip-transition;
+    transition: transform $chip-transition, background-image .3s;
     
     &:hover {
       background-color: lighten(thistle, 7);
