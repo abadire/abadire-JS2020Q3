@@ -1,8 +1,6 @@
 # abadire-JS2020Q3
 Private repository for @abadire
 
-[Webdev](https://rolling-scopes-school.github.io/abadire-JS2020Q3/webdev/) ([source](https://github.com/abadire/abadire-JS2020Q3/tree/webdev)) - basic HTML, CSS (SASS)
-
 [Calculator](https://rolling-scopes-school.github.io/abadire-JS2020Q3/calculator/) ([source](https://github.com/abadire/abadire-JS2020Q3/tree/calculator)) - HTML, CSS (SASS), JS
 
 [Shelter](https://rolling-scopes-school.github.io/abadire-JS2020Q3/shelter/pages/main/) ([source](https://github.com/abadire/abadire-JS2020Q3/tree/shelter)) - HTML, CSS (SASS, adaptive), JS (DOM manipulation, image preloading)
