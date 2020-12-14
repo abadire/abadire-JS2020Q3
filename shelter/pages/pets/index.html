@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Our pets</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  
+  <div class="wrapper">
+    <header class="header header--sticky header--light">
+      <div class="overlay"></div>
+      <a class="logo" href="../main/index.html">
+        <h1 class="logo__title logo__title--dark">Cozy House</h1>
+        <p class="logo__subtitle logo__subtitle--dark">Shelter for pets in Boston</p>
+      </a>
+      <div class="navigation">
+        <input type="checkbox" class="navigation__checkbox" id="toggle">
+        <label for="toggle" class="navigation__button">
+          <span class="navigation__icon navigation__icon--light"></span>
+        </label>
+
+        <nav class="navigation__nav">
+          <ul class="navigation__items">
+            <li class="navigation__item navigation__item--about"><a class="navigation__link navigation__link--dark" href="../main/index.html">About the shelter</a></li>
+            <li class="navigation__item navigation__item--pets"><a class="navigation__link navigation__link--dark navigation__link--active" href="index.html">Our pets</a></li>
+            <li class="navigation__item navigation__item--help"><a class="navigation__link navigation__link--inactive navigation__link--dark">Help the shelter</a></li>
+            <li class="navigation__item navigation__item--contacts"><a class="navigation__link navigation__link--inactive navigation__link--dark">Contacts</a></li>
+            <hr class="navigation__underline navigation__underline--pets">
+          </ul>
+        </nav>
+      </div>
+    </header>
+  </div>
+  
+  <div class="header-offset"></div>
+  
+  <section class="pets">
+    <div class="pets__content">
+      <h3 class="pets__heading heading-m">Our friends who<br>are looking for a house</h3>
+      <div class="gallery">
+        <div class="gallery__cards gallery__cards--grid">
+        </div>
+      </div>
+      <div class="btn-section">
+        <a class="btn btn--small btn--nav btn--disabled" disabled first><span class="btn__content">&lt;&lt;</span></a>
+        <a class="btn btn--small btn--nav btn--disabled" disabled prev><span class="btn__content">&lt;</span></a>
+        <a class="btn btn--small btn--nav btn--disabled btn--dark" disabled page><span class="btn__content">1</span></a>
+        <a class="btn btn--small btn--nav" next><span class="btn__content">&gt;</span></a>
+        <a class="btn btn--small btn--nav" last><span class="btn__content">&gt;&gt;</span></a>
+      </div>
+    </div>
+
+    <div class="popup">
+      <img class="popup__img">
+      <div class="popup__info">
+        <h3 class="popup__heading"></h3>
+        <h4 class="popup__subheading"></h4>
+        <p class="popup__text"></p>
+        <ul class="popup__list">
+          <li class="popup__item"><b>Age: </b> <span age></span></li>
+          <li class="popup__item"><b>Inoculations: </b> <span inoculations></span></li>
+          <li class="popup__item"><b>Diseases: </b> <span diseases></span></li>
+          <li class="popup__item"><b>Parasites: </b> <span parasites></span></li>
+        </ul>
+      </div>
+    </div>
+    <button class="popup__close">
+      <img src="../../assets/icons/cross.svg" alt="close">
+    </button>
+    </section>
+  
+  <footer class="footer">
+    <div class="wrapper footer__content">
+      <section class="footer__articles">
+        <article class="footer__article">
+          <h3 class="footer__heading footer__heading--contacts">For questions<br>and suggestions</h3>
+          <figure class="footer__figure">
+            <a href="mailto:123@123.com"><img src="../../assets/icons/icon-email.svg" alt="E-mail"></a>
+            <a href="mailto:123@123.com"><figcaption class="footer__caption">email@shelter.com</figcaption></a>
+          </figure>
+          <figure class="footer__figure">
+            <a href="tel:+13 674 567 75 54"><img src="../../assets/icons/icon-phone.svg" alt="Phone"></a>
+            <a href="tel:+13 674 567 75 54"><figcaption class="footer__caption">+13 674 567 75 54</figcaption></a>
+          </figure>
+        </article>
+        <article class="footer__article footer__article--shifted">
+          <h3 class="footer__heading">We are waiting<br>for your visit</h3>
+          <figure class="footer__figure footer__figure--location">
+            <a href="https://maps.google.com/?q=46.860191,3.779297"><img src="../../assets/icons/icon-marker.svg" alt="E-mail"></a>
+            <a href="https://maps.google.com/?q=46.860191,3.779297"><figcaption class="footer__caption">1 Central Street, Boston<br>(entrance from the store)</figcaption></a>
+          </figure>
+          <figure class="footer__figure footer__figure--location">
+            <a href="https://maps.google.com/?q=46.860191,3.779297"><img src="../../assets/icons/icon-marker.svg" alt="Phone"></a>
+            <a href="https://maps.google.com/?q=46.860191,3.779297"><figcaption class="footer__caption">18 South Park, London</figcaption></a>
+          </figure>
+        </article>
+      </section>
+      <img class="footer__img" src="../../assets/images/footer-puppy.png" alt="Puppy!">
+    </div>
+  </footer>
+</body>
+</html>

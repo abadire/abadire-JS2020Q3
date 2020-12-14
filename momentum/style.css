@@ -1,0 +1,484 @@
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: fixed;
+  width: 4rem;
+  height: 4rem;
+  border: none;
+  border-radius: 100%;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  font-family: 'Material Icons';
+  color: white;
+  font-size: 4rem;
+  -webkit-transition: background-color .3s;
+  transition: background-color .3s;
+}
+
+.btn:hover {
+  background-color: #FFF4;
+}
+
+@media (max-width: 47.3em) {
+  .btn:hover {
+    background-color: inherit;
+  }
+}
+
+.btn:active {
+  background-color: #FFF7;
+}
+
+.focus {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 3rem;
+}
+
+.focus__heading {
+  margin-bottom: 1.5rem;
+}
+
+.focus__input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid white;
+  color: white;
+  text-align: center;
+  padding-bottom: .3rem;
+  max-width: 35.2rem;
+}
+
+.focus__editable {
+  outline: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: .2rem;
+  min-width: 0;
+  -webkit-transition: min-width .7s, background-color .3s, border-bottom .7s;
+  transition: min-width .7s, background-color .3s, border-bottom .7s;
+  border-radius: 3px;
+}
+
+.focus__editable:hover {
+  background-color: #FFF4;
+}
+
+.focus__editable:focus {
+  border-bottom: 2px solid white;
+  min-width: 20rem;
+}
+
+.focus__editable::-moz-selection {
+  background-color: #FFF7;
+}
+
+.focus__editable::selection {
+  background-color: #FFF7;
+}
+
+.weather {
+  position: fixed;
+  top: 1rem;
+  right: 2rem;
+  font-size: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  background-color: #0005;
+  border-radius: 4px;
+  padding: .8rem;
+}
+
+.weather__temp {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 3rem;
+}
+
+.weather__icon {
+  width: 4rem;
+  height: 4rem;
+  background-image: url("http://openweathermap.org/img/wn/10d@2x.png");
+  background-size: cover;
+  -webkit-transition: background-image 1s;
+  transition: background-image 1s;
+}
+
+.weather__city {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 100%;
+          flex: 1 0 100%;
+  font-size: 2rem;
+}
+
+.weather__city:focus {
+  min-width: 7rem;
+}
+
+.weather__humidity {
+  font-size: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: .5rem;
+}
+
+.weather__dropsIcon {
+  width: 2rem;
+  margin-right: 1rem;
+}
+
+.weather__wind {
+  margin-bottom: .5rem;
+}
+
+.weather__windIcon {
+  width: 2rem;
+}
+
+.tooltiptext {
+  font-family: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  font-size: 1.5rem;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 50%;
+  -webkit-transform: translateY(50%);
+          transform: translateY(50%);
+  right: 117%;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+
+.tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  left: 100%;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent #555;
+}
+
+.tooltiptext--right {
+  left: 115%;
+  bottom: 50%;
+  -webkit-transform: translateY(50%);
+          transform: translateY(50%);
+}
+
+.tooltiptext--right::after {
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  left: -8%;
+  border-color: transparent #555 transparent transparent;
+}
+
+.tooltiptext--bottom {
+  left: 50%;
+  bottom: -45%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  padding: 2px;
+  color: red;
+}
+
+.tooltiptext--bottom::after {
+  top: -19%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  border-color: transparent transparent #555 transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip:hover .tooltiptext--error {
+  visibility: hidden;
+  opacity: 0;
+}
+
+@media (max-width: 47.3em) {
+  .tooltip:hover .tooltiptext {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+html {
+  font-size: 62.5%;
+  font-family: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: white;
+  text-shadow: 0 0 2rem #000, 0 0 2rem #000;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 47.3em) {
+  html {
+    font-size: 43.75%;
+  }
+}
+
+body {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-color: black;
+  position: relative;
+  z-index: -3;
+  height: 100vh;
+}
+
+.loader {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  background-image: url("assets/images/black.jpg");
+  background-position: center;
+  background-size: cover;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  text-align: center;
+  opacity: 0;
+  position: relative;
+  z-index: -2;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.main__next {
+  top: 1rem;
+  left: 1rem;
+}
+
+.main__top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.main__overlay {
+  background-image: url("assets/images/overlay.png");
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.main__time {
+  font-size: 13rem;
+  line-height: 90%;
+  text-shadow: 0 0.3rem 4rem #000;
+}
+
+@media (max-width: 47.3em) {
+  .main__time {
+    font-size: 10rem;
+  }
+}
+
+.main__date {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.main__greet {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  font-size: 5rem;
+  margin-bottom: 1rem;
+}
+
+.main__name {
+  display: inline-block;
+  outline: none;
+  margin-left: .5rem;
+  font-size: inherit;
+  border-bottom: 2px solid transparent;
+  padding-bottom: .3rem;
+  min-width: 0;
+  -webkit-transition: min-width .7s, background-color .3s, border-bottom .7s;
+  transition: min-width .7s, background-color .3s, border-bottom .7s;
+  border-radius: 3px;
+}
+
+.main__name:hover {
+  background-color: #FFF4;
+}
+
+.main__name:focus {
+  min-width: 15rem;
+  border-bottom: 2px solid white;
+}
+
+.main__name::-moz-selection {
+  background-color: #FFF7;
+}
+
+.main__name::selection {
+  background-color: #FFF7;
+}
+
+.main__punctuation {
+  font-size: inherit;
+}
+
+.main__bottom {
+  -ms-flex-preferred-size: 6rem;
+      flex-basis: 6rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 0 auto 1rem auto;
+  text-align: right;
+  max-width: 70%;
+  opacity: 0;
+  position: relative;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+}
+
+.main__quote {
+  font-size: 1.7rem;
+  margin-bottom: .5rem;
+  text-align: center;
+}
+
+.main__author {
+  font-size: 1.5rem;
+}
+
+.main__requote {
+  right: 1rem;
+  bottom: 1rem;
+}

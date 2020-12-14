@@ -1,0 +1,210 @@
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  position: fixed;
+  width: 4rem;
+  height: 4rem;
+  
+  border: none;
+  border-radius: 100%;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  
+  font-family: 'Material Icons';
+  color: white;
+  font-size: 4rem;
+  
+  transition: background-color .3s;
+  
+  &:hover {
+    background-color: #FFF4;
+
+    @include respond-tab-port {
+      background-color: inherit;
+    }
+  }
+
+  &:active {
+    background-color: #FFF7;
+  }
+}
+
+.focus {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  
+  &__heading {
+    margin-bottom: 1.5rem;
+  }
+  
+  &__input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid white;
+    color: white;
+    text-align: center;
+    padding-bottom: .3rem;
+    max-width: 35.2rem;
+  }
+  
+  &__editable {
+    outline: none;
+    border-bottom: 2px solid transparent;
+    padding-bottom: .2rem;
+    min-width: 0;
+    transition: min-width .7s, background-color .3s, border-bottom .7s;
+    border-radius: 3px;
+    
+    &:hover {
+      background-color: #FFF4;
+    }
+    
+    &:focus {
+      border-bottom: 2px solid white;
+      min-width: 20rem;
+    }
+    
+    &::selection {
+      background-color: #FFF7;
+    }
+  }
+}
+
+.weather {
+  position: fixed;
+  top: 1rem;
+  right: 2rem;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #0005;
+  border-radius: 4px;
+  padding: .8rem;
+
+  &__temp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+  }
+  
+  &__icon {
+    width: 4rem;
+    height: 4rem;
+    background-image: url("http://openweathermap.org/img/wn/10d@2x.png");
+    background-size: cover;
+    transition: background-image 1s;
+  }
+
+  &__city {
+    flex: 1 0 100%;
+    font-size: 2rem;
+
+    &:focus {
+      min-width: 7rem;
+    }
+  }
+
+  &__humidity {
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: .5rem;
+  }
+
+  &__dropsIcon {
+    width: 2rem;
+    margin-right: 1rem;
+  }
+
+  &__wind {
+    margin-bottom: .5rem;
+  }
+
+  &__windIcon {
+    width: 2rem;
+  }
+}
+
+// COPYPASTA 🍝
+.tooltiptext {
+  font-family: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  font-size: 1.5rem;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 50%;
+  transform: translateY(50%);
+  right: 117%;
+  opacity: 0;
+  transition: opacity 0.3s;
+  
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 100%;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent #555;
+  }
+  
+  &--right {
+    left: 115%;
+    bottom: 50%;
+    transform: translateY(50%);
+    
+    &::after {
+      transform: translateY(-50%);
+      left: -8%;
+      border-color: transparent #555 transparent transparent;
+    }
+  }
+
+  &--bottom {
+    left: 50%;
+    bottom: -45%;
+    transform: translateX(-50%);
+    padding: 2px;
+    color: red;
+    
+    &::after {
+      top: -19%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-color: transparent transparent #555 transparent;
+    }
+  }
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+
+  &--error {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  @include respond-tab-port {
+    visibility: hidden;
+    opacity: 0;
+  }
+}

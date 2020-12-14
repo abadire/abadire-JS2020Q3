@@ -1,0 +1,352 @@
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 3rem 0;
+  z-index: 10;
+  
+  &--sticky {
+    position: fixed;
+    top: 0;
+    margin: 0 auto;
+    max-width: 128rem;
+    padding: 3rem 4rem;
+    z-index: 8;
+    
+    @include respond(tab-land) {
+      padding: 3rem 3rem;
+    }
+  }
+  
+  &--light {
+    background-color: $color-light-xl;
+  }
+
+  @include respond(tab-port) {
+    padding-right: 4rem;
+  }
+}
+
+.header-offset {
+  height: 12rem;
+}
+
+.logo {
+  text-align: center;
+  position: relative;
+  z-index: 30;
+  transition: opacity .2s;
+  cursor: pointer;
+  
+  &__title {
+    font-family: Georgia, serif;
+    font-size: 3.2rem;
+    line-height: 110%;
+    letter-spacing: .06em;
+    color: $color-primary;
+    margin-bottom: 1rem;
+    
+    &--dark {
+      color: $color-dark-l;
+    }
+  }
+  
+  &__subtitle {
+    font-size: 1.3rem;
+    letter-spacing: .1em;
+    color: $color-light-xl;
+    
+    &--dark {
+      color: $color-dark-3xl;
+    }
+  }
+}
+
+.navigation {
+  z-index: 11;
+  
+  &__checkbox {
+    display: none;
+    
+    &:checked {
+      
+      & ~ .navigation__nav {
+        right: 0;
+      }
+    }
+  }
+  
+  &__button {
+    display: none;
+    position: relative;
+    cursor: pointer;
+    z-index: 100;
+    top: 0;
+    transition: transform .2s, top .2s;
+    
+    @include respond(tab-port) {
+      display: block;
+    }
+  }
+  
+  &__icon {
+    position: relative;
+    
+    &,
+    &::before,
+    &::after {
+      width: 3rem;
+      height: 2px;
+      background-color: $color-primary;
+      display: inline-block;
+    }
+    
+    &--light {
+      background-color: $color-dark-4xl;
+      &::before,
+      &::after {
+        background-color: $color-dark-4xl;
+      }
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+    }
+    
+    &::before {
+      top: -1rem;
+    }
+    
+    &::after {
+      top: 1rem;
+    }
+  }
+  
+  &__nav{
+    max-width: 44.3rem;
+    margin-bottom: .5rem;
+    
+    @include respond(tab-port) {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      height: 100vh;
+      max-width: 320px;
+      width: 100%;
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $color-light-xl;
+      transition: right .5s;
+      
+      &--dark {
+        background-color: #38302a;
+      }
+    }
+  }
+  
+  &__items {
+    display: flex;
+    justify-content: space-between;
+    width: 44.3rem;
+    position: relative;
+    
+    @include respond(tab-port) {
+      flex-direction: column;
+      width: auto;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  
+  &__item {
+    &--about:hover ~ .navigation__underline {
+      left: 0;
+      width: 25.6%;
+    }
+    
+    &--pets:hover ~ .navigation__underline {
+      left: 33.7%;
+      width: 13%;
+    }
+    
+    @include respond(tab-port) {
+      margin-bottom: 4rem;
+    }
+  }
+  
+  &__link {
+    color: $color-dark-s;
+    font-size: 1.5rem;
+    line-height: 150%;
+    transition: color .3s;
+    user-select: none;
+    
+    &--dark {
+      color: $color-dark-l;
+    }
+    
+    &--active {
+      position: relative;
+      color: $color-light-s;
+      
+      @include respond(tab-port) {
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: -.42rem;
+          height: .3rem;
+          background-color: $color-primary;
+          width: 100%;
+          border: none;
+        }
+      }
+    }
+    
+    &--dark.navigation__link--active {
+      color: $color-dark-3xl;
+    }
+    
+    &:hover {
+      color: $color-light-s;
+      
+      &.navigation__link--dark {
+        color: $color-dark-3xl;
+
+        &.navigation__link--inactive {
+          color: $color-dark-l;
+        }
+      }
+    }
+
+    &--inactive:hover {
+      color: $color-dark-s;
+    }
+
+    @include respond(tab-port) {
+      font-size: 3.2rem;
+      line-height: 160%;
+    }
+  }
+  
+  &__underline {
+    position: absolute;
+    left: 0;
+    bottom: -.42rem;
+    height: .3rem;
+    background-color: $color-primary;
+    width: 25.6%;
+    border: none;
+    transition: .3s ease-in-out;
+    
+    &--pets {
+      left: 33.7%;
+      width: 13%;
+    }
+    
+    @include respond(tab-port) {
+      display: none;
+    }
+  }
+}
+
+.footer {
+  background-image: url("../../assets/images/noise_transparent.png"), linear-gradient(to right, #513D2F, #1A1A1C);
+  background-repeat: repeat;
+  width: 100%;
+  
+  &__content {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    
+    @include respond(tab-land) {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 3rem;
+    }
+  }
+  
+  &__articles {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 16rem;
+    width: 100%;
+
+    @include respond(tab-land) {
+      justify-content: space-around;
+      width: 100%;
+      margin-right: 0;
+    }
+
+    @include respond(tab-port) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  
+  &__article {
+    margin-top: 1.6rem;
+    
+    &--shifted {
+      margin-right: .6rem;
+
+      @include respond(tab-port) {
+        margin-left: 0;
+      }
+    }
+
+    @include respond(tab-port) {
+      margin-top: 0;
+    }
+  }
+  
+  &__heading {
+    margin-bottom: 3.2rem;
+    
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 3.5rem;
+    line-height: 130%;
+    letter-spacing: .06em;
+    color: $color-light-xl;
+    user-select: none;
+    
+    &--contacts {
+      margin-bottom: 4rem;
+    }
+  }
+  
+  &__figure {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3.5rem;
+    user-select: none;
+    
+    &--location {
+      margin-bottom: 3.2rem;
+    }
+  }
+  
+  &__caption {
+    margin-left: 2rem;
+    display: block;
+    
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 2rem;
+    line-height: 115%;
+    letter-spacing: .06em;
+    color: $color-primary;
+  }
+
+  &__img {
+    width: 30rem;
+  }
+}

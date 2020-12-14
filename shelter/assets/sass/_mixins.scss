@@ -1,0 +1,18 @@
+/* MEDIA QUERY MANAGER
+0-768px - tab-port
+768-1280px - tab-land
+1280px+ - default
+
+$breakpoint argument choices:
+- tab-port
+- tab-land
+*/
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == tab-land {
+    @media (max-width: 1279px) { @content }; 
+  }
+  @if $breakpoint == tab-port {
+    @media (max-width: 767px) { @content };
+  }
+}
