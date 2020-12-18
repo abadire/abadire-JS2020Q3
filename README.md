@@ -1,6 +1,10 @@
 # abadire-JS2020Q3
 Private repository for @abadire
 
+[Natours](https://abadire.github.io/Natours/) ([source](https://github.com/abadire/Natours)) - Udemy course code along. HTML, CSS (SASS, adaptive)
+
+[Trillo](https://abadire.github.io/) ([source](https://github.com/abadire/abadire.github.io)) - Udemy course code along. HTML, CSS (SASS, adaptive, flexbox)
+
 [Calculator](https://rolling-scopes-school.github.io/abadire-JS2020Q3/calculator/) ([source](https://github.com/abadire/abadire-JS2020Q3/tree/calculator)) - HTML, CSS (SASS), JS
 
 [Shelter](https://rolling-scopes-school.github.io/abadire-JS2020Q3/shelter/pages/main/) ([source](https://github.com/abadire/abadire-JS2020Q3/tree/shelter)) - HTML, CSS (SASS, adaptive), JS (DOM manipulation, image preloading)
