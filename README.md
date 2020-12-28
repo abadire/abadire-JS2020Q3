@@ -14,3 +14,5 @@ Private repository for @abadire
 [Virtual keyboard](https://rolling-scopes-school.github.io/abadire-JS2020Q3/virtual-keyboard/) ([source](https://github.com/abadire/abadire-JS2020Q3/tree/virtual-keyboard)) - HTML, CSS (SASS, adaptive), JS (DOM manipulation, sounds, keyboard events, speech recognition API)
 
 [Gem puzzle](https://rolling-scopes-school.github.io/abadire-JS2020Q3/gem-puzzle/) ([source](https://github.com/abadire/abadire-JS2020Q3/tree/gem-puzzle)) - HTML, CSS (SASS), JS (DOM manipulation, sounds, drag'n'drop, localStorage)
+
+[Contacts](https://eager-hypatia-d13aa3.netlify.app/) ([source](https://github.com/abadire/contacts-vue)) - SPA with Vue 3 (Vuex, vue-router)
