@@ -16,3 +16,5 @@ Private repository for @abadire
 [Gem puzzle](https://rolling-scopes-school.github.io/abadire-JS2020Q3/gem-puzzle/) ([source](https://github.com/abadire/abadire-JS2020Q3/tree/gem-puzzle)) - HTML, CSS (SASS), JS (DOM manipulation, sounds, drag'n'drop, localStorage)
 
 [Contacts](https://eager-hypatia-d13aa3.netlify.app/) ([source](https://github.com/abadire/contacts-vue)) - SPA with Vue 3 (Vuex, vue-router)
+
+[Todo](https://adoring-goldstine-5e3508.netlify.app) ([source](https://github.com/abadire/first-angular-todo)) - Angular 11, Bootstrap 4
