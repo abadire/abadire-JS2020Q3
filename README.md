@@ -18,3 +18,5 @@ Private repository for @abadire
 [Contacts](https://eager-hypatia-d13aa3.netlify.app/) ([source](https://github.com/abadire/contacts-vue)) - SPA with Vue 3 (Vuex, vue-router)
 
 [Todo](https://adoring-goldstine-5e3508.netlify.app) ([source](https://github.com/abadire/first-angular-todo)) - Angular 11, Bootstrap 4
+
+[JSON editor](https://clever-minsky-811eb2.netlify.app/) ([source](https://github.com/abadire/json-editor)) - Angular 11 SPA, Bootstrap 4
